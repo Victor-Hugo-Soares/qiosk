@@ -1,9 +1,25 @@
+import { Routes, Route, Navigate } from 'react-router-dom'
+import AdminSidebar from './components/AdminSidebar'
+import DashboardScreen from './screens/DashboardScreen'
+import MenuScreen from './screens/MenuScreen'
+import ProductFormScreen from './screens/ProductFormScreen'
+import SettingsScreen from './screens/SettingsScreen'
+
 export default function AdminApp() {
   return (
-    <div className="min-h-screen bg-[#F5F5F0] flex items-center justify-center">
-      <p className="text-gray-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-        Admin — em construção
-      </p>
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#F5F5F0' }}>
+      <AdminSidebar />
+      <main style={{ flex: 1, overflow: 'auto' }}>
+        <Routes>
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard"          element={<DashboardScreen />} />
+          <Route path="menu"               element={<MenuScreen />} />
+          <Route path="menu/new"           element={<ProductFormScreen />} />
+          <Route path="menu/edit/:id"      element={<ProductFormScreen />} />
+          <Route path="settings"           element={<SettingsScreen />} />
+          <Route path="*"                  element={<Navigate to="dashboard" replace />} />
+        </Routes>
+      </main>
     </div>
   )
 }
