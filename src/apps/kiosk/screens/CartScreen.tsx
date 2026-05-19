@@ -88,27 +88,27 @@ export default function CartScreen() {
                       R$ {item.totalPrice.toFixed(2).replace('.', ',')}
                     </span>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <button onClick={() => removeItem(item.id)}
-                        className="touch-press flex items-center justify-center rounded-lg"
-                        style={{ width: 28, height: 28, background: 'rgba(255,255,255,0.05)' }}>
-                        <Trash2 size={13} color="rgba(255,255,255,0.4)" />
+                        className="touch-press flex items-center justify-center rounded-xl"
+                        style={{ width: 40, height: 40, background: 'rgba(255,255,255,0.05)' }}>
+                        <Trash2 size={15} color="rgba(255,255,255,0.4)" />
                       </button>
-                      <div className="flex items-center rounded-lg px-1"
-                        style={{ background: 'rgba(255,255,255,0.06)', height: 28, gap: 2 }}>
+                      <div className="flex items-center rounded-xl"
+                        style={{ background: 'rgba(255,255,255,0.06)', height: 40, gap: 0 }}>
                         <button onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           className="touch-press flex items-center justify-center"
-                          style={{ width: 24, height: 24 }}>
-                          <Minus size={12} color="rgba(255,255,255,0.65)" />
+                          style={{ width: 40, height: 40 }}>
+                          <Minus size={14} color="rgba(255,255,255,0.65)" />
                         </button>
                         <span className="font-semibold text-sm text-white tabular-nums"
-                          style={{ width: 20, textAlign: 'center' }}>
+                          style={{ width: 24, textAlign: 'center' }}>
                           {item.quantity}
                         </span>
                         <button onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           className="touch-press flex items-center justify-center"
-                          style={{ width: 24, height: 24 }}>
-                          <Plus size={12} color="rgba(255,255,255,0.65)" />
+                          style={{ width: 40, height: 40 }}>
+                          <Plus size={14} color="rgba(255,255,255,0.65)" />
                         </button>
                       </div>
                     </div>
