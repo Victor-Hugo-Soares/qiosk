@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useCartStore, useQioskStore } from '../../../store'
 import type { PaymentMethod } from '../../../types'
@@ -22,8 +22,11 @@ export default function ConfirmationScreen() {
   const [orderNumber, setOrderNumber] = useState<number | null>(null)
   const [countdown, setCountdown]     = useState(RETURN_SECONDS)
   const [show, setShow]               = useState(false)
+  const created = useRef(false)
 
   useEffect(() => {
+    if (created.current) return
+    created.current = true
     if (items.length === 0) { navigate('/kiosk/idle'); return }
     const order = addOrder(items, paymentMethod)
     setOrderNumber(order.number)
