@@ -4,11 +4,12 @@ import { Banknote, CreditCard, QrCode } from 'lucide-react'
 import KioskHeader from '../components/KioskHeader'
 import { useCartStore, useQioskStore } from '../../../store'
 import type { PaymentMethod } from '../../../types'
+import { K } from '../theme'
 
-const OPTIONS: { method: PaymentMethod; icon: React.ElementType; label: string; sub: string }[] = [
-  { method: 'pix',  icon: QrCode,     label: 'PIX',      sub: 'Pague com QR Code'   },
-  { method: 'card', icon: CreditCard, label: 'Cartão',   sub: 'Crédito ou débito'   },
-  { method: 'cash', icon: Banknote,   label: 'No caixa', sub: 'Pague ao atendente'  },
+const OPTIONS: { method: PaymentMethod; icon: React.ElementType; label: string; sub: string; emoji: string }[] = [
+  { method: 'pix',  icon: QrCode,     label: 'PIX',       sub: 'Pague com QR Code',    emoji: '⚡' },
+  { method: 'card', icon: CreditCard, label: 'Cartão',    sub: 'Crédito ou débito',    emoji: '💳' },
+  { method: 'cash', icon: Banknote,   label: 'No caixa',  sub: 'Pague ao atendente',   emoji: '💵' },
 ]
 
 export default function PaymentScreen() {
@@ -25,66 +26,96 @@ export default function PaymentScreen() {
       : navigate('/kiosk/confirmation', { state: { paymentMethod: selected } })
 
   return (
-    <div className="w-full min-h-screen flex flex-col" style={{ background: '#1A1A2E', paddingBottom: 96 }}>
+    <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', background: K.bg, paddingBottom: 100 }}>
       <KioskHeader showCart={false} />
 
-      <div className="flex-1 flex flex-col px-5 py-6" style={{ gap: 24 }}>
+      <div style={{ flex: 1, padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+        {/* Título */}
         <div>
-          <h2 className="text-2xl font-bold" style={{ color: '#FFF', fontFamily: "'Space Grotesk', sans-serif" }}>
-            Como vai pagar?
+          <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: K.text, margin: 0 }}>
+            Como vai pagar? 💳
           </h2>
-          <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <p style={{ fontSize: 13, color: K.sub, marginTop: 4 }}>
             Escolha a forma de pagamento
           </p>
         </div>
 
-        {/* Total */}
-        <div className="flex items-center justify-between px-5 py-4 rounded-2xl"
-          style={{ background: '#16213E', border: '1.5px solid rgba(255,255,255,0.09)' }}>
-          <span className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>Total do pedido</span>
-          <span className="font-bold text-2xl tabular-nums" style={{ color: '#FFF', fontFamily: "'Space Grotesk', sans-serif" }}>
+        {/* Total destaque */}
+        <div style={{
+          background: K.brand,
+          borderRadius: 20,
+          padding: '20px 24px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          boxShadow: '0 6px 20px rgba(255,107,43,0.28)',
+        }}>
+          <span style={{ fontSize: 14, fontWeight: 500, color: 'rgba(255,255,255,0.8)' }}>
+            Total do pedido
+          </span>
+          <span style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 28, fontWeight: 800, color: '#FFF',
+            fontVariantNumeric: 'tabular-nums',
+          }}>
             R$ {totalPrice.toFixed(2).replace('.', ',')}
           </span>
         </div>
 
         {/* Opções */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {available.map(({ method, icon: Icon, label, sub }) => {
+          {available.map(({ method, icon: Icon, label, sub, emoji }) => {
             const active = selected === method
             return (
               <button
                 key={method}
                 onClick={() => setSelected(method)}
-                className="touch-press flex items-center rounded-2xl px-5 text-left"
+                className="touch-press"
                 style={{
-                  height: 76,
-                  gap: 16,
-                  background: active ? 'rgba(255,107,43,0.08)' : '#16213E',
-                  border: `2px solid ${active ? '#FF6B2B' : 'rgba(255,255,255,0.09)'}`,
+                  display: 'flex', alignItems: 'center',
+                  gap: 16, padding: '16px 18px',
+                  borderRadius: 18,
+                  background: active ? K.brandLight : K.surface,
+                  border: `2px solid ${active ? K.brand : K.border}`,
+                  boxShadow: active ? 'none' : K.shadow,
+                  cursor: 'pointer',
+                  textAlign: 'left',
                   transition: 'all 0.15s ease',
                 }}
               >
-                <div className="flex items-center justify-center rounded-xl flex-shrink-0"
-                  style={{
-                    width: 48, height: 48,
-                    background: active ? '#FF6B2B' : 'rgba(255,255,255,0.07)',
-                    transition: 'background 0.15s ease',
-                  }}>
-                  <Icon size={22} color={active ? '#FFF' : 'rgba(255,255,255,0.5)'} strokeWidth={1.75} />
+                {/* Ícone */}
+                <div style={{
+                  width: 52, height: 52, borderRadius: 16,
+                  background: active ? K.brand : K.bg,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0,
+                  transition: 'background 0.15s ease',
+                }}>
+                  <Icon size={24} color={active ? '#FFF' : K.sub} strokeWidth={1.75} />
                 </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-base"
-                    style={{ color: active ? '#FFF' : 'rgba(255,255,255,0.75)', fontFamily: "'Space Grotesk', sans-serif" }}>
-                    {label}
+
+                {/* Texto */}
+                <div style={{ flex: 1 }}>
+                  <p style={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize: 16, fontWeight: 700,
+                    color: active ? K.brand : K.text,
+                    margin: 0,
+                  }}>
+                    {emoji} {label}
                   </p>
-                  <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{sub}</p>
+                  <p style={{ fontSize: 13, color: K.sub, marginTop: 2 }}>{sub}</p>
                 </div>
-                <div className="flex items-center justify-center rounded-full flex-shrink-0"
-                  style={{
-                    width: 20, height: 20,
-                    border: `2px solid ${active ? '#FF6B2B' : 'rgba(255,255,255,0.2)'}`,
-                  }}>
-                  {active && <div style={{ width: 10, height: 10, borderRadius: 5, background: '#FF6B2B' }} />}
+
+                {/* Radio */}
+                <div style={{
+                  width: 22, height: 22, borderRadius: 11,
+                  border: `2px solid ${active ? K.brand : K.muted}`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0,
+                  transition: 'all 0.15s ease',
+                }}>
+                  {active && (
+                    <div style={{ width: 12, height: 12, borderRadius: 6, background: K.brand }} />
+                  )}
                 </div>
               </button>
             )
@@ -92,11 +123,27 @@ export default function PaymentScreen() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 px-5 py-4"
-        style={{ background: 'rgba(26,26,46,0.97)', borderTop: '1px solid rgba(255,255,255,0.07)', backdropFilter: 'blur(8px)' }}>
-        <button onClick={handleConfirm}
-          className="touch-press w-full rounded-xl font-bold text-lg text-white"
-          style={{ height: 56, background: '#FF6B2B', fontFamily: "'Space Grotesk', sans-serif" }}>
+      {/* Footer */}
+      <div style={{
+        position: 'fixed', bottom: 0, left: 0, right: 0,
+        padding: '12px 16px 16px',
+        background: K.surface,
+        borderTop: `1px solid ${K.border}`,
+        boxShadow: '0 -4px 20px rgba(0,0,0,0.08)',
+      }}>
+        <button
+          onClick={handleConfirm}
+          className="touch-press"
+          style={{
+            width: '100%', height: 54,
+            borderRadius: 16,
+            background: K.brand, border: 'none',
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 17, fontWeight: 700, color: '#FFF',
+            cursor: 'pointer',
+            boxShadow: '0 4px 16px rgba(255,107,43,0.3)',
+          }}
+        >
           Confirmar pagamento
         </button>
       </div>

@@ -2,53 +2,38 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { X } from 'lucide-react'
 import { useCartStore } from '../../../store'
+import { K } from '../theme'
 
-const PIX_TIMEOUT_SECONDS = 300 // 5 minutos
+const PIX_TIMEOUT_SECONDS = 300
 
-// QR code visual simulado (padrão estático decorativo)
 function FakeQrCode({ size = 200 }: { size?: number }) {
   const cells = 21
-  const cell = size / cells
-  // Padrão pseudo-aleatório determinístico para parecer um QR
+  const cell  = size / cells
+
   const pattern = Array.from({ length: cells }, (_, r) =>
     Array.from({ length: cells }, (_, c) => {
-      // Finder patterns nos cantos
-      const inFinder = (
-        (r < 8 && c < 8) || (r < 8 && c >= cells - 8) || (r >= cells - 8 && c < 8)
-      )
+      const inFinder = (r < 8 && c < 8) || (r < 8 && c >= cells - 8) || (r >= cells - 8 && c < 8)
       if (inFinder) {
+        if (r >= cells - 8) {
+          const lr = r - (cells - 8), lc = c
+          return (lr === 0 || lr === 6 || lc === 0 || lc === 6 || (lr >= 2 && lr <= 4 && lc >= 2 && lc <= 4))
+        }
         const br = r < 8 ? r : r - (cells - 8)
         const bc = c < 8 ? c : c - (cells - 8)
-        if (r >= cells - 8) { // bottom-left finder
-          const lr = r - (cells - 8), lc = c
-          return (lr === 0 || lr === 6 || lc === 0 || lc === 6 ||
-            (lr >= 2 && lr <= 4 && lc >= 2 && lc <= 4))
-        }
-        return (br === 0 || br === 6 || bc === 0 || bc === 6 ||
-          (br >= 2 && br <= 4 && bc >= 2 && bc <= 4))
+        return (br === 0 || br === 6 || bc === 0 || bc === 6 || (br >= 2 && br <= 4 && bc >= 2 && bc <= 4))
       }
-      // Timing patterns
       if (r === 6 || c === 6) return (r + c) % 2 === 0
-      // Data area pseudo-random
       return ((r * 7 + c * 13 + r * c) % 5) < 2
     })
   )
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} xmlns="http://www.w3.org/2000/svg">
-      <rect width={size} height={size} fill="white" rx="8" />
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      <rect width={size} height={size} fill="white" rx="12" />
       {pattern.map((row, r) =>
         row.map((filled, c) =>
           filled ? (
-            <rect
-              key={`${r}-${c}`}
-              x={c * cell + 0.5}
-              y={r * cell + 0.5}
-              width={cell - 0.5}
-              height={cell - 0.5}
-              fill="#1A1A2E"
-              rx="0.5"
-            />
+            <rect key={`${r}-${c}`} x={c * cell + 0.5} y={r * cell + 0.5} width={cell - 0.5} height={cell - 0.5} fill={K.text} rx="0.5" />
           ) : null
         )
       )}
@@ -56,106 +41,130 @@ function FakeQrCode({ size = 200 }: { size?: number }) {
   )
 }
 
-function formatTime(seconds: number) {
-  const m = Math.floor(seconds / 60).toString().padStart(2, '0')
-  const s = (seconds % 60).toString().padStart(2, '0')
-  return `${m}:${s}`
+function formatTime(s: number) {
+  return `${Math.floor(s / 60).toString().padStart(2, '0')}:${(s % 60).toString().padStart(2, '0')}`
 }
 
 export default function PixScreen() {
-  const navigate = useNavigate()
+  const navigate   = useNavigate()
   const [seconds, setSeconds] = useState(PIX_TIMEOUT_SECONDS)
   const totalPrice = useCartStore((s) => s.totalPrice())
 
   useEffect(() => {
-    if (seconds <= 0) {
-      navigate('/kiosk/payment')
-      return
-    }
+    if (seconds <= 0) { navigate('/kiosk/payment'); return }
     const t = setTimeout(() => setSeconds((s) => s - 1), 1000)
     return () => clearTimeout(t)
   }, [seconds, navigate])
 
   const progress = (seconds / PIX_TIMEOUT_SECONDS) * 100
+  const isExpiring = seconds < 60
 
   return (
-    <div className="min-h-screen bg-[#1A1A2E] flex flex-col">
-      {/* Header mínimo */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
-        <span
-          className="text-2xl font-bold"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-        >
-          <span className="text-[#FF6B2B]">QI</span>
-          <span className="text-white">OSK</span>
+    <div style={{ width: '100%', minHeight: '100vh', background: K.bg, display: 'flex', flexDirection: 'column' }}>
+      {/* Header simples */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 16px', height: 60,
+        background: K.surface,
+        borderBottom: `1px solid ${K.border}`,
+        boxShadow: '0 1px 0 rgba(0,0,0,0.05)',
+      }}>
+        <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, fontWeight: 700, color: K.text }}>
+          Pagamento PIX ⚡
         </span>
         <button
           onClick={() => navigate('/kiosk/payment')}
-          className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center touch-press"
+          className="touch-press"
+          style={{
+            width: 44, height: 44, borderRadius: 12,
+            background: K.bg, border: 'none',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer',
+          }}
         >
-          <X size={18} className="text-white/50" />
+          <X size={20} color={K.sub} />
         </button>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center gap-7 px-5 py-8">
-        {/* Título */}
-        <div className="text-center">
-          <h2
-            className="text-xl font-bold text-white"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '28px 16px', gap: 24 }}>
+        {/* Instrução */}
+        <div style={{ textAlign: 'center' }}>
+          <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 20, fontWeight: 700, color: K.text, margin: 0 }}>
             Escaneie o QR Code
           </h2>
-          <p className="text-white/40 text-sm mt-1">Abra seu banco e aponte a câmera</p>
-        </div>
-
-        {/* QR Code */}
-        <div className="p-4 bg-white rounded-2xl shadow-2xl">
-          <FakeQrCode size={220} />
-        </div>
-
-        {/* Valor */}
-        <div className="text-center">
-          <p className="text-white/40 text-sm">Total a pagar</p>
-          <p
-            className="text-white font-bold text-3xl mt-1 tabular-nums"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
-            R$ {totalPrice.toFixed(2).replace('.', ',')}
+          <p style={{ fontSize: 13, color: K.sub, marginTop: 6 }}>
+            Abra seu banco e aponte a câmera
           </p>
         </div>
 
-        {/* Timer */}
-        <div className="w-full max-w-xs flex flex-col gap-2">
-          <div className="flex justify-between text-xs">
-            <span className="text-white/30">Expira em</span>
-            <span className={`font-mono font-semibold ${seconds < 60 ? 'text-red-400' : 'text-white/60'}`}>
-              {formatTime(seconds)}
-            </span>
+        {/* QR Card */}
+        <div style={{
+          background: K.surface,
+          borderRadius: 24,
+          padding: 20,
+          boxShadow: K.shadowMd,
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16,
+        }}>
+          <FakeQrCode size={220} />
+
+          {/* Valor */}
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontSize: 13, color: K.sub }}>Total a pagar</p>
+            <p style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: 28, fontWeight: 800, color: K.text,
+              fontVariantNumeric: 'tabular-nums',
+              marginTop: 2,
+            }}>
+              R$ {totalPrice.toFixed(2).replace('.', ',')}
+            </p>
           </div>
-          <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-            <div
-              className="h-full rounded-full transition-all duration-1000"
-              style={{
+
+          {/* Timer */}
+          <div style={{ width: '100%' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 6 }}>
+              <span style={{ color: K.muted }}>Expira em</span>
+              <span style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontWeight: 700,
+                color: isExpiring ? K.danger : K.sub,
+                fontVariantNumeric: 'tabular-nums',
+              }}>
+                {formatTime(seconds)}
+              </span>
+            </div>
+            <div style={{ height: 6, background: K.bg, borderRadius: 3, overflow: 'hidden' }}>
+              <div style={{
+                height: '100%', borderRadius: 3,
                 width: `${progress}%`,
-                backgroundColor: seconds < 60 ? '#E74C3C' : '#FF6B2B',
-              }}
-            />
+                background: isExpiring ? K.danger : K.brand,
+                transition: 'width 1s linear, background 0.3s ease',
+              }} />
+            </div>
           </div>
         </div>
 
-        {/* Botão confirmar (simula pagamento confirmado) */}
-        <button
-          onClick={() => navigate('/kiosk/confirmation', { state: { paymentMethod: 'pix' } })}
-          className="w-full max-w-xs h-14 bg-[#2ECC71] hover:bg-[#27AE60] rounded-xl text-white font-bold text-base touch-press transition-colors"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-        >
-          Já paguei ✓
-        </button>
-
-        <p className="text-white/20 text-xs text-center">
+        {/* Chave PIX */}
+        <p style={{ fontSize: 12, color: K.muted }}>
           Chave PIX: qiosk@burguer.com.br
         </p>
+
+        {/* Botão confirmar */}
+        <button
+          onClick={() => navigate('/kiosk/confirmation', { state: { paymentMethod: 'pix' } })}
+          className="touch-press"
+          style={{
+            width: '100%',
+            height: 54, borderRadius: 16,
+            background: '#22C55E', border: 'none',
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 17, fontWeight: 700, color: '#FFF',
+            cursor: 'pointer',
+            boxShadow: '0 4px 16px rgba(34,197,94,0.28)',
+          }}
+        >
+          ✓ Já paguei
+        </button>
       </div>
     </div>
   )

@@ -3,15 +3,7 @@ import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react'
 import KioskHeader from '../components/KioskHeader'
 import ProductPlaceholder from '../components/ProductPlaceholder'
 import { useCartStore, useQioskStore } from '../../../store'
-
-const S = {
-  surface: '#16213E',
-  border: 'rgba(255,255,255,0.09)',
-  text: '#FFFFFF',
-  muted: 'rgba(255,255,255,0.5)',
-  dim: 'rgba(255,255,255,0.3)',
-  brand: '#FF6B2B',
-}
+import { K } from '../theme'
 
 export default function CartScreen() {
   const navigate = useNavigate()
@@ -20,22 +12,35 @@ export default function CartScreen() {
 
   if (items.length === 0) {
     return (
-      <div className="w-full min-h-screen flex flex-col" style={{ background: '#1A1A2E' }}>
+      <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', background: K.bg }}>
         <KioskHeader showCart={false} />
-        <div className="flex-1 flex flex-col items-center justify-center px-5" style={{ gap: 20 }}>
-          <div className="flex items-center justify-center rounded-full"
-            style={{ width: 80, height: 80, background: 'rgba(255,255,255,0.05)' }}>
-            <ShoppingBag size={36} color="rgba(255,255,255,0.2)" />
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 20, padding: '0 24px' }}>
+          <div style={{
+            width: 88, height: 88, borderRadius: 28,
+            background: K.brandLight,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <ShoppingBag size={40} color={K.brand} strokeWidth={1.75} />
           </div>
-          <div className="text-center" style={{ gap: 6, display: 'flex', flexDirection: 'column' }}>
-            <p className="font-semibold text-base" style={{ color: S.muted, fontFamily: "'Space Grotesk', sans-serif" }}>
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 18, fontWeight: 700, color: K.text, margin: 0 }}>
               Carrinho vazio
             </p>
-            <p className="text-sm" style={{ color: S.dim }}>Adicione itens para continuar</p>
+            <p style={{ fontSize: 14, color: K.sub, marginTop: 6 }}>
+              Adicione itens para continuar
+            </p>
           </div>
-          <button onClick={() => navigate('/kiosk/categories')}
-            className="touch-press px-6 py-3 rounded-xl font-semibold text-white"
-            style={{ background: S.brand, fontFamily: "'Space Grotesk', sans-serif" }}>
+          <button
+            onClick={() => navigate('/kiosk/categories')}
+            className="touch-press"
+            style={{
+              padding: '14px 32px', borderRadius: 16,
+              background: K.brand, border: 'none',
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: 15, fontWeight: 700, color: '#FFF',
+              cursor: 'pointer',
+            }}
+          >
             Ver cardápio
           </button>
         </div>
@@ -44,71 +49,112 @@ export default function CartScreen() {
   }
 
   return (
-    <div className="w-full min-h-screen flex flex-col" style={{ background: '#1A1A2E', paddingBottom: 120 }}>
+    <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', background: K.bg, paddingBottom: 120 }}>
       <KioskHeader showCart={false} />
 
-      <div className="flex-1 flex flex-col px-5 py-6" style={{ gap: 20 }}>
-        <h2 className="text-2xl font-bold" style={{ color: S.text, fontFamily: "'Space Grotesk', sans-serif" }}>
-          Seu pedido
+      <div style={{ flex: 1, padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: K.text, margin: 0 }}>
+          Seu pedido 🛍️
         </h2>
 
+        {/* Itens */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {items.map((item) => {
             const product = products.find((p) => p.id === item.productId)
             return (
-              <div key={item.id} className="flex rounded-2xl p-4"
-                style={{ background: S.surface, border: `1.5px solid ${S.border}`, gap: 14 }}>
+              <div
+                key={item.id}
+                style={{
+                  display: 'flex', gap: 14,
+                  padding: '14px',
+                  borderRadius: 18,
+                  background: K.surface,
+                  boxShadow: K.shadow,
+                }}
+              >
                 {/* Thumb */}
-                <div className="flex items-center justify-center rounded-xl flex-shrink-0"
-                  style={{ width: 64, height: 64, background: '#1A1A2E' }}>
-                  <ProductPlaceholder color={product?.imageColor ?? '#8B5E3C'} size={44} />
+                <div style={{
+                  width: 68, height: 68, borderRadius: 12,
+                  background: K.bg, flexShrink: 0,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <ProductPlaceholder color={product?.imageColor ?? '#8B5E3C'} size={52} />
                 </div>
 
                 {/* Info */}
-                <div className="flex-1 min-w-0" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  <p className="font-semibold text-sm leading-tight truncate"
-                    style={{ color: S.text, fontFamily: "'Space Grotesk', sans-serif" }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize: 14, fontWeight: 600, color: K.text,
+                    margin: 0,
+                    overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                  }}>
                     {item.productName}
                   </p>
 
                   {item.doneness && (
-                    <p className="text-xs" style={{ color: S.dim }}>{item.doneness}</p>
+                    <p style={{ fontSize: 12, color: K.muted, marginTop: 2 }}>{item.doneness}</p>
                   )}
                   {item.selectedExtras.map((ex) => (
-                    <p key={ex.extraId} className="text-xs" style={{ color: S.dim }}>+ {ex.extraName}</p>
+                    <p key={ex.extraId} style={{ fontSize: 12, color: K.muted }}>+ {ex.extraName}</p>
                   ))}
                   {item.notes && (
-                    <p className="text-xs italic" style={{ color: 'rgba(255,255,255,0.25)' }}>"{item.notes}"</p>
+                    <p style={{ fontSize: 12, color: K.muted, fontStyle: 'italic', marginTop: 2 }}>
+                      "{item.notes}"
+                    </p>
                   )}
 
                   {/* Preço + controles */}
-                  <div className="flex items-center justify-between mt-2">
-                    <span className="font-bold text-sm tabular-nums"
-                      style={{ color: S.brand, fontFamily: "'Space Grotesk', sans-serif" }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
+                    <span style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontSize: 15, fontWeight: 700, color: K.brand,
+                      fontVariantNumeric: 'tabular-nums',
+                    }}>
                       R$ {item.totalPrice.toFixed(2).replace('.', ',')}
                     </span>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <button onClick={() => removeItem(item.id)}
-                        className="touch-press flex items-center justify-center rounded-xl"
-                        style={{ width: 40, height: 40, background: 'rgba(255,255,255,0.05)' }}>
-                        <Trash2 size={15} color="rgba(255,255,255,0.4)" />
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        className="touch-press"
+                        style={{
+                          width: 40, height: 40, borderRadius: 12,
+                          background: '#FFF5F5', border: 'none',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <Trash2 size={15} color={K.danger} />
                       </button>
-                      <div className="flex items-center rounded-xl"
-                        style={{ background: 'rgba(255,255,255,0.06)', height: 40, gap: 0 }}>
-                        <button onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="touch-press flex items-center justify-center"
-                          style={{ width: 40, height: 40 }}>
-                          <Minus size={14} color="rgba(255,255,255,0.65)" />
+                      <div style={{
+                        display: 'flex', alignItems: 'center',
+                        background: K.bg,
+                        borderRadius: 12,
+                        border: `1.5px solid ${K.border}`,
+                        height: 40,
+                      }}>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="touch-press"
+                          style={{ width: 40, height: 40, background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                        >
+                          <Minus size={14} color={K.text} strokeWidth={2.5} />
                         </button>
-                        <span className="font-semibold text-sm text-white tabular-nums"
-                          style={{ width: 24, textAlign: 'center' }}>
+                        <span style={{
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontSize: 14, fontWeight: 700, color: K.text,
+                          width: 22, textAlign: 'center',
+                          fontVariantNumeric: 'tabular-nums',
+                        }}>
                           {item.quantity}
                         </span>
-                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="touch-press flex items-center justify-center"
-                          style={{ width: 40, height: 40 }}>
-                          <Plus size={14} color="rgba(255,255,255,0.65)" />
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="touch-press"
+                          style={{ width: 40, height: 40, background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                        >
+                          <Plus size={14} color={K.text} strokeWidth={2.5} />
                         </button>
                       </div>
                     </div>
@@ -119,25 +165,55 @@ export default function CartScreen() {
           })}
         </div>
 
-        <button onClick={() => navigate('/kiosk/categories')}
-          className="touch-press w-full py-3.5 rounded-xl text-sm"
-          style={{ border: `1.5px solid ${S.border}`, color: S.muted }}>
+        {/* Adicionar mais */}
+        <button
+          onClick={() => navigate('/kiosk/categories')}
+          className="touch-press"
+          style={{
+            padding: '14px', borderRadius: 16,
+            background: K.surface,
+            border: `1.5px dashed ${K.border}`,
+            cursor: 'pointer',
+            fontSize: 14, color: K.sub,
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 500,
+          }}
+        >
           + Adicionar mais itens
         </button>
       </div>
 
       {/* Footer */}
-      <div className="fixed bottom-0 left-0 right-0 px-5 py-4"
-        style={{ background: 'rgba(26,26,46,0.97)', borderTop: '1px solid rgba(255,255,255,0.07)', backdropFilter: 'blur(8px)' }}>
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-sm" style={{ color: S.muted }}>Total</span>
-          <span className="font-bold text-xl tabular-nums" style={{ color: S.text, fontFamily: "'Space Grotesk', sans-serif" }}>
+      <div style={{
+        position: 'fixed', bottom: 0, left: 0, right: 0,
+        padding: '14px 16px 16px',
+        background: K.surface,
+        borderTop: `1px solid ${K.border}`,
+        boxShadow: '0 -4px 20px rgba(0,0,0,0.08)',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <span style={{ fontSize: 14, color: K.sub, fontWeight: 500 }}>Total</span>
+          <span style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 22, fontWeight: 700, color: K.text,
+            fontVariantNumeric: 'tabular-nums',
+          }}>
             R$ {totalPrice().toFixed(2).replace('.', ',')}
           </span>
         </div>
-        <button onClick={() => navigate('/kiosk/payment')}
-          className="touch-press w-full rounded-xl font-bold text-lg text-white"
-          style={{ height: 56, background: S.brand, fontFamily: "'Space Grotesk', sans-serif" }}>
+        <button
+          onClick={() => navigate('/kiosk/payment')}
+          className="touch-press"
+          style={{
+            width: '100%', height: 54,
+            borderRadius: 16,
+            background: K.brand, border: 'none',
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 17, fontWeight: 700, color: '#FFF',
+            cursor: 'pointer',
+            boxShadow: '0 4px 16px rgba(255,107,43,0.3)',
+          }}
+        >
           Finalizar pedido
         </button>
       </div>

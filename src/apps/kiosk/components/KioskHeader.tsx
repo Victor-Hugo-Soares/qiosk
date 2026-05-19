@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, ShoppingBag } from 'lucide-react'
-import { useCartStore } from '../../../store'
+import { useCartStore, useQioskStore } from '../../../store'
+import { K } from '../theme'
 
 interface Props {
   showBack?: boolean
@@ -9,8 +10,9 @@ interface Props {
 }
 
 export default function KioskHeader({ showBack = true, showCart = true, onBack }: Props) {
-  const navigate = useNavigate()
+  const navigate   = useNavigate()
   const totalItems = useCartStore((s) => s.totalItems())
+  const storeName  = useQioskStore((s) => s.settings.name)
 
   const handleBack = () => {
     if (onBack) { onBack(); return }
@@ -18,34 +20,55 @@ export default function KioskHeader({ showBack = true, showCart = true, onBack }
   }
 
   return (
-    <header
-      className="w-full flex items-center justify-between px-5 py-4 sticky top-0 z-10"
-      style={{
-        background: 'rgba(26,26,46,0.96)',
-        backdropFilter: 'blur(8px)',
-        borderBottom: '1px solid rgba(255,255,255,0.07)',
-      }}
-    >
+    <header style={{
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '0 16px',
+      height: 60,
+      background: K.surface,
+      borderBottom: `1px solid ${K.border}`,
+      boxShadow: '0 1px 0 rgba(0,0,0,0.05)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 10,
+      flexShrink: 0,
+    }}>
       {/* Voltar */}
       <div style={{ width: 44 }}>
         {showBack && (
           <button
             onClick={handleBack}
-            className="touch-press flex items-center justify-center rounded-xl"
-            style={{ width: 44, height: 44, background: 'rgba(255,255,255,0.07)' }}
+            className="touch-press"
+            style={{
+              width: 44, height: 44,
+              borderRadius: 12,
+              background: K.bg,
+              border: 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer',
+            }}
           >
-            <ArrowLeft size={20} color="rgba(255,255,255,0.75)" />
+            <ArrowLeft size={20} color={K.text} strokeWidth={2} />
           </button>
         )}
       </div>
 
-      {/* Logo */}
-      <span
-        className="text-2xl font-bold tracking-tight select-none"
-        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-      >
-        <span style={{ color: '#FF6B2B' }}>QI</span>
-        <span style={{ color: '#FFFFFF' }}>OSK</span>
+      {/* Nome da loja */}
+      <span style={{
+        fontFamily: "'Space Grotesk', sans-serif",
+        fontSize: 16,
+        fontWeight: 700,
+        color: K.text,
+        letterSpacing: '-0.01em',
+      }}>
+        {storeName || (
+          <>
+            <span style={{ color: K.brand }}>QI</span>
+            <span>OSK</span>
+          </>
+        )}
       </span>
 
       {/* Carrinho */}
@@ -53,21 +76,30 @@ export default function KioskHeader({ showBack = true, showCart = true, onBack }
         {showCart && (
           <button
             onClick={() => navigate('/kiosk/cart')}
-            className="touch-press relative flex items-center justify-center rounded-xl"
-            style={{ width: 44, height: 44, background: 'rgba(255,255,255,0.07)' }}
+            className="touch-press"
+            style={{
+              width: 44, height: 44,
+              borderRadius: 12,
+              background: totalItems > 0 ? K.brandLight : K.bg,
+              border: 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer',
+              position: 'relative',
+            }}
           >
-            <ShoppingBag size={20} color="rgba(255,255,255,0.75)" />
+            <ShoppingBag size={20} color={totalItems > 0 ? K.brand : K.sub} strokeWidth={2} />
             {totalItems > 0 && (
-              <span
-                className="absolute flex items-center justify-center text-white font-bold"
-                style={{
-                  top: -4, right: -4,
-                  width: 18, height: 18,
-                  borderRadius: 9,
-                  background: '#FF6B2B',
-                  fontSize: 10,
-                }}
-              >
+              <span style={{
+                position: 'absolute',
+                top: 6, right: 6,
+                width: 16, height: 16,
+                borderRadius: 8,
+                background: K.brand,
+                fontSize: 9,
+                fontWeight: 700,
+                color: '#FFF',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
                 {totalItems > 9 ? '9+' : totalItems}
               </span>
             )}

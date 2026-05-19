@@ -2,26 +2,27 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useCartStore, useQioskStore } from '../../../store'
 import type { PaymentMethod } from '../../../types'
+import { K } from '../theme'
 
-const RETURN_SECONDS = 10
+const RETURN_SECONDS = 12
 
-const PAYMENT_LABELS: Record<PaymentMethod, string> = {
-  pix: 'PIX confirmado',
-  card: 'Pague na maquininha',
-  cash: 'Pague no caixa',
+const PAYMENT_INFO: Record<PaymentMethod, { label: string; emoji: string; color: string }> = {
+  pix:  { label: 'PIX confirmado',        emoji: '⚡', color: '#22C55E' },
+  card: { label: 'Pague na maquininha',   emoji: '💳', color: K.brand   },
+  cash: { label: 'Pague no caixa',        emoji: '💵', color: K.brand   },
 }
 
 export default function ConfirmationScreen() {
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate  = useNavigate()
+  const location  = useLocation()
   const paymentMethod = (location.state?.paymentMethod ?? 'cash') as PaymentMethod
 
-  const { items, clear } = useCartStore()
-  const { addOrder, settings }       = useQioskStore()
+  const { items, clear }     = useCartStore()
+  const { addOrder, settings } = useQioskStore()
 
   const [orderNumber, setOrderNumber] = useState<number | null>(null)
-  const [countdown, setCountdown]     = useState(RETURN_SECONDS)
-  const [show, setShow]               = useState(false)
+  const [countdown,   setCountdown]   = useState(RETURN_SECONDS)
+  const [show,        setShow]        = useState(false)
   const created = useRef(false)
 
   useEffect(() => {
@@ -40,85 +41,141 @@ export default function ConfirmationScreen() {
     return () => clearTimeout(t)
   }, [countdown, navigate])
 
+  const pay = PAYMENT_INFO[paymentMethod]
+
   return (
-    <div
-      className="w-full min-h-screen flex flex-col items-center justify-center px-6 text-center"
-      style={{
-        background: '#1A1A2E', gap: 28,
-        opacity: show ? 1 : 0,
-        transition: 'opacity 0.4s ease',
-      }}
-    >
-      {/* Check */}
-      <div
-        className="flex items-center justify-center rounded-full"
-        style={{
-          width: 96, height: 96,
-          background: 'rgba(46,204,113,0.12)',
-          border: '1.5px solid rgba(46,204,113,0.3)',
-          transform: show ? 'scale(1)' : 'scale(0.5)',
-          transition: 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s',
-        }}
-      >
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-          <path d="M12 22L19 29L32 15" stroke="#2ECC71" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+    <div style={{
+      width: '100%', minHeight: '100vh',
+      background: K.bg,
+      display: 'flex', flexDirection: 'column',
+      opacity: show ? 1 : 0,
+      transition: 'opacity 0.4s ease',
+    }}>
+
+      {/* Hero verde */}
+      <div style={{
+        background: '#F0FFF6',
+        padding: '48px 24px 36px',
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        gap: 20,
+      }}>
+        {/* Check animado */}
+        <div style={{
+          width: 88, height: 88, borderRadius: 44,
+          background: '#DCFCE7',
+          border: '3px solid #22C55E',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          transform: show ? 'scale(1)' : 'scale(0.4)',
+          transition: 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.15s',
+        }}>
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M10 20L17 27L30 13" stroke="#22C55E" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+
+        <div style={{ textAlign: 'center' }}>
+          <h2 style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 26, fontWeight: 800, color: K.text,
+            margin: 0, lineHeight: 1.1,
+          }}>
+            Pedido confirmado! 🎉
+          </h2>
+          <p style={{ fontSize: 14, color: K.sub, marginTop: 8 }}>
+            Vamos preparar com muito carinho
+          </p>
+        </div>
       </div>
 
-      {/* Número */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>
-          Pedido
-        </p>
-        <p
-          className="font-bold tabular-nums"
-          style={{ color: '#FFF', fontFamily: "'Space Grotesk', sans-serif", fontSize: 80, lineHeight: 1 }}
-        >
-          #{orderNumber ?? '—'}
-        </p>
+      {/* Conteúdo */}
+      <div style={{ flex: 1, padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+        {/* Número do pedido */}
+        <div style={{
+          background: K.surface,
+          borderRadius: 20,
+          padding: '24px',
+          boxShadow: K.shadow,
+          textAlign: 'center',
+        }}>
+          <p style={{ fontSize: 12, fontWeight: 600, color: K.muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
+            Seu número
+          </p>
+          <p style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 80, fontWeight: 800, color: K.text,
+            lineHeight: 1,
+            fontVariantNumeric: 'tabular-nums',
+          }}>
+            #{orderNumber ?? '—'}
+          </p>
+          <p style={{ fontSize: 13, color: K.sub, marginTop: 8 }}>
+            Fique de olho no painel quando chamarem seu número
+          </p>
+        </div>
+
+        {/* Tempo estimado */}
+        <div style={{
+          background: K.brandLight,
+          borderRadius: 20,
+          padding: '20px 24px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        }}>
+          <div>
+            <p style={{ fontSize: 13, color: K.sub, margin: 0 }}>Tempo estimado</p>
+            <p style={{ fontSize: 12, color: K.muted, marginTop: 2 }}>pode variar conforme a fila</p>
+          </div>
+          <p style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 32, fontWeight: 800, color: K.brand,
+            fontVariantNumeric: 'tabular-nums',
+          }}>
+            ~{settings.estimatedMinutes}min
+          </p>
+        </div>
+
+        {/* Pagamento */}
+        <div style={{
+          background: K.surface,
+          borderRadius: 20,
+          padding: '16px 20px',
+          boxShadow: K.shadow,
+          display: 'flex', alignItems: 'center', gap: 12,
+        }}>
+          <span style={{ fontSize: 24 }}>{pay.emoji}</span>
+          <div>
+            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600, color: K.text, margin: 0 }}>
+              {pay.label}
+            </p>
+            {(paymentMethod === 'card' || paymentMethod === 'cash') && (
+              <p style={{ fontSize: 12, color: K.sub, marginTop: 2 }}>
+                Dirija-se ao atendente para finalizar
+              </p>
+            )}
+          </div>
+        </div>
       </div>
 
-      {/* Mensagem */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <p className="text-xl font-bold" style={{ color: '#FFF', fontFamily: "'Space Grotesk', sans-serif" }}>
-          Pedido recebido!
-        </p>
-        <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-          Prepare-se — seu lanche vai ficar incrível.
-        </p>
-      </div>
-
-      {/* Tempo estimado */}
-      <div
-        className="flex flex-col items-center rounded-2xl px-10 py-5"
-        style={{ background: '#16213E', border: '1.5px solid rgba(255,255,255,0.09)', gap: 6 }}
-      >
-        <p className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>
-          Tempo estimado
-        </p>
-        <p className="font-bold text-4xl tabular-nums"
-          style={{ color: '#FF6B2B', fontFamily: "'Space Grotesk', sans-serif" }}>
-          ~{settings.estimatedMinutes} min
-        </p>
-      </div>
-
-      {/* Pagamento */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <div style={{ width: 8, height: 8, borderRadius: 4, background: '#2ECC71' }} />
-        <span className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
-          {PAYMENT_LABELS[paymentMethod]}
-        </span>
-      </div>
-
-      {/* Countdown */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-        <p className="text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>
+      {/* Footer countdown */}
+      <div style={{
+        padding: '16px 16px 24px',
+        textAlign: 'center',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
+      }}>
+        <p style={{ fontSize: 12, color: K.muted }}>
           Voltando ao início em {countdown}s
         </p>
         <button
           onClick={() => navigate('/kiosk/idle')}
-          className="touch-press px-5 py-2 rounded-xl text-sm"
-          style={{ border: '1.5px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.4)' }}
+          className="touch-press"
+          style={{
+            padding: '12px 32px', borderRadius: 14,
+            background: K.surface,
+            border: `1.5px solid ${K.border}`,
+            fontSize: 14, fontWeight: 600, color: K.sub,
+            cursor: 'pointer',
+            fontFamily: "'Space Grotesk', sans-serif",
+          }}
         >
           Novo pedido
         </button>

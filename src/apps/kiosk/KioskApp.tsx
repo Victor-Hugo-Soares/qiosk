@@ -38,7 +38,7 @@ export default function KioskApp() {
   }, [location.pathname, isIdle, navigate])
 
   return (
-    <div className="min-h-screen bg-[#1A1A2E] overflow-x-hidden">
+    <div style={{ minHeight: '100vh', background: '#FFF8F4', overflowX: 'hidden' }}>
       <Routes>
         <Route index element={<Navigate to="idle" replace />} />
         <Route path="idle"           element={<IdleScreen />} />
