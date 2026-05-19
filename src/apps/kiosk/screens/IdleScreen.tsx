@@ -41,28 +41,33 @@ export default function IdleScreen() {
       }}>
         {/* Logo */}
         <div style={{ textAlign: 'center' }}>
-          <p style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: 13,
-            fontWeight: 600,
-            color: K.brand,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            marginBottom: 4,
-          }}>
-            Bem-vindo ao
-          </p>
-          <h1 style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: 40,
-            fontWeight: 800,
-            color: K.text,
-            letterSpacing: '-0.02em',
-            lineHeight: 1,
-            margin: 0,
-          }}>
-            {storeName || 'QIOSK'}
-          </h1>
+          {storeName ? (
+            <>
+              <p style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: 13, fontWeight: 600, color: K.brand,
+                letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 4,
+              }}>
+                Bem-vindo ao
+              </p>
+              <h1 style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: 40, fontWeight: 800, color: K.text,
+                letterSpacing: '-0.02em', lineHeight: 1, margin: 0,
+              }}>
+                {storeName}
+              </h1>
+            </>
+          ) : (
+            <h1 style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: 48, fontWeight: 800,
+              letterSpacing: '-0.03em', lineHeight: 1, margin: 0,
+            }}>
+              <span style={{ color: K.brand }}>QI</span>
+              <span style={{ color: K.text }}>OSK</span>
+            </h1>
+          )}
         </div>
 
         {/* Ilustração de comida */}

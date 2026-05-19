@@ -127,7 +127,7 @@ const seedProducts: Product[] = [
 ]
 
 const seedSettings: StoreSettings = {
-  name: 'Burguer do Zé',
+  name: '',
   estimatedMinutes: 15,
   acceptingOrders: true,
   paymentMethods: ['cash', 'card', 'pix'],
