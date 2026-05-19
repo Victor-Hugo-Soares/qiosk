@@ -1,11 +1,12 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { LayoutDashboard, UtensilsCrossed, Settings, ArrowLeft } from 'lucide-react'
+import { LayoutDashboard, UtensilsCrossed, Tag, Settings, ArrowLeft } from 'lucide-react'
 import { useQioskStore } from '../../../store'
 
 const NAV = [
-  { path: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard'  },
-  { path: '/admin/menu',      icon: UtensilsCrossed,  label: 'Cardápio'   },
-  { path: '/admin/settings',  icon: Settings,         label: 'Config.'    },
+  { path: '/admin/dashboard',  icon: LayoutDashboard, label: 'Dashboard'   },
+  { path: '/admin/menu',       icon: UtensilsCrossed,  label: 'Cardápio'    },
+  { path: '/admin/categories', icon: Tag,              label: 'Categorias'  },
+  { path: '/admin/settings',   icon: Settings,         label: 'Config.'     },
 ]
 
 export default function AdminSidebar() {

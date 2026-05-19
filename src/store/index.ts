@@ -141,8 +141,15 @@ interface QioskStore {
   updateSettings: (patch: Partial<StoreSettings>) => void
   setEstimatedMinutes: (minutes: number) => void
 
-  // Menu
+  // Menu — categorias
   categories: Category[]
+  addCategory: (category: Category) => void
+  updateCategory: (id: string, patch: Partial<Category>) => void
+  deleteCategory: (id: string) => void
+  moveCategoryUp: (id: string) => void
+  moveCategoryDown: (id: string) => void
+
+  // Menu — produtos
   products: Product[]
   addProduct: (product: Product) => void
   updateProduct: (id: string, patch: Partial<Product>) => void
@@ -169,6 +176,39 @@ export const useQioskStore = create<QioskStore>()(
         set((s) => ({ settings: { ...s.settings, estimatedMinutes: minutes } })),
 
       categories: seedCategories,
+      addCategory: (category) =>
+        set((s) => ({ categories: [...s.categories, category] })),
+      updateCategory: (id, patch) =>
+        set((s) => ({
+          categories: s.categories.map((c) => (c.id === id ? { ...c, ...patch } : c)),
+        })),
+      deleteCategory: (id) =>
+        set((s) => ({ categories: s.categories.filter((c) => c.id !== id) })),
+      moveCategoryUp: (id) =>
+        set((s) => {
+          const sorted = [...s.categories].sort((a, b) => a.order - b.order)
+          const idx = sorted.findIndex((c) => c.id === id)
+          if (idx <= 0) return s
+          const updated = sorted.map((c, i) => {
+            if (i === idx - 1) return { ...c, order: sorted[idx].order }
+            if (i === idx)     return { ...c, order: sorted[idx - 1].order }
+            return c
+          })
+          return { categories: updated }
+        }),
+      moveCategoryDown: (id) =>
+        set((s) => {
+          const sorted = [...s.categories].sort((a, b) => a.order - b.order)
+          const idx = sorted.findIndex((c) => c.id === id)
+          if (idx < 0 || idx >= sorted.length - 1) return s
+          const updated = sorted.map((c, i) => {
+            if (i === idx)     return { ...c, order: sorted[idx + 1].order }
+            if (i === idx + 1) return { ...c, order: sorted[idx].order }
+            return c
+          })
+          return { categories: updated }
+        }),
+
       products: seedProducts,
       addProduct: (product) =>
         set((s) => ({ products: [...s.products, product] })),
