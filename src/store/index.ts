@@ -159,6 +159,7 @@ interface QioskStore {
   // Orders
   orders: Order[]
   nextOrderNumber: number
+  lastOrderDate: string        // 'YYYY-MM-DD' — para reset diário
   addOrder: (items: OrderItem[], paymentMethod: Order['paymentMethod']) => Order
   updateOrderStatus: (orderId: string, status: OrderStatus) => void
   getTodayOrders: () => Order[]
@@ -227,12 +228,16 @@ export const useQioskStore = create<QioskStore>()(
 
       orders: [],
       nextOrderNumber: 1,
+      lastOrderDate: '',
       addOrder: (items, paymentMethod) => {
-        const { settings, nextOrderNumber } = get()
+        const { settings, nextOrderNumber, lastOrderDate } = get()
+        const today = new Date().toISOString().slice(0, 10) // 'YYYY-MM-DD'
+        const isNewDay = lastOrderDate !== today
+        const number = isNewDay ? 1 : nextOrderNumber
         const totalPrice = items.reduce((sum, i) => sum + i.totalPrice, 0)
         const order: Order = {
           id: crypto.randomUUID(),
-          number: nextOrderNumber,
+          number,
           items,
           status: 'pending',
           paymentMethod,
@@ -243,7 +248,8 @@ export const useQioskStore = create<QioskStore>()(
         }
         set((s) => ({
           orders: [order, ...s.orders],
-          nextOrderNumber: s.nextOrderNumber + 1,
+          nextOrderNumber: number + 1,
+          lastOrderDate: today,
         }))
         return order
       },
@@ -271,6 +277,7 @@ export const useQioskStore = create<QioskStore>()(
         products: s.products,
         orders: s.orders,
         nextOrderNumber: s.nextOrderNumber,
+        lastOrderDate: s.lastOrderDate,
       }),
     }
   )
