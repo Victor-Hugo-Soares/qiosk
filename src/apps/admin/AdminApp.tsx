@@ -7,7 +7,7 @@ import SettingsScreen from './screens/SettingsScreen'
 
 export default function AdminApp() {
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#F5F5F0' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#F4F3F0' }}>
       <AdminSidebar />
       <main style={{ flex: 1, overflow: 'auto' }}>
         <Routes>

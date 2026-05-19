@@ -5,15 +5,15 @@ import type { Order } from '../../../types'
 
 // ─── Tokens ──────────────────────────────────────────────────
 const C = {
-  bg:      '#F5F5F0',
+  bg:      '#F4F3F0',
   surface: '#FFFFFF',
-  border:  '#E5E5E0',
+  border:  'rgba(0,0,0,0.07)',
   altRow:  '#FAFAF8',
-  text:    '#1A1A2E',
-  sub:     '#6B7280',
-  muted:   '#9CA3AF',
+  text:    '#1C1C1E',
+  sub:     '#6B6B6B',
+  muted:   '#A0A0A0',
   brand:   '#FF6B2B',
-  success: '#2ECC71',
+  success: '#22C55E',
   warning: '#F59E0B',
 }
 
@@ -86,7 +86,7 @@ function HourlyChart({ orders }: { orders: Order[] }) {
               style={{
                 width: '100%', borderRadius: '3px 3px 0 0',
                 height: count === 0 ? 3 : `${Math.max((count / max) * 100, 6)}%`,
-                background: hour === now ? C.brand : count > 0 ? 'rgba(255,107,43,0.3)' : '#E5E5E0',
+                background: hour === now ? C.brand : count > 0 ? 'rgba(255,107,43,0.3)' : '#E5E4E0',
                 transition: 'height 0.3s ease',
               }}
             />
@@ -136,7 +136,7 @@ function TopProducts({ orders }: { orders: Order[] }) {
                 <span style={{ fontSize: 13, color: C.text, fontWeight: 500 }}>{item.name}</span>
                 <span style={{ fontSize: 12, color: C.sub, fontVariantNumeric: 'tabular-nums' }}>{item.qty}×</span>
               </div>
-              <div style={{ height: 4, background: '#E5E5E0', borderRadius: 2 }}>
+              <div style={{ height: 4, background: '#E5E4E0', borderRadius: 2 }}>
                 <div style={{ height: '100%', borderRadius: 2, background: i === 0 ? C.brand : 'rgba(255,107,43,0.35)', width: `${(item.qty / maxQty) * 100}%` }} />
               </div>
             </div>
@@ -151,8 +151,8 @@ function TopProducts({ orders }: { orders: Order[] }) {
 const STATUS_CFG: Record<string, { label: string; color: string; bg: string }> = {
   pending:   { label: 'Aguardando', color: '#F59E0B', bg: 'rgba(245,158,11,0.1)'  },
   preparing: { label: 'Em preparo', color: '#FF6B2B', bg: 'rgba(255,107,43,0.1)'  },
-  ready:     { label: 'Pronto',     color: '#2ECC71', bg: 'rgba(46,204,113,0.1)'  },
-  delivered: { label: 'Entregue',   color: '#6B7280', bg: 'rgba(107,114,128,0.1)' },
+  ready:     { label: 'Pronto',     color: '#22C55E', bg: 'rgba(34,197,94,0.1)'   },
+  delivered: { label: 'Entregue',   color: '#A0A0A0', bg: 'rgba(160,160,160,0.1)' },
 }
 const PAY_CFG: Record<string, string> = { pix: 'PIX', card: 'Cartão', cash: 'Dinheiro' }
 

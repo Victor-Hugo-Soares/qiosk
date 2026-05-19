@@ -4,10 +4,10 @@ import { useQioskStore } from '../../../store'
 import type { PaymentMethod } from '../../../types'
 
 const C = {
-  surface: '#FFFFFF', border: '#E5E5E0',
-  text: '#1A1A2E', sub: '#6B7280', muted: '#9CA3AF',
-  brand: '#FF6B2B', success: '#2ECC71',
-  inputBg: '#FAFAF8',
+  surface: '#FFFFFF', border: 'rgba(0,0,0,0.07)',
+  text: '#1C1C1E', sub: '#6B6B6B', muted: '#A0A0A0',
+  brand: '#FF6B2B', success: '#22C55E',
+  inputBg: '#F4F3F0',
 }
 
 const inputStyle: React.CSSProperties = {
@@ -92,7 +92,7 @@ export default function SettingsScreen() {
             className="touch-press"
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
           >
-            <div style={{ width: 48, height: 28, borderRadius: 14, background: settings.acceptingOrders ? C.brand : '#E5E5E0', position: 'relative', transition: 'background 0.2s ease' }}>
+            <div style={{ width: 48, height: 28, borderRadius: 14, background: settings.acceptingOrders ? C.brand : '#E5E4E0', position: 'relative', transition: 'background 0.2s ease' }}>
               <div style={{ position: 'absolute', top: 4, left: settings.acceptingOrders ? 24 : 4, width: 20, height: 20, borderRadius: 10, background: '#FFF', transition: 'left 0.2s ease', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
             </div>
           </button>

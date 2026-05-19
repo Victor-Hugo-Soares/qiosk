@@ -5,10 +5,10 @@ import { useQioskStore } from '../../../store'
 import type { ExtraGroup, Product } from '../../../types'
 
 const C = {
-  surface: '#FFFFFF', border: '#E5E5E0',
-  text: '#1A1A2E', sub: '#6B7280', muted: '#9CA3AF',
-  brand: '#FF6B2B', danger: '#E74C3C', success: '#2ECC71',
-  inputBg: '#FAFAF8',
+  surface: '#FFFFFF', border: 'rgba(0,0,0,0.07)',
+  text: '#1C1C1E', sub: '#6B6B6B', muted: '#A0A0A0',
+  brand: '#FF6B2B', danger: '#EF4444', success: '#22C55E',
+  inputBg: '#F4F3F0',
 }
 
 const COLOR_PALETTE = [
@@ -180,7 +180,7 @@ export default function ProductFormScreen() {
                 style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
                 <div style={{
                   width: 42, height: 24, borderRadius: 12,
-                  background: value ? C.brand : '#E5E5E0',
+                  background: value ? C.brand : '#E5E4E0',
                   position: 'relative', transition: 'background 0.2s ease',
                 }}>
                   <div style={{

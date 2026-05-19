@@ -4,9 +4,9 @@ import { Plus, Pencil, Trash2, ToggleLeft, ToggleRight } from 'lucide-react'
 import { useQioskStore } from '../../../store'
 
 const C = {
-  surface: '#FFFFFF', border: '#E5E5E0', altRow: '#FAFAF8',
-  text: '#1A1A2E', sub: '#6B7280', muted: '#9CA3AF',
-  brand: '#FF6B2B', success: '#2ECC71', danger: '#E74C3C',
+  surface: '#FFFFFF', border: 'rgba(0,0,0,0.07)', altRow: '#FAFAF8',
+  text: '#1C1C1E', sub: '#6B6B6B', muted: '#A0A0A0',
+  brand: '#FF6B2B', success: '#22C55E', danger: '#EF4444',
 }
 
 export default function MenuScreen() {
