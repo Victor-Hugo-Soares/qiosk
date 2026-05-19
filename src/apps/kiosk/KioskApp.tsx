@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
+import { useQioskStore } from '../../store'
 import IdleScreen from './screens/IdleScreen'
 import CategoriesScreen from './screens/CategoriesScreen'
 import ProductsScreen from './screens/ProductsScreen'
@@ -12,9 +13,17 @@ import ConfirmationScreen from './screens/ConfirmationScreen'
 const IDLE_TIMEOUT_MS = 90_000 // 90s sem interação → volta pro idle
 
 export default function KioskApp() {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const isIdle = location.pathname === '/kiosk/idle'
+  const navigate       = useNavigate()
+  const location       = useLocation()
+  const isIdle         = location.pathname === '/kiosk/idle'
+  const acceptingOrders = useQioskStore((s) => s.settings.acceptingOrders)
+
+  // Se a loja fechar no meio do fluxo, retorna para o idle imediatamente
+  useEffect(() => {
+    if (!acceptingOrders && !isIdle) {
+      navigate('/kiosk/idle', { replace: true })
+    }
+  }, [acceptingOrders, isIdle, navigate])
 
   // Idle timeout — só ativo fora da tela idle e da confirmação
   useEffect(() => {
