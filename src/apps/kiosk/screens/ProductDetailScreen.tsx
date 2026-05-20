@@ -56,13 +56,34 @@ export default function ProductDetailScreen() {
       {/* Hero foto */}
       <div style={{
         width: '100%',
+        height: 260,
         background: K.brandLight,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '36px 0 28px',
+        overflow: 'hidden',
+        flexShrink: 0,
+        position: 'relative',
       }}>
-        <ProductImage product={product} size={220} borderRadius={product.imageUrl ? 0 : 20} />
+        {product.imageUrl ? (
+          <img
+            src={`${product.imageUrl}?auto=format&fit=crop&w=800&q=85`}
+            alt={product.name}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+            <ProductImage product={product} size={180} borderRadius={20} />
+          </div>
+        )}
+        {/* Gradiente suave na base para o conteúdo não cortar bruto */}
+        <div style={{
+          position: 'absolute', bottom: 0, left: 0, right: 0,
+          height: 60,
+          background: 'linear-gradient(to bottom, transparent, rgba(255,248,244,0.8))',
+        }} />
       </div>
 
       <div style={{ flex: 1, padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: 24 }}>
