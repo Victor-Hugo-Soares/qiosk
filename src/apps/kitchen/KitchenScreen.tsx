@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { Minus, Plus, CheckCheck, ChefHat, Clock } from 'lucide-react'
+import { useEffect, useRef, useState, useCallback } from 'react'
+import { Minus, Plus, CheckCheck, ChefHat, Clock, Volume2, VolumeX } from 'lucide-react'
 import { useQioskStore } from '../../store'
 import { useOrders } from '../../hooks/useOrders'
 import type { Order, OrderStatus } from '../../types'
@@ -44,20 +44,35 @@ function paymentLabel(method: Order['paymentMethod']) {
   return { pix: 'PIX', card: 'Cartão', cash: 'Dinheiro' }[method]
 }
 
-// ─── Beep ─────────────────────────────────────────────────────
-function beep() {
+// ─── Audio (singleton) ────────────────────────────────────────
+let _audioCtx: AudioContext | null = null
+
+function getAudioCtx(): AudioContext | null {
   try {
-    const ctx  = new AudioContext()
-    const osc  = ctx.createOscillator()
-    const gain = ctx.createGain()
-    osc.connect(gain)
-    gain.connect(ctx.destination)
-    osc.frequency.value = 880
-    gain.gain.setValueAtTime(0.3, ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3)
-    osc.start(ctx.currentTime)
-    osc.stop(ctx.currentTime + 0.3)
-  } catch { /* silencia */ }
+    if (!_audioCtx) _audioCtx = new AudioContext()
+    if (_audioCtx.state === 'suspended') _audioCtx.resume()
+    return _audioCtx
+  } catch { return null }
+}
+
+function playTone(ctx: AudioContext, freq: number, startAt: number, duration: number) {
+  const osc  = ctx.createOscillator()
+  const gain = ctx.createGain()
+  osc.connect(gain)
+  gain.connect(ctx.destination)
+  osc.frequency.value = freq
+  gain.gain.setValueAtTime(0.35, startAt)
+  gain.gain.exponentialRampToValueAtTime(0.001, startAt + duration)
+  osc.start(startAt)
+  osc.stop(startAt + duration)
+}
+
+function beep() {
+  const ctx = getAudioCtx()
+  if (!ctx) return
+  // double beep — mais audível na cozinha barulhenta
+  playTone(ctx, 880, ctx.currentTime,        0.12)
+  playTone(ctx, 880, ctx.currentTime + 0.18, 0.12)
 }
 
 // ─── Colunas config ───────────────────────────────────────────
@@ -245,25 +260,34 @@ export default function KitchenScreen() {
   const setEstimatedMinutes = useQioskStore((s) => s.setEstimatedMinutes)
   const storeName           = useQioskStore((s) => s.settings.name)
 
-  const [, forceRender] = useState(0)
-  const [now, setNow]   = useState(new Date())
-  const prevCountRef    = useRef(0)
-
-  useEffect(() => {
-    const t = setInterval(() => { setNow(new Date()); forceRender((n) => n + 1) }, 30_000)
-    return () => clearInterval(t)
-  }, [])
+  const [now, setNow]         = useState(new Date())
+  const [soundOn, setSoundOn] = useState(false)   // false até o user clicar "Ativar som"
+  const [flash, setFlash]     = useState(false)
+  const prevCountRef          = useRef<number | null>(null)  // null = ainda não inicializado
 
   useEffect(() => {
     const t = setInterval(() => setNow(new Date()), 1_000)
     return () => clearInterval(t)
   }, [])
 
+  // Detecta pedido novo
   useEffect(() => {
     const pending = orders.filter((o) => o.status === 'pending').length
-    if (prevCountRef.current > 0 && pending > prevCountRef.current) beep()
+    if (prevCountRef.current !== null && pending > prevCountRef.current) {
+      // Flash visual sempre
+      setFlash(true)
+      setTimeout(() => setFlash(false), 600)
+      // Som apenas se desbloqueado
+      if (soundOn) beep()
+    }
     prevCountRef.current = pending
-  }, [orders])
+  }, [orders, soundOn])
+
+  const handleActivateSound = useCallback(() => {
+    getAudioCtx()   // desbloqueia o AudioContext com interação do user
+    setSoundOn(true)
+    beep()          // beep de confirmação
+  }, [])
 
   const handleAdvance = (id: string, next: OrderStatus) => updateOrderStatus(id, next)
 
@@ -273,9 +297,10 @@ export default function KitchenScreen() {
   return (
     <div style={{
       width: '100%', minHeight: '100vh',
-      background: C.bg,
+      background: flash ? '#FFF3ED' : C.bg,
       display: 'flex', flexDirection: 'column',
       fontFamily: "'Inter', sans-serif",
+      transition: 'background 0.3s ease',
     }}>
 
       {/* ── Header ─────────────────────────────────────────── */}
@@ -380,16 +405,38 @@ export default function KitchenScreen() {
             </div>
           </div>
 
-          {/* Relógio */}
-          <div style={{ textAlign: 'right' }}>
-            <p style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: 24, fontWeight: 800, color: C.text,
-              fontVariantNumeric: 'tabular-nums',
-              letterSpacing: '-0.02em', margin: 0, lineHeight: 1,
-            }}>
-              {now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-            </p>
+          {/* Som + Relógio */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <button
+              onClick={soundOn ? () => setSoundOn(false) : handleActivateSound}
+              title={soundOn ? 'Som ativo — clique para desativar' : 'Clique para ativar o som'}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                padding: '6px 12px', borderRadius: 10,
+                background: soundOn ? '#F0FDF4' : '#FFF3ED',
+                border: `1.5px solid ${soundOn ? C.success : C.brand}`,
+                cursor: 'pointer',
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: 12, fontWeight: 600,
+                color: soundOn ? C.success : C.brand,
+              }}
+            >
+              {soundOn
+                ? <><Volume2 size={14} />&nbsp;Som ativo</>
+                : <><VolumeX size={14} />&nbsp;Ativar som</>
+              }
+            </button>
+
+            <div style={{ textAlign: 'right' }}>
+              <p style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: 24, fontWeight: 800, color: C.text,
+                fontVariantNumeric: 'tabular-nums',
+                letterSpacing: '-0.02em', margin: 0, lineHeight: 1,
+              }}>
+                {now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+              </p>
+            </div>
           </div>
         </div>
       </header>
