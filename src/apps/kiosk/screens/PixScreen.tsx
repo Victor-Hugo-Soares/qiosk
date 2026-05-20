@@ -56,7 +56,7 @@ export default function PixScreen() {
     if (seconds <= 0) { router.push('/kiosk/payment'); return }
     const t = setTimeout(() => setSeconds((s) => s - 1), 1000)
     return () => clearTimeout(t)
-  }, [seconds, navigate])
+  }, [seconds, router])
 
   const progress = (seconds / PIX_TIMEOUT_SECONDS) * 100
   const isExpiring = seconds < 60
