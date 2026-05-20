@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { ShoppingBag, DollarSign, TrendingUp, Star } from 'lucide-react'
-import { useQioskStore } from '../../../store'
+import { useOrders } from '../../../hooks/useOrders'
 import type { Order } from '../../../types'
 
 // ─── Tokens ──────────────────────────────────────────────────
@@ -231,7 +231,7 @@ const PERIODS: { key: Period; label: string }[] = [
 ]
 
 export default function DashboardScreen() {
-  const allOrders = useQioskStore((s) => s.orders)
+  const allOrders = useOrders(365)   // último ano via Firestore
   const [period, setPeriod] = useState<Period>('day')
 
   const orders      = filterByPeriod(allOrders, period)

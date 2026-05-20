@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Minus, Plus, CheckCheck, ChefHat, Clock } from 'lucide-react'
 import { useQioskStore } from '../../store'
+import { useOrders } from '../../hooks/useOrders'
 import type { Order, OrderStatus } from '../../types'
 
 // ─── Tokens ───────────────────────────────────────────────────
@@ -227,7 +228,7 @@ function OrderCard({
 
 // ─── Tela principal ───────────────────────────────────────────
 export default function KitchenScreen() {
-  const orders              = useQioskStore((s) => s.orders)
+  const orders              = useOrders(1)   // pedidos de hoje via Firestore
   const updateOrderStatus   = useQioskStore((s) => s.updateOrderStatus)
   const settings            = useQioskStore((s) => s.settings)
   const setEstimatedMinutes = useQioskStore((s) => s.setEstimatedMinutes)
