@@ -4,11 +4,11 @@ import { useCartStore, useQioskStore } from '../../../store'
 import { K } from '../theme'
 import type { BusinessHours } from '../../../types'
 
-function isWithinBusinessHours(hours: BusinessHours): boolean {
-  const now   = new Date()
-  const day   = now.getDay()
-  const schedule = hours[day]
-  if (!schedule.enabled) return false
+function isWithinBusinessHours(hours: BusinessHours | undefined): boolean {
+  if (!hours || hours.length < 7) return true  // sem config → assume aberto
+  const now      = new Date()
+  const schedule = hours[now.getDay()]
+  if (!schedule?.enabled) return false
   const cur = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
   return cur >= schedule.open && cur < schedule.close
 }
@@ -75,7 +75,7 @@ export default function IdleScreen() {
   const clearCart       = useCartStore((s) => s.clear)
   const storeName       = useQioskStore((s) => s.settings.name)
   const acceptingOrders = useQioskStore((s) => s.settings.acceptingOrders)
-  const businessHours   = useQioskStore((s) => s.settings.businessHours)
+  const businessHours   = useQioskStore((s) => s.settings.businessHours as BusinessHours | undefined)
   const [visible, setVisible]   = useState(false)
   const [isOpen, setIsOpen]     = useState(() => isWithinBusinessHours(businessHours))
 

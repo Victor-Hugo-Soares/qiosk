@@ -17,6 +17,24 @@ const PRODUCT_IMAGES: Record<string, string> = {
   'prod-10': U('1553787499-6f9133860278'),    // Milkshake
 }
 
+const DEFAULT_BUSINESS_HOURS = [
+  { enabled: false, open: '11:00', close: '22:00' },
+  { enabled: true,  open: '11:00', close: '22:00' },
+  { enabled: true,  open: '11:00', close: '22:00' },
+  { enabled: true,  open: '11:00', close: '22:00' },
+  { enabled: true,  open: '11:00', close: '22:00' },
+  { enabled: true,  open: '11:00', close: '23:00' },
+  { enabled: true,  open: '11:00', close: '23:00' },
+]
+
+/** Garante que settings antigos têm businessHours */
+export async function migrateSettings(s: Record<string, unknown>) {
+  if (!s.businessHours) {
+    await saveSettingsFS({ businessHours: DEFAULT_BUSINESS_HOURS } as Parameters<typeof saveSettingsFS>[0])
+    console.info('[QIOSK] businessHours migrado para settings.')
+  }
+}
+
 /** Adiciona imageUrl nos produtos que ainda não têm */
 export async function migrateProductImages(products: Product[]) {
   const missing = products.filter(

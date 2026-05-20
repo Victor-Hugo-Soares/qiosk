@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { listenCategories, listenProducts, listenSettings } from '../lib/firestore'
-import { seedIfEmpty, migrateProductImages } from '../lib/seed'
+import { seedIfEmpty, migrateProductImages, migrateSettings } from '../lib/seed'
 import { useQioskStore } from '../store'
 
 /**
@@ -26,7 +26,12 @@ export function useFirestoreSync() {
       setProducts(prods)
       migrateProductImages(prods).catch(console.error)
     })
-    const unsubSetts = listenSettings((s) => { if (s) setSettings(s) })
+    const unsubSetts = listenSettings((s) => {
+      if (s) {
+        migrateSettings(s).catch(console.error)
+        setSettings(s)
+      }
+    })
 
     return () => {
       unsubCats()
