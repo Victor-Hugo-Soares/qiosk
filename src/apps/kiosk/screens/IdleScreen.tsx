@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCartStore, useQioskStore } from '../../../store'
 import { LockIcon } from '../components/QioskIcons'
@@ -77,8 +77,9 @@ export default function IdleScreen() {
   const storeName       = useQioskStore((s) => s.settings.name)
   const acceptingOrders = useQioskStore((s) => s.settings.acceptingOrders)
   const businessHours   = useQioskStore((s) => s.settings.businessHours as BusinessHours | undefined)
-  const [visible, setVisible]   = useState(false)
-  const [isOpen, setIsOpen]     = useState(() => isWithinBusinessHours(businessHours))
+  const [visible, setVisible] = useState(false)
+  const [tick,    setTick]    = useState(0)
+  const isOpen = useMemo(() => isWithinBusinessHours(businessHours), [businessHours, tick])
 
   useEffect(() => { clearCart() }, [clearCart])
   useEffect(() => {
@@ -86,16 +87,11 @@ export default function IdleScreen() {
     return () => clearTimeout(t)
   }, [])
 
-  // Re-verifica a cada minuto
+  // Re-verifica a cada minuto (sem setState síncrono no effect)
   useEffect(() => {
-    const t = setInterval(() => setIsOpen(isWithinBusinessHours(businessHours)), 60_000)
+    const t = setInterval(() => setTick((n) => n + 1), 60_000)
     return () => clearInterval(t)
-  }, [businessHours])
-
-  // Atualiza quando businessHours mudar (admin alterou em tempo real)
-  useEffect(() => {
-    setIsOpen(isWithinBusinessHours(businessHours))
-  }, [businessHours])
+  }, [])
 
   if (!acceptingOrders || !isOpen) {
     return <ClosedScreen storeName={storeName} />

@@ -35,9 +35,8 @@ export default function ConfirmationScreen() {
     created.current = true
     if (items.length === 0) { router.push('/kiosk/idle'); return }
     const order = addOrder(items, paymentMethod)
-    setOrderNumber(order.number)
     clear()
-    setTimeout(() => setShow(true), 120)
+    setTimeout(() => { setOrderNumber(order.number); setShow(true) }, 120)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
