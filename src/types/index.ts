@@ -57,6 +57,7 @@ export interface Order {
   paymentMethod: PaymentMethod
   totalPrice: number
   estimatedMinutes: number
+  tableNumber: number | null   // null = tablet fixo no balcão
   createdAt: string
   updatedAt: string
 }

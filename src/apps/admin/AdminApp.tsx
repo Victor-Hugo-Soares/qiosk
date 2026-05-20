@@ -9,6 +9,7 @@ import MenuScreen from './screens/MenuScreen'
 import ProductFormScreen from './screens/ProductFormScreen'
 import CategoriesScreen from './screens/CategoriesScreen'
 import SettingsScreen from './screens/SettingsScreen'
+import TablesScreen from './screens/TablesScreen'
 
 export default function AdminApp() {
   const [user, setUser]       = useState<User | null>(null)
@@ -44,6 +45,7 @@ export default function AdminApp() {
           <Route path="menu/edit/:id" element={<ProductFormScreen />} />
           <Route path="categories"    element={<CategoriesScreen />} />
           <Route path="settings"      element={<SettingsScreen />} />
+          <Route path="tables"        element={<TablesScreen />} />
           <Route path="*"             element={<Navigate to="dashboard" replace />} />
         </Routes>
       </main>

@@ -113,7 +113,7 @@ function OrderCard({
         padding: '12px 14px 10px',
         borderBottom: `1px solid ${C.border}`,
       }}>
-        {/* Número + pagamento */}
+        {/* Número + pagamento + mesa */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{
             fontFamily: "'Space Grotesk', sans-serif",
@@ -122,6 +122,17 @@ function OrderCard({
           }}>
             #{order.number}
           </span>
+          {order.tableNumber && (
+            <span style={{
+              fontSize: 11, fontWeight: 700,
+              color: '#FFFFFF',
+              background: C.brand,
+              padding: '2px 8px',
+              borderRadius: 20,
+            }}>
+              Mesa {order.tableNumber}
+            </span>
+          )}
           <span style={{
             fontSize: 11, fontWeight: 600,
             color: C.sub,

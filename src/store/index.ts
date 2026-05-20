@@ -33,6 +33,10 @@ interface QioskStore {
   toggleProductAvailability: (id: string) => void
   deleteProduct:             (id: string) => void
 
+  // Session
+  tableNumber: number | null
+  setTableNumber: (n: number | null) => void
+
   // Orders
   orders: Order[]
   nextOrderNumber: number
@@ -134,12 +138,16 @@ export const useQioskStore = create<QioskStore>()((set, get) => ({
     deleteProductFS(id).catch(console.error)
   },
 
+  // ── Session ─────────────────────────────────────────────────────────────────
+  tableNumber: null,
+  setTableNumber: (n) => set({ tableNumber: n }),
+
   // ── Orders ──────────────────────────────────────────────────────────────────
   orders: [],
   nextOrderNumber: 1,
   lastOrderDate: '',
   addOrder: (items, paymentMethod) => {
-    const { settings, nextOrderNumber, lastOrderDate } = get()
+    const { settings, nextOrderNumber, lastOrderDate, tableNumber } = get()
     const today    = new Date().toISOString().slice(0, 10)
     const isNewDay = lastOrderDate !== today
     const number   = isNewDay ? 1 : nextOrderNumber
@@ -152,6 +160,7 @@ export const useQioskStore = create<QioskStore>()((set, get) => ({
       paymentMethod,
       totalPrice,
       estimatedMinutes: settings.estimatedMinutes,
+      tableNumber,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
