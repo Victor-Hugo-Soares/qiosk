@@ -2,6 +2,16 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCartStore, useQioskStore } from '../../../store'
 import { K } from '../theme'
+import type { BusinessHours } from '../../../types'
+
+function isWithinBusinessHours(hours: BusinessHours): boolean {
+  const now   = new Date()
+  const day   = now.getDay()
+  const schedule = hours[day]
+  if (!schedule.enabled) return false
+  const cur = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
+  return cur >= schedule.open && cur < schedule.close
+}
 
 // ─── Tela: Loja Fechada ───────────────────────────────────────
 function ClosedScreen({ storeName }: { storeName: string }) {
@@ -65,7 +75,9 @@ export default function IdleScreen() {
   const clearCart       = useCartStore((s) => s.clear)
   const storeName       = useQioskStore((s) => s.settings.name)
   const acceptingOrders = useQioskStore((s) => s.settings.acceptingOrders)
-  const [visible, setVisible] = useState(false)
+  const businessHours   = useQioskStore((s) => s.settings.businessHours)
+  const [visible, setVisible]   = useState(false)
+  const [isOpen, setIsOpen]     = useState(() => isWithinBusinessHours(businessHours))
 
   useEffect(() => { clearCart() }, [clearCart])
   useEffect(() => {
@@ -73,7 +85,18 @@ export default function IdleScreen() {
     return () => clearTimeout(t)
   }, [])
 
-  if (!acceptingOrders) {
+  // Re-verifica a cada minuto
+  useEffect(() => {
+    const t = setInterval(() => setIsOpen(isWithinBusinessHours(businessHours)), 60_000)
+    return () => clearInterval(t)
+  }, [businessHours])
+
+  // Atualiza quando businessHours mudar (admin alterou em tempo real)
+  useEffect(() => {
+    setIsOpen(isWithinBusinessHours(businessHours))
+  }, [businessHours])
+
+  if (!acceptingOrders || !isOpen) {
     return <ClosedScreen storeName={storeName} />
   }
 

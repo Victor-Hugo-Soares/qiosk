@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Minus, Plus, CheckCircle2 } from 'lucide-react'
 import { useQioskStore } from '../../../store'
-import type { PaymentMethod } from '../../../types'
+import type { BusinessHours, DaySchedule, PaymentMethod } from '../../../types'
 
 const C = {
   surface: '#FFFFFF', border: 'rgba(0,0,0,0.07)',
@@ -17,6 +17,8 @@ const inputStyle: React.CSSProperties = {
   outline: 'none', width: '100%',
 }
 
+const DAYS = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+
 const PAYMENT_OPTIONS: { method: PaymentMethod; label: string; desc: string }[] = [
   { method: 'pix',  label: 'PIX',      desc: 'QR Code gerado na tela'   },
   { method: 'card', label: 'Cartão',   desc: 'Crédito e débito'          },
@@ -30,6 +32,12 @@ export default function SettingsScreen() {
 
   const [storeName, setStoreName] = useState(settings.name)
   const [saved, setSaved]         = useState(false)
+
+  const updateDay = (idx: number, patch: Partial<DaySchedule>) => {
+    const next = [...settings.businessHours] as BusinessHours
+    next[idx] = { ...next[idx], ...patch }
+    updateSettings({ businessHours: next })
+  }
 
   const togglePayment = (method: PaymentMethod) => {
     const current = settings.paymentMethods
@@ -133,6 +141,68 @@ export default function SettingsScreen() {
           <p style={{ fontSize: 13, color: C.muted }}>
             O cliente verá: <strong style={{ color: C.text }}>~{settings.estimatedMinutes} min</strong>
           </p>
+        </div>
+      </div>
+
+      {/* Horário de funcionamento */}
+      <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div>
+          <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
+            Horário de funcionamento
+          </p>
+          <p style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>
+            Fora do horário o kiosk mostra a tela de loja fechada automaticamente.
+          </p>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {DAYS.map((day, idx) => {
+            const schedule = settings.businessHours[idx]
+            return (
+              <div key={idx} style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                padding: '10px 14px', borderRadius: 10,
+                background: schedule.enabled ? 'rgba(255,107,43,0.04)' : C.inputBg,
+                border: `1.5px solid ${schedule.enabled ? C.brand : C.border}`,
+                transition: 'all 0.15s ease',
+              }}>
+                {/* Toggle */}
+                <button
+                  onClick={() => updateDay(idx, { enabled: !schedule.enabled })}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, flexShrink: 0 }}
+                >
+                  <div style={{ width: 40, height: 24, borderRadius: 12, background: schedule.enabled ? C.brand : '#E5E4E0', position: 'relative', transition: 'background 0.2s ease' }}>
+                    <div style={{ position: 'absolute', top: 3, left: schedule.enabled ? 19 : 3, width: 18, height: 18, borderRadius: 9, background: '#FFF', transition: 'left 0.2s ease', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
+                  </div>
+                </button>
+
+                {/* Nome do dia */}
+                <span style={{ fontSize: 13, fontWeight: 600, color: schedule.enabled ? C.text : C.muted, width: 64, flexShrink: 0 }}>
+                  {day}
+                </span>
+
+                {/* Horários */}
+                {schedule.enabled ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
+                    <input
+                      type="time"
+                      value={schedule.open}
+                      onChange={(e) => updateDay(idx, { open: e.target.value })}
+                      style={{ padding: '4px 8px', borderRadius: 8, border: `1px solid ${C.border}`, fontSize: 13, color: C.text, background: '#FFF', outline: 'none', fontFamily: "'Inter', sans-serif" }}
+                    />
+                    <span style={{ fontSize: 12, color: C.muted }}>até</span>
+                    <input
+                      type="time"
+                      value={schedule.close}
+                      onChange={(e) => updateDay(idx, { close: e.target.value })}
+                      style={{ padding: '4px 8px', borderRadius: 8, border: `1px solid ${C.border}`, fontSize: 13, color: C.text, background: '#FFF', outline: 'none', fontFamily: "'Inter', sans-serif" }}
+                    />
+                  </div>
+                ) : (
+                  <span style={{ fontSize: 12, color: C.muted, fontStyle: 'italic' }}>Fechado</span>
+                )}
+              </div>
+            )
+          })}
         </div>
       </div>
 

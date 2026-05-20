@@ -62,9 +62,22 @@ export interface Order {
   updatedAt: string
 }
 
+export interface DaySchedule {
+  enabled: boolean
+  open: string    // "HH:MM"
+  close: string   // "HH:MM"
+}
+
+// índice 0 = Domingo, 1 = Segunda ... 6 = Sábado
+export type BusinessHours = [
+  DaySchedule, DaySchedule, DaySchedule, DaySchedule,
+  DaySchedule, DaySchedule, DaySchedule
+]
+
 export interface StoreSettings {
   name: string
-  estimatedMinutes: number  // tempo médio configurável pela cozinha/admin
+  estimatedMinutes: number
   acceptingOrders: boolean
   paymentMethods: PaymentMethod[]
+  businessHours: BusinessHours
 }

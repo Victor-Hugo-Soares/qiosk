@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Category, Order, OrderItem, OrderStatus, Product, StoreSettings } from '../types'
+import type { BusinessHours, Category, Order, OrderItem, OrderStatus, Product, StoreSettings } from '../types'
 import { saveOrder, updateOrderStatusFS } from '../lib/firestore'
 import {
   saveCategoryFS, updateCategoryFS, deleteCategoryFS,
@@ -48,11 +48,22 @@ interface QioskStore {
 
 // ─── Defaults ─────────────────────────────────────────────────────────────────
 
+const defaultBusinessHours: BusinessHours = [
+  { enabled: false, open: '11:00', close: '22:00' }, // Dom
+  { enabled: true,  open: '11:00', close: '22:00' }, // Seg
+  { enabled: true,  open: '11:00', close: '22:00' }, // Ter
+  { enabled: true,  open: '11:00', close: '22:00' }, // Qua
+  { enabled: true,  open: '11:00', close: '22:00' }, // Qui
+  { enabled: true,  open: '11:00', close: '23:00' }, // Sex
+  { enabled: true,  open: '11:00', close: '23:00' }, // Sáb
+]
+
 const defaultSettings: StoreSettings = {
   name: '',
   estimatedMinutes: 15,
   acceptingOrders: true,
   paymentMethods: ['cash', 'card', 'pix'],
+  businessHours: defaultBusinessHours,
 }
 
 // ─── Store ────────────────────────────────────────────────────────────────────

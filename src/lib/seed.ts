@@ -142,7 +142,21 @@ const products: Product[] = [
 export async function seedIfEmpty(currentCategoryCount: number) {
   if (currentCategoryCount > 0) return  // já tem dados, não faz nada
 
-  await saveSettingsFS({ name: 'Minha Hamburgueria', estimatedMinutes: 15, acceptingOrders: true, paymentMethods: ['cash', 'card', 'pix'] })
+  await saveSettingsFS({
+    name: 'Minha Hamburgueria',
+    estimatedMinutes: 15,
+    acceptingOrders: true,
+    paymentMethods: ['cash', 'card', 'pix'],
+    businessHours: [
+      { enabled: false, open: '11:00', close: '22:00' },
+      { enabled: true,  open: '11:00', close: '22:00' },
+      { enabled: true,  open: '11:00', close: '22:00' },
+      { enabled: true,  open: '11:00', close: '22:00' },
+      { enabled: true,  open: '11:00', close: '22:00' },
+      { enabled: true,  open: '11:00', close: '23:00' },
+      { enabled: true,  open: '11:00', close: '23:00' },
+    ],
+  })
   await Promise.all(categories.map(saveCategoryFS))
   await Promise.all(products.map(saveProductFS))
   console.info('[QIOSK] Seed carregado no Firestore.')
