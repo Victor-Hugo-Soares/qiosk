@@ -21,10 +21,11 @@ export interface Product {
   description: string
   price: number
   categoryId: string
-  imageColor: string  // cor do placeholder SVG
+  imageColor: string   // cor do placeholder SVG (fallback)
+  imageUrl?: string    // URL real da imagem (opcional)
   available: boolean
   extraGroups: ExtraGroup[]
-  hasDoneness: boolean  // se tem ponto da carne
+  hasDoneness: boolean
 }
 
 export interface Category {

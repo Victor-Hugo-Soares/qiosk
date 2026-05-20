@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Minus, Plus } from 'lucide-react'
 import KioskHeader from '../components/KioskHeader'
-import ProductPlaceholder from '../components/ProductPlaceholder'
+import ProductImage from '../components/ProductImage'
 import { useQioskStore, useCartStore } from '../../../store'
 import type { Doneness, OrderItem } from '../../../types'
 import { K } from '../theme'
@@ -62,7 +62,7 @@ export default function ProductDetailScreen() {
         justifyContent: 'center',
         padding: '36px 0 28px',
       }}>
-        <ProductPlaceholder color={product.imageColor} size={160} />
+        <ProductImage product={product} size={220} borderRadius={product.imageUrl ? 0 : 20} />
       </div>
 
       <div style={{ flex: 1, padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: 24 }}>

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
 import KioskHeader from '../components/KioskHeader'
-import ProductPlaceholder from '../components/ProductPlaceholder'
+import ProductImage from '../components/ProductImage'
 import { useQioskStore } from '../../../store'
 import { K } from '../theme'
 
@@ -69,7 +69,7 @@ export default function ProductsScreen() {
                 overflow: 'hidden',
                 position: 'relative',
               }}>
-                <ProductPlaceholder color={product.imageColor} size={68} />
+                <ProductImage product={product} size={84} borderRadius={14} />
                 {!product.available && (
                   <div style={{
                     position: 'absolute', inset: 0,
