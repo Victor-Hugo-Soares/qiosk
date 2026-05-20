@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { PixIcon, CardPayIcon, CashIcon, type IconProps } from '../components/QioskIcons'
 import { useCartStore, useQioskStore } from '../../../store'
@@ -7,7 +7,7 @@ import { K } from '../theme'
 
 const RETURN_SECONDS = 12
 
-type QioskIcon = (props: IconProps) => JSX.Element
+type QioskIcon = (props: IconProps) => React.ReactElement
 
 const PAYMENT_INFO: Record<PaymentMethod, { label: string; Icon: QioskIcon; color: string }> = {
   pix:  { label: 'PIX confirmado',       Icon: PixIcon,     color: '#22C55E' },

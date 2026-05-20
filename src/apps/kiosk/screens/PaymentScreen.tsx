@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import KioskHeader from '../components/KioskHeader'
 import { PixIcon, CardPayIcon, CashIcon, type IconProps } from '../components/QioskIcons'
@@ -6,7 +6,7 @@ import { useCartStore, useQioskStore } from '../../../store'
 import type { PaymentMethod } from '../../../types'
 import { K } from '../theme'
 
-type QioskIcon = (props: IconProps) => JSX.Element
+type QioskIcon = (props: IconProps) => React.ReactElement
 
 const OPTIONS: { method: PaymentMethod; Icon: QioskIcon; label: string; sub: string }[] = [
   { method: 'pix',  Icon: PixIcon,     label: 'PIX',      sub: 'Pague com QR Code'  },

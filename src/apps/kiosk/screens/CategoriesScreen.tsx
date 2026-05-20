@@ -1,3 +1,4 @@
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import KioskHeader from '../components/KioskHeader'
 import {
@@ -9,7 +10,7 @@ import { CategoriesSkeleton } from '../../../components/Skeleton'
 import { useQioskStore } from '../../../store'
 import { K } from '../theme'
 
-type QioskIcon = (props: IconProps) => JSX.Element
+type QioskIcon = (props: IconProps) => React.ReactElement
 
 const iconMap: Record<string, QioskIcon> = {
   Sandwich:         BurgerIcon,

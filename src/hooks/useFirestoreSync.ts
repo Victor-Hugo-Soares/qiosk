@@ -34,7 +34,7 @@ export function useFirestoreSync() {
     })
     const unsubSetts = listenSettings((s) => {
       if (s) {
-        migrateSettings(s).catch(console.error)
+        migrateSettings(s as unknown as Record<string, unknown>).catch(console.error)
         setSettings(s)
       }
     })
