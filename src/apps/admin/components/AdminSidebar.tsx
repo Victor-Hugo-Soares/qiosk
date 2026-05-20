@@ -1,4 +1,5 @@
-import { useNavigate, useLocation } from 'react-router-dom'
+'use client'
+import { useRouter, usePathname } from 'next/navigation'
 import { LayoutDashboard, UtensilsCrossed, Tag, Settings, QrCode, ArrowLeft } from 'lucide-react'
 import { useQioskStore } from '../../../store'
 import { signOut } from '../../../lib/auth'
@@ -12,8 +13,8 @@ const NAV = [
 ]
 
 export default function AdminSidebar() {
-  const navigate    = useNavigate()
-  const { pathname } = useLocation()
+  const router    = useRouter()
+  const pathname  = usePathname()
   const storeName   = useQioskStore((s) => s.settings.name)
 
   return (
@@ -54,7 +55,7 @@ export default function AdminSidebar() {
           return (
             <button
               key={path}
-              onClick={() => navigate(path)}
+              onClick={() => router.push(path)}
               className="touch-press"
               style={{
                 display: 'flex', alignItems: 'center', gap: 10,
@@ -95,7 +96,7 @@ export default function AdminSidebar() {
       {/* Sair */}
       <div style={{ padding: '10px 10px 16px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
         <button
-          onClick={async () => { await signOut(); navigate('/') }}
+          onClick={async () => { await signOut(); router.push('/') }}
           className="touch-press"
           style={{
             display: 'flex', alignItems: 'center', gap: 8,

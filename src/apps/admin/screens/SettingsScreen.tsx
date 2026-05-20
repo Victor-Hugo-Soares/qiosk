@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import { Minus, Plus, CheckCircle2 } from 'lucide-react'
 import { useQioskStore } from '../../../store'

@@ -1,5 +1,6 @@
+'use client'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 import { PixIcon, CloseIcon, CheckIcon } from '../components/QioskIcons'
 import { useCartStore } from '../../../store'
 import { K } from '../theme'
@@ -46,12 +47,13 @@ function formatTime(s: number) {
 }
 
 export default function PixScreen() {
-  const navigate   = useNavigate()
+  const router     = useRouter()
   const [seconds, setSeconds] = useState(PIX_TIMEOUT_SECONDS)
   const totalPrice = useCartStore((s) => s.totalPrice())
+  const setPaymentMethod = useCartStore((s) => s.setPaymentMethod)
 
   useEffect(() => {
-    if (seconds <= 0) { navigate('/kiosk/payment'); return }
+    if (seconds <= 0) { router.push('/kiosk/payment'); return }
     const t = setTimeout(() => setSeconds((s) => s - 1), 1000)
     return () => clearTimeout(t)
   }, [seconds, navigate])
@@ -76,7 +78,7 @@ export default function PixScreen() {
           </span>
         </div>
         <button
-          onClick={() => navigate('/kiosk/payment')}
+          onClick={() => router.push('/kiosk/payment')}
           className="touch-press"
           style={{
             width: 44, height: 44, borderRadius: 12,
@@ -154,7 +156,7 @@ export default function PixScreen() {
 
         {/* Botão confirmar */}
         <button
-          onClick={() => navigate('/kiosk/confirmation', { state: { paymentMethod: 'pix' } })}
+          onClick={() => { setPaymentMethod('pix'); router.push('/kiosk/confirmation') }}
           className="touch-press"
           style={{
             width: '100%',

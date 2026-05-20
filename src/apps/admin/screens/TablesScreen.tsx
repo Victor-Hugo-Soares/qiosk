@@ -1,3 +1,4 @@
+'use client'
 import { useState, useRef } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
 import { Printer, QrCode } from 'lucide-react'

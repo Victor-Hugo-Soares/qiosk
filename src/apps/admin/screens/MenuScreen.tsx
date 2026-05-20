@@ -1,5 +1,6 @@
+'use client'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 import { Plus, Pencil, Trash2, ToggleLeft, ToggleRight } from 'lucide-react'
 import { useQioskStore } from '../../../store'
 import { useToast } from '../../../hooks/useToast'
@@ -11,7 +12,7 @@ const C = {
 }
 
 export default function MenuScreen() {
-  const navigate = useNavigate()
+  const router = useRouter()
   const { toast } = useToast()
   const categories          = useQioskStore((s) => s.categories)
   const products            = useQioskStore((s) => s.products)
@@ -57,7 +58,7 @@ export default function MenuScreen() {
           </p>
         </div>
         <button
-          onClick={() => navigate('/admin/menu/new')}
+          onClick={() => router.push('/admin/menu/new')}
           className="touch-press"
           style={{
             display: 'flex', alignItems: 'center', gap: 8,
@@ -146,7 +147,7 @@ export default function MenuScreen() {
                 {/* Ações */}
                 <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
                   <button
-                    onClick={() => navigate(`/admin/menu/edit/${product.id}`)}
+                    onClick={() => router.push(`/admin/menu/edit/${product.id}`)}
                     className="touch-press"
                     style={{
                       width: 34, height: 34, borderRadius: 8,

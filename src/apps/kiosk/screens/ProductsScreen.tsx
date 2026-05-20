@@ -1,4 +1,5 @@
-import { useNavigate, useParams } from 'react-router-dom'
+'use client'
+import { useRouter, useParams } from 'next/navigation'
 import KioskHeader from '../components/KioskHeader'
 import ProductImage from '../components/ProductImage'
 import { ChevronRightIcon } from '../components/QioskIcons'
@@ -7,8 +8,9 @@ import { useQioskStore } from '../../../store'
 import { K } from '../theme'
 
 export default function ProductsScreen() {
-  const navigate = useNavigate()
-  const { categoryId } = useParams<{ categoryId: string }>()
+  const router = useRouter()
+  const params = useParams()
+  const categoryId = params.categoryId as string
   const categories = useQioskStore((s) => s.categories)
   const products   = useQioskStore((s) => s.products)
 
@@ -44,7 +46,7 @@ export default function ProductsScreen() {
           {list.map((product) => (
             <button
               key={product.id}
-              onClick={() => product.available && navigate(`/kiosk/product/${product.id}`)}
+              onClick={() => product.available && router.push(`/kiosk/product/${product.id}`)}
               disabled={!product.available}
               className="touch-press"
               style={{

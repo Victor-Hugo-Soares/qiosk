@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom'
+'use client'
+import { useRouter } from 'next/navigation'
 import KioskHeader from '../components/KioskHeader'
 import ProductImage from '../components/ProductImage'
 import { MinusIcon, PlusIcon, TrashIcon, EmptyBagIcon } from '../components/QioskIcons'
@@ -6,7 +7,7 @@ import { useCartStore, useQioskStore } from '../../../store'
 import { K } from '../theme'
 
 export default function CartScreen() {
-  const navigate = useNavigate()
+  const router = useRouter()
   const { items, updateQuantity, removeItem, totalPrice } = useCartStore()
   const products = useQioskStore((s) => s.products)
 
@@ -31,7 +32,7 @@ export default function CartScreen() {
             </p>
           </div>
           <button
-            onClick={() => navigate('/kiosk/categories')}
+            onClick={() => router.push('/kiosk/categories')}
             className="touch-press"
             style={{
               padding: '14px 32px', borderRadius: 16,
@@ -169,7 +170,7 @@ export default function CartScreen() {
 
         {/* Adicionar mais */}
         <button
-          onClick={() => navigate('/kiosk/categories')}
+          onClick={() => router.push('/kiosk/categories')}
           className="touch-press"
           style={{
             padding: '14px', borderRadius: 16,
@@ -204,7 +205,7 @@ export default function CartScreen() {
           </span>
         </div>
         <button
-          onClick={() => navigate('/kiosk/payment')}
+          onClick={() => router.push('/kiosk/payment')}
           className="touch-press"
           style={{
             width: '100%', height: 54,

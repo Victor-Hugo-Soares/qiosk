@@ -1,5 +1,6 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+'use client'
+import type { ReactElement } from 'react'
+import { useRouter } from 'next/navigation'
 import KioskHeader from '../components/KioskHeader'
 import {
   BurgerIcon, DrinkIcon, FriesIcon, IceCreamIcon,
@@ -10,7 +11,7 @@ import { CategoriesSkeleton } from '../../../components/Skeleton'
 import { useQioskStore } from '../../../store'
 import { K } from '../theme'
 
-type QioskIcon = (props: IconProps) => React.ReactElement
+type QioskIcon = (props: IconProps) => ReactElement
 
 const iconMap: Record<string, QioskIcon> = {
   Sandwich:         BurgerIcon,
@@ -33,7 +34,7 @@ const ICON_COLORS = [
 ]
 
 export default function CategoriesScreen() {
-  const navigate   = useNavigate()
+  const router     = useRouter()
   const categories = useQioskStore((s) => s.categories)
   const products   = useQioskStore((s) => s.products)
   const synced     = useQioskStore((s) => s.synced)
@@ -75,7 +76,7 @@ export default function CategoriesScreen() {
             return (
               <button
                 key={cat.id}
-                onClick={() => navigate(`/kiosk/products/${cat.id}`)}
+                onClick={() => router.push(`/kiosk/products/${cat.id}`)}
                 className="touch-press"
                 style={{
                   display: 'flex',
@@ -118,7 +119,7 @@ export default function CategoriesScreen() {
 
         {/* Ver tudo */}
         <button
-          onClick={() => navigate('/kiosk/products/all')}
+          onClick={() => router.push('/kiosk/products/all')}
           className="touch-press"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',

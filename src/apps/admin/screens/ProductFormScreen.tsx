@@ -1,5 +1,6 @@
+'use client'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useRouter, useParams } from 'next/navigation'
 import { Plus, Trash2, ArrowLeft } from 'lucide-react'
 import { useQioskStore } from '../../../store'
 import { useToast } from '../../../hooks/useToast'
@@ -36,8 +37,9 @@ const inputStyle: React.CSSProperties = {
 }
 
 export default function ProductFormScreen() {
-  const navigate   = useNavigate()
-  const { id }     = useParams<{ id: string }>()
+  const router   = useRouter()
+  const params   = useParams()
+  const id       = params.id as string | undefined
   const isEdit     = !!id
   const { toast }  = useToast()
 
@@ -117,14 +119,14 @@ export default function ProductFormScreen() {
       addProduct({ id: crypto.randomUUID(), ...data })
       toast(`"${data.name}" criado`, 'success')
     }
-    navigate('/admin/menu')
+    router.push('/admin/menu')
   }
 
   return (
     <div style={{ padding: '28px 32px', maxWidth: 680 }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28 }}>
-        <button onClick={() => navigate('/admin/menu')} className="touch-press"
+        <button onClick={() => router.push('/admin/menu')} className="touch-press"
           style={{ width: 36, height: 36, borderRadius: 8, background: C.surface, border: `1px solid ${C.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
           <ArrowLeft size={18} color={C.sub} />
         </button>
@@ -267,7 +269,7 @@ export default function ProductFormScreen() {
 
         {/* Botões */}
         <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
-          <button onClick={() => navigate('/admin/menu')} className="touch-press"
+          <button onClick={() => router.push('/admin/menu')} className="touch-press"
             style={{ padding: '11px 24px', borderRadius: 10, background: C.surface, border: `1px solid ${C.border}`, cursor: 'pointer', fontSize: 14, fontWeight: 600, color: C.sub, fontFamily: "'Space Grotesk', sans-serif" }}>
             Cancelar
           </button>

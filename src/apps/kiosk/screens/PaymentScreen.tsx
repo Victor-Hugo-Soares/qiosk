@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+'use client'
+import type { ReactElement } from 'react'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import KioskHeader from '../components/KioskHeader'
 import { PixIcon, CardPayIcon, CashIcon, type IconProps } from '../components/QioskIcons'
 import { useCartStore, useQioskStore } from '../../../store'
 import type { PaymentMethod } from '../../../types'
 import { K } from '../theme'
 
-type QioskIcon = (props: IconProps) => React.ReactElement
+type QioskIcon = (props: IconProps) => ReactElement
 
 const OPTIONS: { method: PaymentMethod; Icon: QioskIcon; label: string; sub: string }[] = [
   { method: 'pix',  Icon: PixIcon,     label: 'PIX',      sub: 'Pague com QR Code'  },
@@ -15,17 +17,22 @@ const OPTIONS: { method: PaymentMethod; Icon: QioskIcon; label: string; sub: str
 ]
 
 export default function PaymentScreen() {
-  const navigate = useNavigate()
+  const router = useRouter()
   const [selected, setSelected] = useState<PaymentMethod>('pix')
   const totalPrice = useCartStore((s) => s.totalPrice())
   const accepted   = useQioskStore((s) => s.settings.paymentMethods)
+  const setPaymentMethod = useCartStore((s) => s.setPaymentMethod)
 
   const available = OPTIONS.filter((o) => accepted.includes(o.method))
 
-  const handleConfirm = () =>
-    selected === 'pix'
-      ? navigate('/kiosk/pix')
-      : navigate('/kiosk/confirmation', { state: { paymentMethod: selected } })
+  const handleConfirm = () => {
+    if (selected === 'pix') {
+      router.push('/kiosk/pix')
+    } else {
+      setPaymentMethod(selected)
+      router.push('/kiosk/confirmation')
+    }
+  }
 
   return (
     <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', background: K.bg, paddingBottom: 100 }}>

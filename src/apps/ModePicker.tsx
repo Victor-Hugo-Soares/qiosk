@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom'
+'use client'
+import { useRouter } from 'next/navigation'
 import { Monitor, ChefHat, LayoutDashboard, ChevronRight } from 'lucide-react'
 
 const modes = [
@@ -29,7 +30,7 @@ const modes = [
 ]
 
 export default function ModePicker() {
-  const navigate = useNavigate()
+  const router = useRouter()
 
   return (
     <div style={{
@@ -78,7 +79,7 @@ export default function ModePicker() {
         {modes.map(({ path, icon: Icon, label, sub, tint, color }) => (
           <button
             key={path}
-            onClick={() => navigate(path)}
+            onClick={() => router.push(path)}
             className="touch-press"
             style={{
               display: 'flex',

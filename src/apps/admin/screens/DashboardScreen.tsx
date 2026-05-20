@@ -1,3 +1,4 @@
+'use client'
 import { useMemo, useState } from 'react'
 import { ShoppingBag, DollarSign, TrendingUp, Star } from 'lucide-react'
 import { useOrders } from '../../../hooks/useOrders'

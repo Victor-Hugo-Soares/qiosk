@@ -1,5 +1,6 @@
+'use client'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useRouter, useParams } from 'next/navigation'
 import KioskHeader from '../components/KioskHeader'
 import ProductImage from '../components/ProductImage'
 import { SteakIcon, SparkleIcon, PencilIcon, PlusIcon, MinusIcon, MeatSliceIcon } from '../components/QioskIcons'
@@ -18,8 +19,9 @@ const DONENESS: { value: Doneness; label: string; crustColor: string; innerColor
 ]
 
 export default function ProductDetailScreen() {
-  const navigate      = useNavigate()
-  const { productId } = useParams<{ productId: string }>()
+  const router      = useRouter()
+  const params      = useParams()
+  const productId   = params.productId as string
   const product       = useQioskStore((s) => s.products.find((p) => p.id === productId))
   const addItem       = useCartStore((s) => s.addItem)
 
@@ -27,7 +29,7 @@ export default function ProductDetailScreen() {
   const [doneness, setDoneness] = useState<Doneness>('ao-ponto')
   const [extras,   setExtras]   = useState<Record<string, boolean>>({})
   const [notes,    setNotes]    = useState('')
-  if (!product) { navigate('/kiosk/categories'); return null }
+  if (!product) { router.push('/kiosk/categories'); return null }
 
   const toggleExtra = (id: string) => setExtras((p) => ({ ...p, [id]: !p[id] }))
 
@@ -49,7 +51,7 @@ export default function ProductDetailScreen() {
       totalPrice: total,
     }
     addItem(item)
-    navigate('/kiosk/cart')
+    router.push('/kiosk/cart')
   }
 
   return (

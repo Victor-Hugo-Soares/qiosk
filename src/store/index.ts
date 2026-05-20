@@ -209,9 +209,11 @@ export const useQioskStore = create<QioskStore>()((set, get) => ({
 
 interface CartStore {
   items: OrderItem[]
+  paymentMethod: import('../types').PaymentMethod | null
   addItem:        (item: Omit<OrderItem, 'id'>) => void
   removeItem:     (id: string) => void
   updateQuantity: (id: string, qty: number) => void
+  setPaymentMethod: (m: import('../types').PaymentMethod) => void
   clear:          () => void
   totalItems:     () => number
   totalPrice:     () => number
@@ -219,6 +221,7 @@ interface CartStore {
 
 export const useCartStore = create<CartStore>((set, get) => ({
   items: [],
+  paymentMethod: null,
   addItem: (item) =>
     set((s) => ({ items: [...s.items, { ...item, id: crypto.randomUUID() }] })),
   removeItem: (id) =>
@@ -234,7 +237,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
               return { ...i, quantity: qty, totalPrice: (i.productPrice + extrasTotal) * qty }
             }),
     })),
-  clear: () => set({ items: [] }),
+  setPaymentMethod: (m) => set({ paymentMethod: m }),
+  clear: () => set({ items: [], paymentMethod: null }),
   totalItems: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
   totalPrice: () => get().items.reduce((sum, i) => sum + i.totalPrice, 0),
 }))

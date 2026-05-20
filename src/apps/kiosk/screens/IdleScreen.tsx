@@ -1,5 +1,6 @@
+'use client'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 import { useCartStore, useQioskStore } from '../../../store'
 import { LockIcon } from '../components/QioskIcons'
 import { K } from '../theme'
@@ -71,7 +72,7 @@ function ClosedScreen({ storeName }: { storeName: string }) {
 
 // ─── Tela: Idle normal ────────────────────────────────────────
 export default function IdleScreen() {
-  const navigate        = useNavigate()
+  const router          = useRouter()
   const clearCart       = useCartStore((s) => s.clear)
   const storeName       = useQioskStore((s) => s.settings.name)
   const acceptingOrders = useQioskStore((s) => s.settings.acceptingOrders)
@@ -102,7 +103,7 @@ export default function IdleScreen() {
 
   return (
     <div
-      onClick={() => navigate('/kiosk/categories')}
+      onClick={() => router.push('/kiosk/categories')}
       style={{
         width: '100%', minHeight: '100vh',
         background: K.bg,

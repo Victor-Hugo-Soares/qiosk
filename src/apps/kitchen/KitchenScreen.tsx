@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { Minus, Plus, CheckCheck, ChefHat, Clock, Volume2, VolumeX } from 'lucide-react'
 import { useQioskStore } from '../../store'

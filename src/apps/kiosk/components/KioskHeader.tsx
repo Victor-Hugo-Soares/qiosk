@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom'
+'use client'
+import { useRouter } from 'next/navigation'
 import { BackArrowIcon, CartIcon } from './QioskIcons'
 import { useCartStore, useQioskStore } from '../../../store'
 import { K } from '../theme'
@@ -10,13 +11,13 @@ interface Props {
 }
 
 export default function KioskHeader({ showBack = true, showCart = true, onBack }: Props) {
-  const navigate   = useNavigate()
+  const router     = useRouter()
   const totalItems = useCartStore((s) => s.totalItems())
   const storeName  = useQioskStore((s) => s.settings.name)
 
   const handleBack = () => {
     if (onBack) { onBack(); return }
-    navigate(-1)
+    router.back()
   }
 
   return (
@@ -75,7 +76,7 @@ export default function KioskHeader({ showBack = true, showCart = true, onBack }
       <div style={{ width: 44 }}>
         {showCart && (
           <button
-            onClick={() => navigate('/kiosk/cart')}
+            onClick={() => router.push('/kiosk/cart')}
             className="touch-press"
             style={{
               width: 44, height: 44,

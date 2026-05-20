@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+'use client'
+import type { ReactElement } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { PixIcon, CardPayIcon, CashIcon, type IconProps } from '../components/QioskIcons'
 import { useCartStore, useQioskStore } from '../../../store'
 import type { PaymentMethod } from '../../../types'
@@ -7,7 +9,7 @@ import { K } from '../theme'
 
 const RETURN_SECONDS = 12
 
-type QioskIcon = (props: IconProps) => React.ReactElement
+type QioskIcon = (props: IconProps) => ReactElement
 
 const PAYMENT_INFO: Record<PaymentMethod, { label: string; Icon: QioskIcon; color: string }> = {
   pix:  { label: 'PIX confirmado',       Icon: PixIcon,     color: '#22C55E' },
@@ -16,9 +18,9 @@ const PAYMENT_INFO: Record<PaymentMethod, { label: string; Icon: QioskIcon; colo
 }
 
 export default function ConfirmationScreen() {
-  const navigate  = useNavigate()
-  const location  = useLocation()
-  const paymentMethod = (location.state?.paymentMethod ?? 'cash') as PaymentMethod
+  const router  = useRouter()
+  const storedPaymentMethod = useCartStore((s) => s.paymentMethod)
+  const paymentMethod = (storedPaymentMethod ?? 'cash') as PaymentMethod
 
   const { items, clear }     = useCartStore()
   const { addOrder, settings } = useQioskStore()
@@ -31,7 +33,7 @@ export default function ConfirmationScreen() {
   useEffect(() => {
     if (created.current) return
     created.current = true
-    if (items.length === 0) { navigate('/kiosk/idle'); return }
+    if (items.length === 0) { router.push('/kiosk/idle'); return }
     const order = addOrder(items, paymentMethod)
     setOrderNumber(order.number)
     clear()
@@ -39,10 +41,10 @@ export default function ConfirmationScreen() {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (countdown <= 0) { navigate('/kiosk/idle'); return }
+    if (countdown <= 0) { router.push('/kiosk/idle'); return }
     const t = setTimeout(() => setCountdown((c) => c - 1), 1000)
     return () => clearTimeout(t)
-  }, [countdown, navigate])
+  }, [countdown, router])
 
   const { label: payLabel, Icon: PayIcon, color: payColor } = PAYMENT_INFO[paymentMethod]
 
@@ -176,7 +178,7 @@ export default function ConfirmationScreen() {
           Voltando ao início em {countdown}s
         </p>
         <button
-          onClick={() => navigate('/kiosk/idle')}
+          onClick={() => router.push('/kiosk/idle')}
           className="touch-press"
           style={{
             padding: '12px 32px', borderRadius: 14,
