@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { LayoutDashboard, UtensilsCrossed, Tag, Settings, QrCode, ArrowLeft } from 'lucide-react'
 import { useQioskStore } from '../../../store'
+import { signOut } from '../../../lib/auth'
 
 const NAV = [
   { path: '/admin/dashboard',  icon: LayoutDashboard, label: 'Dashboard'  },
@@ -94,7 +95,7 @@ export default function AdminSidebar() {
       {/* Sair */}
       <div style={{ padding: '10px 10px 16px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
         <button
-          onClick={() => navigate('/')}
+          onClick={async () => { await signOut(); navigate('/') }}
           className="touch-press"
           style={{
             display: 'flex', alignItems: 'center', gap: 8,

@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Banknote, CreditCard, QrCode } from 'lucide-react'
 import KioskHeader from '../components/KioskHeader'
+import { PixIcon, CardPayIcon, CashIcon, type IconProps } from '../components/QioskIcons'
 import { useCartStore, useQioskStore } from '../../../store'
 import type { PaymentMethod } from '../../../types'
 import { K } from '../theme'
 
-const OPTIONS: { method: PaymentMethod; icon: React.ElementType; label: string; sub: string; emoji: string }[] = [
-  { method: 'pix',  icon: QrCode,     label: 'PIX',       sub: 'Pague com QR Code',    emoji: '⚡' },
-  { method: 'card', icon: CreditCard, label: 'Cartão',    sub: 'Crédito ou débito',    emoji: '💳' },
-  { method: 'cash', icon: Banknote,   label: 'No caixa',  sub: 'Pague ao atendente',   emoji: '💵' },
+type QioskIcon = (props: IconProps) => JSX.Element
+
+const OPTIONS: { method: PaymentMethod; Icon: QioskIcon; label: string; sub: string }[] = [
+  { method: 'pix',  Icon: PixIcon,     label: 'PIX',      sub: 'Pague com QR Code'  },
+  { method: 'card', Icon: CardPayIcon, label: 'Cartão',   sub: 'Crédito ou débito'  },
+  { method: 'cash', Icon: CashIcon,    label: 'No caixa', sub: 'Pague ao atendente' },
 ]
 
 export default function PaymentScreen() {
@@ -33,7 +35,7 @@ export default function PaymentScreen() {
         {/* Título */}
         <div>
           <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: K.text, margin: 0 }}>
-            Como vai pagar? 💳
+            Como vai pagar?
           </h2>
           <p style={{ fontSize: 13, color: K.sub, marginTop: 4 }}>
             Escolha a forma de pagamento
@@ -62,7 +64,7 @@ export default function PaymentScreen() {
 
         {/* Opções */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {available.map(({ method, icon: Icon, label, sub, emoji }) => {
+          {available.map(({ method, Icon, label, sub }) => {
             const active = selected === method
             return (
               <button
@@ -89,7 +91,11 @@ export default function PaymentScreen() {
                   flexShrink: 0,
                   transition: 'background 0.15s ease',
                 }}>
-                  <Icon size={24} color={active ? '#FFF' : K.sub} strokeWidth={1.75} />
+                  <Icon
+                    size={24}
+                    color={active ? '#FFF' : K.sub}
+                    strokeWidth={1.75}
+                  />
                 </div>
 
                 {/* Texto */}
@@ -100,7 +106,7 @@ export default function PaymentScreen() {
                     color: active ? K.brand : K.text,
                     margin: 0,
                   }}>
-                    {emoji} {label}
+                    {label}
                   </p>
                   <p style={{ fontSize: 13, color: K.sub, marginTop: 2 }}>{sub}</p>
                 </div>

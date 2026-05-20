@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCartStore, useQioskStore } from '../../../store'
+import { LockIcon } from '../components/QioskIcons'
 import { K } from '../theme'
 import type { BusinessHours } from '../../../types'
 
@@ -30,9 +31,8 @@ function ClosedScreen({ storeName }: { storeName: string }) {
         background: '#FFF0E6',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         marginBottom: 28,
-        fontSize: 48,
       }}>
-        🔒
+        <LockIcon size={44} color={K.brand} strokeWidth={1.75} />
       </div>
 
       {/* Texto */}
@@ -53,7 +53,7 @@ function ClosedScreen({ storeName }: { storeName: string }) {
             : 'Não estamos aceitando pedidos no momento.'}
         </p>
         <p style={{ fontSize: 14, color: K.muted, marginTop: 8 }}>
-          Volte em breve! 😊
+          Volte em breve!
         </p>
       </div>
 

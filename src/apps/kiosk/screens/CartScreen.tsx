@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react'
 import KioskHeader from '../components/KioskHeader'
-import ProductPlaceholder from '../components/ProductPlaceholder'
+import ProductImage from '../components/ProductImage'
+import { MinusIcon, PlusIcon, TrashIcon, EmptyBagIcon } from '../components/QioskIcons'
 import { useCartStore, useQioskStore } from '../../../store'
 import { K } from '../theme'
 
@@ -20,7 +20,7 @@ export default function CartScreen() {
             background: K.brandLight,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
-            <ShoppingBag size={40} color={K.brand} strokeWidth={1.75} />
+            <EmptyBagIcon size={40} color={K.brand} strokeWidth={1.75} />
           </div>
           <div style={{ textAlign: 'center' }}>
             <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 18, fontWeight: 700, color: K.text, margin: 0 }}>
@@ -54,7 +54,7 @@ export default function CartScreen() {
 
       <div style={{ flex: 1, padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 16 }}>
         <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: K.text, margin: 0 }}>
-          Seu pedido 🛍️
+          Seu pedido
         </h2>
 
         {/* Itens */}
@@ -76,9 +76,11 @@ export default function CartScreen() {
                 <div style={{
                   width: 68, height: 68, borderRadius: 12,
                   background: K.bg, flexShrink: 0,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  overflow: 'hidden',
                 }}>
-                  <ProductPlaceholder color={product?.imageColor ?? '#8B5E3C'} size={52} />
+                  {product && (
+                    <ProductImage product={product} size={68} borderRadius={12} />
+                  )}
                 </div>
 
                 {/* Info */}
@@ -125,7 +127,7 @@ export default function CartScreen() {
                           cursor: 'pointer',
                         }}
                       >
-                        <Trash2 size={15} color={K.danger} />
+                        <TrashIcon size={15} color={K.danger} strokeWidth={1.75} />
                       </button>
                       <div style={{
                         display: 'flex', alignItems: 'center',
@@ -139,7 +141,7 @@ export default function CartScreen() {
                           className="touch-press"
                           style={{ width: 40, height: 40, background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                         >
-                          <Minus size={14} color={K.text} strokeWidth={2.5} />
+                          <MinusIcon size={14} color={K.text} strokeWidth={2.5} />
                         </button>
                         <span style={{
                           fontFamily: "'Space Grotesk', sans-serif",
@@ -154,7 +156,7 @@ export default function CartScreen() {
                           className="touch-press"
                           style={{ width: 40, height: 40, background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                         >
-                          <Plus size={14} color={K.text} strokeWidth={2.5} />
+                          <PlusIcon size={14} color={K.text} strokeWidth={2.5} />
                         </button>
                       </div>
                     </div>

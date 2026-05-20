@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, ShoppingBag } from 'lucide-react'
+import { BackArrowIcon, CartIcon } from './QioskIcons'
 import { useCartStore, useQioskStore } from '../../../store'
 import { K } from '../theme'
 
 interface Props {
   showBack?: boolean
   showCart?: boolean
-  onBack?: () => void
+  onBack?:   () => void
 }
 
 export default function KioskHeader({ showBack = true, showCart = true, onBack }: Props) {
@@ -50,7 +50,7 @@ export default function KioskHeader({ showBack = true, showCart = true, onBack }
               cursor: 'pointer',
             }}
           >
-            <ArrowLeft size={20} color={K.text} strokeWidth={2} />
+            <BackArrowIcon size={20} color={K.text} strokeWidth={2} />
           </button>
         )}
       </div>
@@ -87,7 +87,7 @@ export default function KioskHeader({ showBack = true, showCart = true, onBack }
               position: 'relative',
             }}
           >
-            <ShoppingBag size={20} color={totalItems > 0 ? K.brand : K.sub} strokeWidth={2} />
+            <CartIcon size={20} color={totalItems > 0 ? K.brand : K.sub} strokeWidth={1.75} />
             {totalItems > 0 && (
               <span style={{
                 position: 'absolute',

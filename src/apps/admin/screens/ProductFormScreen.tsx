@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Plus, Trash2, ArrowLeft } from 'lucide-react'
 import { useQioskStore } from '../../../store'
+import { useToast } from '../../../hooks/useToast'
 import type { ExtraGroup, Product } from '../../../types'
 
 const C = {
@@ -38,6 +39,7 @@ export default function ProductFormScreen() {
   const navigate   = useNavigate()
   const { id }     = useParams<{ id: string }>()
   const isEdit     = !!id
+  const { toast }  = useToast()
 
   const categories    = useQioskStore((s) => s.categories)
   const products      = useQioskStore((s) => s.products)
@@ -110,8 +112,10 @@ export default function ProductFormScreen() {
 
     if (isEdit && id) {
       updateProduct(id, data)
+      toast(`"${data.name}" atualizado`, 'success')
     } else {
       addProduct({ id: crypto.randomUUID(), ...data })
+      toast(`"${data.name}" criado`, 'success')
     }
     navigate('/admin/menu')
   }

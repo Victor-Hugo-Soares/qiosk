@@ -1,18 +1,27 @@
 import { useNavigate } from 'react-router-dom'
-import {
-  Sandwich, Coffee, UtensilsCrossed, IceCream2,
-  Pizza, Beef, Salad, ShoppingBag, ChevronRight,
-} from 'lucide-react'
 import KioskHeader from '../components/KioskHeader'
+import {
+  BurgerIcon, DrinkIcon, FriesIcon, IceCreamIcon,
+  AllMenuIcon, ChevronRightIcon,
+  type IconProps,
+} from '../components/QioskIcons'
+import { CategoriesSkeleton } from '../../../components/Skeleton'
 import { useQioskStore } from '../../../store'
 import { K } from '../theme'
 
-const iconMap: Record<string, React.ElementType> = {
-  Sandwich, Cup: Coffee, UtensilsCrossed, IceCream: IceCream2,
-  Pizza, Beef, Salad, ShoppingBag,
+type QioskIcon = (props: IconProps) => JSX.Element
+
+const iconMap: Record<string, QioskIcon> = {
+  Sandwich:         BurgerIcon,
+  Cup:              DrinkIcon,
+  UtensilsCrossed:  FriesIcon,
+  IceCream:         IceCreamIcon,
+  Pizza:            BurgerIcon,
+  Beef:             BurgerIcon,
+  Salad:            DrinkIcon,
+  ShoppingBag:      AllMenuIcon,
 }
 
-// Cor de fundo suave por índice para dar identidade a cada categoria
 const CARD_TINTS = [
   '#FFF3E8', '#FFF8E1', '#F3FFF0', '#E8F4FF',
   '#FFF0F3', '#F5F0FF', '#FFFDE8', '#F0FFFA',
@@ -26,14 +35,16 @@ export default function CategoriesScreen() {
   const navigate   = useNavigate()
   const categories = useQioskStore((s) => s.categories)
   const products   = useQioskStore((s) => s.products)
+  const synced     = useQioskStore((s) => s.synced)
 
   const sorted = [...categories].sort((a, b) => a.order - b.order)
 
   return (
     <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', background: K.bg }}>
       <KioskHeader showBack={false} />
+      {!synced && <CategoriesSkeleton />}
 
-      <div style={{ flex: 1, padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {synced && <div style={{ flex: 1, padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 20 }}>
         {/* Título */}
         <div>
           <h2 style={{
@@ -41,7 +52,7 @@ export default function CategoriesScreen() {
             fontSize: 22, fontWeight: 700,
             color: K.text, margin: 0,
           }}>
-            O que vai ser hoje? 👋
+            O que vai ser hoje?
           </h2>
           <p style={{ fontSize: 13, color: K.sub, marginTop: 4 }}>
             Escolha uma categoria para começar
@@ -55,7 +66,7 @@ export default function CategoriesScreen() {
           gap: 12,
         }}>
           {sorted.map((cat, i) => {
-            const Icon      = iconMap[cat.icon] ?? Sandwich
+            const Icon      = iconMap[cat.icon] ?? BurgerIcon
             const count     = products.filter((p) => p.categoryId === cat.id && p.available).length
             const tint      = CARD_TINTS[i % CARD_TINTS.length]
             const iconColor = ICON_COLORS[i % ICON_COLORS.length]
@@ -124,7 +135,7 @@ export default function CategoriesScreen() {
               background: K.brandLight,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <ShoppingBag size={22} color={K.brand} strokeWidth={1.75} />
+              <AllMenuIcon size={22} color={K.brand} strokeWidth={1.75} />
             </div>
             <div>
               <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600, color: K.text, margin: 0 }}>
@@ -135,9 +146,9 @@ export default function CategoriesScreen() {
               </p>
             </div>
           </div>
-          <ChevronRight size={20} color={K.muted} />
+          <ChevronRightIcon size={20} color={K.muted} strokeWidth={2} />
         </button>
-      </div>
+      </div>}
     </div>
   )
 }

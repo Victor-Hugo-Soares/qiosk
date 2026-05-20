@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { ChevronRight } from 'lucide-react'
 import KioskHeader from '../components/KioskHeader'
 import ProductImage from '../components/ProductImage'
+import { ChevronRightIcon } from '../components/QioskIcons'
+import { ProductsSkeleton } from '../../../components/Skeleton'
 import { useQioskStore } from '../../../store'
 import { K } from '../theme'
 
@@ -11,6 +12,7 @@ export default function ProductsScreen() {
   const categories = useQioskStore((s) => s.categories)
   const products   = useQioskStore((s) => s.products)
 
+  const synced   = useQioskStore((s) => s.synced)
   const isAll    = categoryId === 'all'
   const category = categories.find((c) => c.id === categoryId)
   const list     = isAll
@@ -20,8 +22,9 @@ export default function ProductsScreen() {
   return (
     <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', background: K.bg }}>
       <KioskHeader />
+      {!synced && <ProductsSkeleton />}
 
-      <div style={{ flex: 1, padding: '20px 16px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {synced && <div style={{ flex: 1, padding: '20px 16px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
         {/* Título */}
         <div>
           <h2 style={{
@@ -119,12 +122,12 @@ export default function ProductsScreen() {
 
               {/* Chevron */}
               {product.available && (
-                <ChevronRight size={20} color={K.muted} style={{ flexShrink: 0 }} />
+                <ChevronRightIcon size={20} color={K.muted} strokeWidth={2} />
               )}
             </button>
           ))}
         </div>
-      </div>
+      </div>}
     </div>
   )
 }

@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { PixIcon, CardPayIcon, CashIcon, type IconProps } from '../components/QioskIcons'
 import { useCartStore, useQioskStore } from '../../../store'
 import type { PaymentMethod } from '../../../types'
 import { K } from '../theme'
 
 const RETURN_SECONDS = 12
 
-const PAYMENT_INFO: Record<PaymentMethod, { label: string; emoji: string; color: string }> = {
-  pix:  { label: 'PIX confirmado',        emoji: '⚡', color: '#22C55E' },
-  card: { label: 'Pague na maquininha',   emoji: '💳', color: K.brand   },
-  cash: { label: 'Pague no caixa',        emoji: '💵', color: K.brand   },
+type QioskIcon = (props: IconProps) => JSX.Element
+
+const PAYMENT_INFO: Record<PaymentMethod, { label: string; Icon: QioskIcon; color: string }> = {
+  pix:  { label: 'PIX confirmado',       Icon: PixIcon,     color: '#22C55E' },
+  card: { label: 'Pague na maquininha',  Icon: CardPayIcon, color: K.brand   },
+  cash: { label: 'Pague no caixa',       Icon: CashIcon,    color: K.brand   },
 }
 
 export default function ConfirmationScreen() {
@@ -41,7 +44,7 @@ export default function ConfirmationScreen() {
     return () => clearTimeout(t)
   }, [countdown, navigate])
 
-  const pay = PAYMENT_INFO[paymentMethod]
+  const { label: payLabel, Icon: PayIcon, color: payColor } = PAYMENT_INFO[paymentMethod]
 
   return (
     <div style={{
@@ -79,7 +82,7 @@ export default function ConfirmationScreen() {
             fontSize: 26, fontWeight: 800, color: K.text,
             margin: 0, lineHeight: 1.1,
           }}>
-            Pedido confirmado! 🎉
+            Pedido confirmado!
           </h2>
           <p style={{ fontSize: 14, color: K.sub, marginTop: 8 }}>
             Vamos preparar com muito carinho
@@ -142,10 +145,17 @@ export default function ConfirmationScreen() {
           boxShadow: K.shadow,
           display: 'flex', alignItems: 'center', gap: 12,
         }}>
-          <span style={{ fontSize: 24 }}>{pay.emoji}</span>
+          <div style={{
+            width: 44, height: 44, borderRadius: 12,
+            background: payColor === '#22C55E' ? 'rgba(34,197,94,0.1)' : K.brandLight,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            flexShrink: 0,
+          }}>
+            <PayIcon size={22} color={payColor} strokeWidth={1.75} />
+          </div>
           <div>
             <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600, color: K.text, margin: 0 }}>
-              {pay.label}
+              {payLabel}
             </p>
             {(paymentMethod === 'card' || paymentMethod === 'cash') && (
               <p style={{ fontSize: 12, color: K.sub, marginTop: 2 }}>

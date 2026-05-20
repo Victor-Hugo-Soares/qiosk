@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Plus, Pencil, Trash2, ToggleLeft, ToggleRight } from 'lucide-react'
 import { useQioskStore } from '../../../store'
+import { useToast } from '../../../hooks/useToast'
 
 const C = {
   surface: '#FFFFFF', border: 'rgba(0,0,0,0.07)', altRow: '#FAFAF8',
@@ -11,6 +12,7 @@ const C = {
 
 export default function MenuScreen() {
   const navigate = useNavigate()
+  const { toast } = useToast()
   const categories          = useQioskStore((s) => s.categories)
   const products            = useQioskStore((s) => s.products)
   const toggleAvailability  = useQioskStore((s) => s.toggleProductAvailability)
@@ -20,12 +22,24 @@ export default function MenuScreen() {
 
   const handleDelete = (id: string) => {
     if (confirmDelete === id) {
+      const name = products.find((p) => p.id === id)?.name ?? 'Produto'
       deleteProduct(id)
       setConfirmDelete(null)
+      toast(`"${name}" removido`, 'info')
     } else {
       setConfirmDelete(id)
       setTimeout(() => setConfirmDelete(null), 3000)
     }
+  }
+
+  const handleToggle = (id: string) => {
+    const product = products.find((p) => p.id === id)
+    if (!product) return
+    toggleAvailability(id)
+    toast(
+      product.available ? `"${product.name}" desativado` : `"${product.name}" ativado`,
+      product.available ? 'info' : 'success',
+    )
   }
 
   const sorted = [...categories].sort((a, b) => a.order - b.order)
@@ -113,7 +127,7 @@ export default function MenuScreen() {
 
                 {/* Toggle disponível */}
                 <button
-                  onClick={() => toggleAvailability(product.id)}
+                  onClick={() => handleToggle(product.id)}
                   className="touch-press"
                   style={{
                     display: 'flex', alignItems: 'center', gap: 6,

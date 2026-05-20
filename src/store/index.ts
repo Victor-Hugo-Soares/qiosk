@@ -10,6 +10,10 @@ import {
 // ─── Store types ──────────────────────────────────────────────────────────────
 
 interface QioskStore {
+  // Sync state
+  synced: boolean
+  setSynced: (v: boolean) => void
+
   // Settings
   settings: StoreSettings
   setSettings:    (settings: StoreSettings) => void
@@ -69,6 +73,10 @@ const defaultSettings: StoreSettings = {
 // ─── Store ────────────────────────────────────────────────────────────────────
 
 export const useQioskStore = create<QioskStore>()((set, get) => ({
+
+  // ── Sync ─────────────────────────────────────────────────────────────────────
+  synced: false,
+  setSynced: (v) => set({ synced: v }),
 
   // ── Settings ────────────────────────────────────────────────────────────────
   settings: defaultSettings,

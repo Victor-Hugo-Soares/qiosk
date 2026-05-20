@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { X } from 'lucide-react'
+import { PixIcon, CloseIcon, CheckIcon } from '../components/QioskIcons'
 import { useCartStore } from '../../../store'
 import { K } from '../theme'
 
@@ -69,9 +69,12 @@ export default function PixScreen() {
         borderBottom: `1px solid ${K.border}`,
         boxShadow: '0 1px 0 rgba(0,0,0,0.05)',
       }}>
-        <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, fontWeight: 700, color: K.text }}>
-          Pagamento PIX ⚡
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <PixIcon size={18} color={K.brand} />
+          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, fontWeight: 700, color: K.text }}>
+            Pagamento PIX
+          </span>
+        </div>
         <button
           onClick={() => navigate('/kiosk/payment')}
           className="touch-press"
@@ -82,7 +85,7 @@ export default function PixScreen() {
             cursor: 'pointer',
           }}
         >
-          <X size={20} color={K.sub} />
+          <CloseIcon size={20} color={K.sub} strokeWidth={2} />
         </button>
       </div>
 
@@ -161,9 +164,11 @@ export default function PixScreen() {
             fontSize: 17, fontWeight: 700, color: '#FFF',
             cursor: 'pointer',
             boxShadow: '0 4px 16px rgba(34,197,94,0.28)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
           }}
         >
-          ✓ Já paguei
+          <CheckIcon size={20} color="#FFF" strokeWidth={2.5} />
+          Já paguei
         </button>
       </div>
     </div>

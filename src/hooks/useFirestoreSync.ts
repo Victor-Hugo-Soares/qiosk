@@ -11,15 +11,21 @@ export function useFirestoreSync() {
   const setCategories = useQioskStore((s) => s.setCategories)
   const setProducts   = useQioskStore((s) => s.setProducts)
   const setSettings   = useQioskStore((s) => s.setSettings)
+  const setSynced     = useQioskStore((s) => s.setSynced)
   const seeded        = useRef(false)
+  const syncedRef     = useRef(false)
 
   useEffect(() => {
     const unsubCats = listenCategories((cats) => {
       setCategories(cats)
-      // Seed uma única vez se o Firestore estiver vazio
       if (!seeded.current) {
         seeded.current = true
         seedIfEmpty(cats.length).catch(console.error)
+      }
+      // Marca como sincronizado na primeira resposta do Firestore
+      if (!syncedRef.current) {
+        syncedRef.current = true
+        setSynced(true)
       }
     })
     const unsubProds = listenProducts((prods) => {

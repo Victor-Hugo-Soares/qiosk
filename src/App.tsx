@@ -4,6 +4,8 @@ import KioskApp from './apps/kiosk/KioskApp'
 import KitchenApp from './apps/kitchen/KitchenApp'
 import AdminApp from './apps/admin/AdminApp'
 import { useFirestoreSync } from './hooks/useFirestoreSync'
+import ToastContainer from './components/ToastContainer'
+import OfflineBanner from './components/OfflineBanner'
 
 function AppRoutes() {
   useFirestoreSync()
@@ -22,6 +24,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <AppRoutes />
+      <ToastContainer />
+      <OfflineBanner />
     </BrowserRouter>
   )
 }
