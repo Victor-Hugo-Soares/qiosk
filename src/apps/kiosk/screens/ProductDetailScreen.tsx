@@ -85,8 +85,8 @@ export default function ProductDetailScreen() {
         <div style={{
           position: 'sticky',
           top: 0,
-          height: 280,
-          background: K.brandLight,
+          height: 300,
+          background: K.surfaceMuted,
           overflow: 'hidden',
           zIndex: 0,
           flexShrink: 0,
@@ -99,7 +99,7 @@ export default function ProductDetailScreen() {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                objectPosition: 'center center',
+                objectPosition: 'center 20%',
                 display: 'block',
               }}
             />
@@ -109,11 +109,11 @@ export default function ProductDetailScreen() {
             </div>
           )}
 
-          {/* Gradiente na base da imagem — suave, multi-step */}
+          {/* Gradiente na base da imagem */}
           <div style={{
             position: 'absolute', bottom: 0, left: 0, right: 0,
-            height: 110,
-            background: 'linear-gradient(to bottom, transparent 0%, transparent 15%, rgba(255,248,244,0.4) 45%, rgba(255,248,244,0.82) 75%, rgba(255,248,244,0.97) 100%)',
+            height: 80,
+            background: 'linear-gradient(to bottom, transparent 0%, rgba(245,244,241,0.7) 60%, rgba(245,244,241,0.98) 100%)',
             zIndex: 1,
           }} />
         </div>

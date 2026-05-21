@@ -1,30 +1,38 @@
 ﻿'use client'
 import { useRouter } from 'next/navigation'
 import {
-  Sandwich, CupSoda, UtensilsCrossed, IceCream,
-  Star, Pizza, Beef, Salad, LayoutGrid,
-  ChevronRight,
-} from 'lucide-react'
-import type { FC, SVGProps } from 'react'
+  Hamburger, Wine, ForkKnife, IceCream,
+  Pizza, BowlFood, CookingPot, Coffee,
+  SquaresFour,
+} from '@phosphor-icons/react'
+import { ChevronRight } from 'lucide-react'
 import KioskHeader from '../components/KioskHeader'
 import { CategoriesSkeleton } from '../../../components/Skeleton'
 import { useQioskStore } from '../../../store'
 import { K } from '../theme'
 
-type LucideIcon = FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number; color?: string }>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type PhosphorIcon = React.FC<any>
 
-const iconMap: Record<string, LucideIcon> = {
-  Sandwich,
-  Cup:             CupSoda,
-  CupSoda,
-  UtensilsCrossed,
+const iconMap: Record<string, PhosphorIcon> = {
+  Sandwich:        Hamburger,
+  Hamburger,
+  Cup:             Wine,
+  CupSoda:         Wine,
+  Wine,
+  Coffee,
+  UtensilsCrossed: ForkKnife,
+  ForkKnife,
   IceCream,
-  Star,
+  Star:            Pizza,
   Pizza,
-  Beef,
-  Salad,
-  LayoutGrid,
-  ShoppingBag:     LayoutGrid,
+  Beef:            BowlFood,
+  BowlFood,
+  CookingPot,
+  Salad:           ForkKnife,
+  ShoppingBag:     SquaresFour,
+  LayoutGrid:      SquaresFour,
+  SquaresFour,
 }
 
 export default function CategoriesScreen() {
@@ -87,10 +95,10 @@ export default function CategoriesScreen() {
                 <div style={{
                   width: 48, height: 48,
                   borderRadius: 14,
-                  background: K.bg,
+                  background: K.brandLight,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
-                  <Icon size={24} color={K.text} strokeWidth={1.75} />
+                  <Icon size={26} color={K.brand} weight="fill" />
                 </div>
                 <div>
                   <p style={{
@@ -126,10 +134,10 @@ export default function CategoriesScreen() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{
               width: 44, height: 44, borderRadius: 12,
-              background: K.bg,
+              background: K.brandLight,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <LayoutGrid size={22} color={K.brand} strokeWidth={1.75} />
+              <SquaresFour size={22} color={K.brand} weight="fill" />
             </div>
             <div>
               <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 15, fontWeight: 600, color: K.text, margin: 0 }}>
