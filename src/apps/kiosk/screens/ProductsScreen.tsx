@@ -114,7 +114,7 @@ export default function ProductsScreen() {
                 )}
                 <p style={{
                   fontFamily: "'Figtree', sans-serif",
-                  fontSize: 17, fontWeight: 700, color: K.brandDeep,
+                  fontSize: 17, fontWeight: 700, color: K.text,
                   margin: '8px 0 0',
                   fontVariantNumeric: 'tabular-nums',
                 }}>

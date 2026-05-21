@@ -156,7 +156,7 @@ export default function ProductDetailScreen() {
             )}
             <p style={{
               fontFamily: "'Figtree', sans-serif",
-              fontSize: 24, fontWeight: 700, color: K.brandDeep,
+              fontSize: 24, fontWeight: 700, color: K.text,
               margin: '12px 0 0',
               fontVariantNumeric: 'tabular-nums',
             }}>
@@ -259,7 +259,7 @@ export default function ProductDetailScreen() {
                       {ex.price > 0 && (
                         <span style={{
                           fontFamily: "'Figtree', sans-serif",
-                          fontSize: 14, fontWeight: 700, color: K.brandDeep,
+                          fontSize: 14, fontWeight: 700, color: K.text,
                           fontVariantNumeric: 'tabular-nums',
                         }}>
                           +R$ {ex.price.toFixed(2).replace('.', ',')}
