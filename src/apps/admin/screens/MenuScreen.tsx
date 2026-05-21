@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Plus, Pencil, Trash2, ToggleLeft, ToggleRight } from 'lucide-react'
@@ -50,7 +50,7 @@ export default function MenuScreen() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 24, fontWeight: 700, color: C.text }}>
+          <h1 style={{ fontFamily: "'Figtree', sans-serif", fontSize: 24, fontWeight: 700, color: C.text }}>
             Cardápio
           </h1>
           <p style={{ fontSize: 13, color: C.sub, marginTop: 4 }}>
@@ -64,7 +64,7 @@ export default function MenuScreen() {
             display: 'flex', alignItems: 'center', gap: 8,
             padding: '10px 20px', borderRadius: 10,
             background: C.brand, border: 'none', cursor: 'pointer',
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 14, fontWeight: 600, color: '#FFF',
           }}
         >
@@ -86,7 +86,7 @@ export default function MenuScreen() {
               borderBottom: `1px solid ${C.border}`,
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             }}>
-              <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 700, color: C.text }}>
+              <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 700, color: C.text }}>
                 {cat.name}
               </p>
               <span style={{ fontSize: 12, color: C.muted }}>
@@ -113,7 +113,7 @@ export default function MenuScreen() {
 
                 {/* Nome + descrição */}
                 <div style={{ minWidth: 0 }}>
-                  <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: product.available ? C.text : C.muted, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: product.available ? C.text : C.muted, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {product.name}
                   </p>
                   <p style={{ fontSize: 12, color: C.muted, marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -122,7 +122,7 @@ export default function MenuScreen() {
                 </div>
 
                 {/* Preço */}
-                <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 700, color: C.text, fontVariantNumeric: 'tabular-nums' }}>
+                <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 700, color: C.text, fontVariantNumeric: 'tabular-nums' }}>
                   R$ {product.price.toFixed(2).replace('.', ',')}
                 </p>
 

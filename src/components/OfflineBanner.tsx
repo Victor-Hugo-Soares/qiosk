@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 
 export default function OfflineBanner() {
   const [online,  setOnline]  = useState(true)
@@ -37,7 +37,7 @@ export default function OfflineBanner() {
         flexShrink: 0,
       }} />
       <span style={{
-        fontFamily: "'Space Grotesk', sans-serif",
+        fontFamily: "'Figtree', sans-serif",
         fontSize: 13, fontWeight: 600, color: '#FFF',
       }}>
         {online ? 'Conexão restaurada' : 'Sem conexão — verifique a internet'}

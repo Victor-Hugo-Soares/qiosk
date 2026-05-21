@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState } from 'react'
 import { Minus, Plus, CheckCircle2 } from 'lucide-react'
 import { useQioskStore } from '../../../store'
@@ -67,13 +67,13 @@ export default function SettingsScreen() {
 
   return (
     <div style={{ padding: '28px 32px', maxWidth: 600, display: 'flex', flexDirection: 'column', gap: 24 }}>
-      <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 24, fontWeight: 700, color: C.text }}>
+      <h1 style={{ fontFamily: "'Figtree', sans-serif", fontSize: 24, fontWeight: 700, color: C.text }}>
         Configurações
       </h1>
 
       {/* Estabelecimento */}
       <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: 24, display: 'flex', flexDirection: 'column', gap: 18 }}>
-        <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
+        <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
           Estabelecimento
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -89,7 +89,7 @@ export default function SettingsScreen() {
               style={{
                 padding: '10px 20px', borderRadius: 10, flexShrink: 0,
                 background: saved ? C.success : C.brand, border: 'none', cursor: 'pointer',
-                fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: '#FFF',
+                fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: '#FFF',
                 display: 'flex', alignItems: 'center', gap: 6, transition: 'background 0.2s ease',
               }}
             >
@@ -120,7 +120,7 @@ export default function SettingsScreen() {
       {/* Tempo estimado */}
       <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
+          <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
             Tempo estimado de preparo
           </p>
           <p style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>
@@ -136,7 +136,7 @@ export default function SettingsScreen() {
             <Minus size={18} color={C.sub} />
           </button>
           <div style={{ textAlign: 'center', minWidth: 80 }}>
-            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 36, fontWeight: 700, color: C.brand, fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>
+            <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 36, fontWeight: 700, color: C.brand, fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>
               {settings.estimatedMinutes}
             </p>
             <p style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>minutos</p>
@@ -157,7 +157,7 @@ export default function SettingsScreen() {
       {/* Horário de funcionamento */}
       <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
+          <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
             Horário de funcionamento
           </p>
           <p style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>
@@ -219,7 +219,7 @@ export default function SettingsScreen() {
       {/* Formas de pagamento */}
       <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
+          <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
             Formas de pagamento aceitas
           </p>
           <p style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>
@@ -265,7 +265,7 @@ export default function SettingsScreen() {
       {settings.paymentMethods.includes('pix') && (
         <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
+            <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
               Configuração PIX
             </p>
             <p style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>
@@ -300,7 +300,7 @@ export default function SettingsScreen() {
             style={{
               alignSelf: 'flex-start', padding: '10px 24px', borderRadius: 10,
               background: pixSaved ? C.success : C.brand, border: 'none', cursor: 'pointer',
-              fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: '#FFF',
+              fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: '#FFF',
               display: 'flex', alignItems: 'center', gap: 6, transition: 'background 0.2s ease',
             }}
           >

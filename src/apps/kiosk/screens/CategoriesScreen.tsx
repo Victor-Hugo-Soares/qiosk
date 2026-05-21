@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import type { ReactElement } from 'react'
 import { useRouter } from 'next/navigation'
 import KioskHeader from '../components/KioskHeader'
@@ -50,7 +50,7 @@ export default function CategoriesScreen() {
         {/* Título */}
         <div>
           <h2 style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 22, fontWeight: 700,
             color: K.text, margin: 0,
           }}>
@@ -102,7 +102,7 @@ export default function CategoriesScreen() {
                 </div>
                 <div>
                   <p style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontFamily: "'Figtree', sans-serif",
                     fontSize: 15, fontWeight: 700,
                     color: K.text, margin: 0,
                   }}>
@@ -140,7 +140,7 @@ export default function CategoriesScreen() {
               <AllMenuIcon size={22} color={K.brand} strokeWidth={1.75} />
             </div>
             <div>
-              <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600, color: K.text, margin: 0 }}>
+              <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 15, fontWeight: 600, color: K.text, margin: 0 }}>
                 Ver tudo
               </p>
               <p style={{ fontSize: 12, color: K.muted, marginTop: 2 }}>

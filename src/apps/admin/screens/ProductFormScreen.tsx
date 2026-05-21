@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { Plus, Trash2, ArrowLeft } from 'lucide-react'
@@ -130,7 +130,7 @@ export default function ProductFormScreen() {
           style={{ width: 36, height: 36, borderRadius: 8, background: C.surface, border: `1px solid ${C.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
           <ArrowLeft size={18} color={C.sub} />
         </button>
-        <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: C.text }}>
+        <h1 style={{ fontFamily: "'Figtree', sans-serif", fontSize: 22, fontWeight: 700, color: C.text }}>
           {isEdit ? 'Editar produto' : 'Novo produto'}
         </h1>
       </div>
@@ -138,7 +138,7 @@ export default function ProductFormScreen() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {/* Card principal */}
         <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: 24, display: 'flex', flexDirection: 'column', gap: 18 }}>
-          <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>Informações básicas</p>
+          <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>Informações básicas</p>
 
           <Field label="Nome" required>
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Ex: Smash Burguer Classic" style={{ ...inputStyle, borderColor: errors.name ? C.danger : C.border }} />
@@ -204,7 +204,7 @@ export default function ProductFormScreen() {
         {/* Grupos de adicionais */}
         <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
+            <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
               Grupos de adicionais
             </p>
             <button onClick={addGroup} className="touch-press"
@@ -212,7 +212,7 @@ export default function ProductFormScreen() {
                 display: 'flex', alignItems: 'center', gap: 6,
                 padding: '7px 14px', borderRadius: 8,
                 background: 'rgba(255,107,43,0.08)', border: `1px solid rgba(255,107,43,0.2)`,
-                cursor: 'pointer', fontFamily: "'Space Grotesk', sans-serif",
+                cursor: 'pointer', fontFamily: "'Figtree', sans-serif",
                 fontSize: 13, fontWeight: 600, color: C.brand,
               }}
             >
@@ -270,11 +270,11 @@ export default function ProductFormScreen() {
         {/* Botões */}
         <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
           <button onClick={() => router.push('/admin/menu')} className="touch-press"
-            style={{ padding: '11px 24px', borderRadius: 10, background: C.surface, border: `1px solid ${C.border}`, cursor: 'pointer', fontSize: 14, fontWeight: 600, color: C.sub, fontFamily: "'Space Grotesk', sans-serif" }}>
+            style={{ padding: '11px 24px', borderRadius: 10, background: C.surface, border: `1px solid ${C.border}`, cursor: 'pointer', fontSize: 14, fontWeight: 600, color: C.sub, fontFamily: "'Figtree', sans-serif" }}>
             Cancelar
           </button>
           <button onClick={handleSubmit} className="touch-press"
-            style={{ padding: '11px 28px', borderRadius: 10, background: C.brand, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600, color: '#FFF', fontFamily: "'Space Grotesk', sans-serif" }}>
+            style={{ padding: '11px 28px', borderRadius: 10, background: C.brand, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600, color: '#FFF', fontFamily: "'Figtree', sans-serif" }}>
             {isEdit ? 'Salvar alterações' : 'Criar produto'}
           </button>
         </div>

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { Minus, Plus, CheckCheck, ChefHat, Clock, Volume2, VolumeX } from 'lucide-react'
 import { useQioskStore } from '../../store'
@@ -132,7 +132,7 @@ function OrderCard({
         {/* Número + pagamento + mesa */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 26, fontWeight: 800, color: C.text,
             lineHeight: 1, fontVariantNumeric: 'tabular-nums',
           }}>
@@ -171,7 +171,7 @@ function OrderCard({
         }}>
           <Clock size={12} color={color} strokeWidth={2.5} />
           <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 13, fontWeight: 700, color,
             fontVariantNumeric: 'tabular-nums',
           }}>
@@ -186,7 +186,7 @@ function OrderCard({
           <div key={item.id} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
                 fontSize: 13, fontWeight: 800,
                 color: C.brand,
                 background: '#FFF0E6',
@@ -199,7 +199,7 @@ function OrderCard({
               </span>
               <span style={{
                 fontSize: 14, fontWeight: 600, color: C.text,
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
               }}>
                 {item.productName}
               </span>
@@ -237,7 +237,7 @@ function OrderCard({
               background: btn.bg,
               border: next === 'delivered' ? `1.5px solid ${C.success}` : 'none',
               color: btn.color,
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 13, fontWeight: 700,
               cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
@@ -325,7 +325,7 @@ export default function KitchenScreen() {
           </div>
           <div>
             <p style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 16, fontWeight: 700, color: C.text, margin: 0, lineHeight: 1,
             }}>
               {storeName || 'QIOSK'} <span style={{ color: C.muted, fontWeight: 500 }}>· Cozinha</span>
@@ -346,7 +346,7 @@ export default function KitchenScreen() {
               border: `1px solid ${col.accent}25`,
             }}>
               <span style={{
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
                 fontSize: 22, fontWeight: 800,
                 color: col.accent,
                 fontVariantNumeric: 'tabular-nums',
@@ -385,7 +385,7 @@ export default function KitchenScreen() {
                 <Minus size={14} color={C.sub} />
               </button>
               <span style={{
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
                 fontSize: 16, fontWeight: 700, color: C.brand,
                 width: 54, textAlign: 'center',
                 fontVariantNumeric: 'tabular-nums',
@@ -417,7 +417,7 @@ export default function KitchenScreen() {
                 background: soundOn ? '#F0FDF4' : '#FFF3ED',
                 border: `1.5px solid ${soundOn ? C.success : C.brand}`,
                 cursor: 'pointer',
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
                 fontSize: 12, fontWeight: 600,
                 color: soundOn ? C.success : C.brand,
               }}
@@ -430,7 +430,7 @@ export default function KitchenScreen() {
 
             <div style={{ textAlign: 'right' }}>
               <p style={{
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
                 fontSize: 24, fontWeight: 800, color: C.text,
                 fontVariantNumeric: 'tabular-nums',
                 letterSpacing: '-0.02em', margin: 0, lineHeight: 1,
@@ -470,7 +470,7 @@ export default function KitchenScreen() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span style={{ fontSize: 18 }}>{col.emoji}</span>
                   <span style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontFamily: "'Figtree', sans-serif",
                     fontSize: 13, fontWeight: 700, color: C.text,
                     textTransform: 'uppercase', letterSpacing: '0.07em',
                   }}>
@@ -479,7 +479,7 @@ export default function KitchenScreen() {
                 </div>
                 {colOrders.length > 0 && (
                   <span style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontFamily: "'Figtree', sans-serif",
                     fontSize: 13, fontWeight: 700,
                     color: col.accent,
                     background: `${col.accent}18`,
@@ -544,18 +544,18 @@ export default function KitchenScreen() {
       }}>
         <span style={{ fontSize: 12, color: C.muted }}>Hoje</span>
         <span style={{ fontSize: 12, color: C.sub }}>
-          <strong style={{ fontFamily: "'Space Grotesk', sans-serif", color: C.text }}>
+          <strong style={{ fontFamily: "'Figtree', sans-serif", color: C.text }}>
             {todayOrders.length}
           </strong>{' '}pedidos
         </span>
         <span style={{ fontSize: 12, color: C.sub }}>
-          <strong style={{ fontFamily: "'Space Grotesk', sans-serif", color: C.success }}>
+          <strong style={{ fontFamily: "'Figtree', sans-serif", color: C.success }}>
             {countByStatus('delivered')}
           </strong>{' '}entregues
         </span>
         <span style={{ fontSize: 12, color: C.sub }}>
           Total:{' '}
-          <strong style={{ fontFamily: "'Space Grotesk', sans-serif", color: C.text }}>
+          <strong style={{ fontFamily: "'Figtree', sans-serif", color: C.text }}>
             R$ {todayOrders.reduce((sum, o) => sum + o.totalPrice, 0).toFixed(2).replace('.', ',')}
           </strong>
         </span>

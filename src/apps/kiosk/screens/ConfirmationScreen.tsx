@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import type { ReactElement } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -79,7 +79,7 @@ export default function ConfirmationScreen() {
 
         <div style={{ textAlign: 'center' }}>
           <h2 style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 26, fontWeight: 800, color: K.text,
             margin: 0, lineHeight: 1.1,
           }}>
@@ -106,7 +106,7 @@ export default function ConfirmationScreen() {
             Seu número
           </p>
           <p style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 80, fontWeight: 800, color: K.text,
             lineHeight: 1,
             fontVariantNumeric: 'tabular-nums',
@@ -130,7 +130,7 @@ export default function ConfirmationScreen() {
             <p style={{ fontSize: 12, color: K.muted, marginTop: 2 }}>pode variar conforme a fila</p>
           </div>
           <p style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 32, fontWeight: 800, color: K.brand,
             fontVariantNumeric: 'tabular-nums',
           }}>
@@ -155,7 +155,7 @@ export default function ConfirmationScreen() {
             <PayIcon size={22} color={payColor} strokeWidth={1.75} />
           </div>
           <div>
-            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600, color: K.text, margin: 0 }}>
+            <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 15, fontWeight: 600, color: K.text, margin: 0 }}>
               {payLabel}
             </p>
             {(paymentMethod === 'card' || paymentMethod === 'cash') && (
@@ -185,7 +185,7 @@ export default function ConfirmationScreen() {
             border: `1.5px solid ${K.border}`,
             fontSize: 14, fontWeight: 600, color: K.sub,
             cursor: 'pointer',
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
           }}
         >
           Novo pedido

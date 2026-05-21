@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useRouter } from 'next/navigation'
 import { BackArrowIcon, CartIcon } from './QioskIcons'
 import { useCartStore, useQioskStore } from '../../../store'
@@ -58,7 +58,7 @@ export default function KioskHeader({ showBack = true, showCart = true, onBack }
 
       {/* Nome da loja */}
       <span style={{
-        fontFamily: "'Space Grotesk', sans-serif",
+        fontFamily: "'Figtree', sans-serif",
         fontSize: 16,
         fontWeight: 700,
         color: K.text,

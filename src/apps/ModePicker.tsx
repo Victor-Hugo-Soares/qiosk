@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useRouter } from 'next/navigation'
 import { Monitor, ChefHat, LayoutDashboard, ChevronRight } from 'lucide-react'
 
@@ -47,7 +47,7 @@ export default function ModePicker() {
       {/* Logo */}
       <div style={{ textAlign: 'center' }}>
         <h1 style={{
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "'Figtree', sans-serif",
           fontSize: 44,
           fontWeight: 800,
           letterSpacing: '-0.03em',
@@ -108,7 +108,7 @@ export default function ModePicker() {
             {/* Texto */}
             <div style={{ flex: 1 }}>
               <p style={{
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
                 fontSize: 16, fontWeight: 700,
                 color: '#1C1C1E',
                 margin: 0,

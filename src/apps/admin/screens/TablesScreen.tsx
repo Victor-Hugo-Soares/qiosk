@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState, useRef } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
 import { Printer, QrCode } from 'lucide-react'
@@ -50,7 +50,7 @@ export default function TablesScreen() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 24, fontWeight: 700, color: C.text }}>
+          <h1 style={{ fontFamily: "'Figtree', sans-serif", fontSize: 24, fontWeight: 700, color: C.text }}>
             QR Codes das Mesas
           </h1>
           <p style={{ fontSize: 13, color: C.sub, marginTop: 4 }}>
@@ -64,7 +64,7 @@ export default function TablesScreen() {
             padding: '10px 20px', borderRadius: 12,
             background: C.brand, border: 'none',
             color: '#FFF', cursor: 'pointer',
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 14, fontWeight: 700,
             boxShadow: '0 2px 8px rgba(255,107,43,0.3)',
           }}
@@ -89,7 +89,7 @@ export default function TablesScreen() {
             style={{
               width: 80, padding: '8px 12px', borderRadius: 10,
               border: `1.5px solid ${C.border}`, fontSize: 16,
-              fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700,
+              fontFamily: "'Figtree', sans-serif", fontWeight: 700,
               color: C.text, outline: 'none',
             }}
           />
@@ -128,7 +128,7 @@ export default function TablesScreen() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <QrCode size={14} color={C.brand} />
               <span style={{
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
                 fontSize: 16, fontWeight: 800, color: C.text,
               }}>
                 Mesa {n}

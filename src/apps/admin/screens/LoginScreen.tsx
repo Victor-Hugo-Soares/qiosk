@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState } from 'react'
 import { signInWithGoogle } from '../../../lib/auth'
 
@@ -48,10 +48,10 @@ export default function LoginScreen() {
           justifyContent: 'center',
           margin: '0 auto 24px',
         }}>
-          <span style={{ color: '#FFF', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 22 }}>Q</span>
+          <span style={{ color: '#FFF', fontFamily: 'Figtree, sans-serif', fontWeight: 700, fontSize: 22 }}>Q</span>
         </div>
 
-        <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 24, color: '#1A1A2E', margin: '0 0 8px' }}>
+        <h1 style={{ fontFamily: 'Figtree, sans-serif', fontWeight: 700, fontSize: 24, color: '#1A1A2E', margin: '0 0 8px' }}>
           Painel QIOSK
         </h1>
         <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 14, color: '#888', margin: '0 0 32px' }}>

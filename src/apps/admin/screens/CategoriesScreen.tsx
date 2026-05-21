@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState } from 'react'
 import {
   Plus, Trash2, ChevronUp, ChevronDown,
@@ -122,7 +122,7 @@ export default function CategoriesScreen() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 24, fontWeight: 700, color: C.text, margin: 0 }}>
+          <h1 style={{ fontFamily: "'Figtree', sans-serif", fontSize: 24, fontWeight: 700, color: C.text, margin: 0 }}>
             Categorias
           </h1>
           <p style={{ fontSize: 13, color: C.sub, marginTop: 4 }}>
@@ -136,7 +136,7 @@ export default function CategoriesScreen() {
             display: 'flex', alignItems: 'center', gap: 8,
             padding: '10px 20px', borderRadius: 10,
             background: C.brand, border: 'none', cursor: 'pointer',
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 14, fontWeight: 600, color: '#FFF',
           }}
         >
@@ -222,14 +222,14 @@ export default function CategoriesScreen() {
                     <button
                       onClick={() => cancelEdit(cat.id)}
                       className="touch-press"
-                      style={{ padding: '8px 18px', borderRadius: 9, background: C.surface, border: `1px solid ${C.border}`, cursor: 'pointer', fontSize: 13, fontWeight: 600, color: C.sub, fontFamily: "'Space Grotesk', sans-serif" }}
+                      style={{ padding: '8px 18px', borderRadius: 9, background: C.surface, border: `1px solid ${C.border}`, cursor: 'pointer', fontSize: 13, fontWeight: 600, color: C.sub, fontFamily: "'Figtree', sans-serif" }}
                     >
                       Cancelar
                     </button>
                     <button
                       onClick={() => saveEdit(cat.id)}
                       className="touch-press"
-                      style={{ padding: '8px 18px', borderRadius: 9, background: C.brand, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, color: '#FFF', fontFamily: "'Space Grotesk', sans-serif" }}
+                      style={{ padding: '8px 18px', borderRadius: 9, background: C.brand, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, color: '#FFF', fontFamily: "'Figtree', sans-serif" }}
                     >
                       Salvar
                     </button>
@@ -268,7 +268,7 @@ export default function CategoriesScreen() {
 
                   {/* Info */}
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600, color: C.text, margin: 0 }}>
+                    <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 15, fontWeight: 600, color: C.text, margin: 0 }}>
                       {cat.name}
                     </p>
                     <p style={{ fontSize: 12, color: C.muted, marginTop: 2 }}>
@@ -281,7 +281,7 @@ export default function CategoriesScreen() {
                     <button
                       onClick={() => startEdit(cat)}
                       className="touch-press"
-                      style={{ height: 34, padding: '0 14px', borderRadius: 9, background: C.bg, border: `1px solid ${C.border}`, cursor: 'pointer', fontSize: 13, fontWeight: 600, color: C.sub, fontFamily: "'Space Grotesk', sans-serif" }}
+                      style={{ height: 34, padding: '0 14px', borderRadius: 9, background: C.bg, border: `1px solid ${C.border}`, cursor: 'pointer', fontSize: 13, fontWeight: 600, color: C.sub, fontFamily: "'Figtree', sans-serif" }}
                     >
                       Editar
                     </button>
@@ -312,7 +312,7 @@ export default function CategoriesScreen() {
         {/* ── Formulário de nova categoria ── */}
         {creating && (
           <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 14, background: '#FAFAF8' }}>
-            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text, margin: 0 }}>
+            <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 600, color: C.text, margin: 0 }}>
               Nova categoria
             </p>
             <div>
@@ -357,7 +357,7 @@ export default function CategoriesScreen() {
               <button
                 onClick={() => setCreating(false)}
                 className="touch-press"
-                style={{ padding: '8px 18px', borderRadius: 9, background: C.surface, border: `1px solid ${C.border}`, cursor: 'pointer', fontSize: 13, fontWeight: 600, color: C.sub, fontFamily: "'Space Grotesk', sans-serif" }}
+                style={{ padding: '8px 18px', borderRadius: 9, background: C.surface, border: `1px solid ${C.border}`, cursor: 'pointer', fontSize: 13, fontWeight: 600, color: C.sub, fontFamily: "'Figtree', sans-serif" }}
               >
                 Cancelar
               </button>
@@ -365,7 +365,7 @@ export default function CategoriesScreen() {
                 onClick={handleCreate}
                 disabled={!newName.trim()}
                 className="touch-press"
-                style={{ padding: '8px 18px', borderRadius: 9, background: newName.trim() ? C.brand : C.muted, border: 'none', cursor: newName.trim() ? 'pointer' : 'default', fontSize: 13, fontWeight: 600, color: '#FFF', fontFamily: "'Space Grotesk', sans-serif" }}
+                style={{ padding: '8px 18px', borderRadius: 9, background: newName.trim() ? C.brand : C.muted, border: 'none', cursor: newName.trim() ? 'pointer' : 'default', fontSize: 13, fontWeight: 600, color: '#FFF', fontFamily: "'Figtree', sans-serif" }}
               >
                 Criar categoria
               </button>

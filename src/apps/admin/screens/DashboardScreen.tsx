@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useMemo, useState } from 'react'
 import { ShoppingBag, DollarSign, TrendingUp, Star } from 'lucide-react'
 import { useOrders } from '../../../hooks/useOrders'
@@ -51,7 +51,7 @@ function MetricCard({ icon: Icon, label, value, sub, iconColor, iconBg }: {
           <Icon size={18} color={iconColor} strokeWidth={1.75} />
         </div>
       </div>
-      <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 28, fontWeight: 700, color: C.text, fontVariantNumeric: 'tabular-nums' }}>
+      <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 28, fontWeight: 700, color: C.text, fontVariantNumeric: 'tabular-nums' }}>
         {value}
       </p>
       {sub && <p style={{ fontSize: 12, color: C.muted }}>{sub}</p>}
@@ -76,7 +76,7 @@ function HourlyChart({ orders }: { orders: Order[] }) {
 
   return (
     <div style={{ background: C.surface, borderRadius: 16, padding: '20px 24px', border: `1px solid ${C.border}` }}>
-      <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600, color: C.text, marginBottom: 20 }}>
+      <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 15, fontWeight: 600, color: C.text, marginBottom: 20 }}>
         Pedidos por hora — hoje
       </p>
       <div style={{ display: 'flex', alignItems: 'flex-end', gap: 5, height: 100 }}>
@@ -123,13 +123,13 @@ function TopProducts({ orders }: { orders: Order[] }) {
   const maxQty = top[0].qty
   return (
     <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: '20px 24px' }}>
-      <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600, color: C.text, marginBottom: 16 }}>
+      <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 15, fontWeight: 600, color: C.text, marginBottom: 16 }}>
         Mais vendidos
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
         {top.map((item, i) => (
           <div key={item.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 700, color: i === 0 ? C.brand : C.muted, width: 18, textAlign: 'center' }}>
+            <span style={{ fontFamily: "'Figtree', sans-serif", fontSize: 12, fontWeight: 700, color: i === 0 ? C.brand : C.muted, width: 18, textAlign: 'center' }}>
               {i === 0 ? '★' : i + 1}
             </span>
             <div style={{ flex: 1 }}>
@@ -168,7 +168,7 @@ function RecentOrders({ orders }: { orders: Order[] }) {
   return (
     <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, overflow: 'hidden' }}>
       <div style={{ padding: '18px 24px', borderBottom: `1px solid ${C.border}` }}>
-        <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600, color: C.text }}>
+        <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 15, fontWeight: 600, color: C.text }}>
           Pedidos recentes
         </p>
       </div>
@@ -198,13 +198,13 @@ function RecentOrders({ orders }: { orders: Order[] }) {
                 borderBottom: i < recent.length - 1 ? `1px solid ${C.border}` : 'none',
                 background: i % 2 === 0 ? C.surface : C.altRow,
               }}>
-                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 700, color: C.text }}>
+                <span style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 700, color: C.text }}>
                   #{order.number}
                 </span>
                 <span style={{ fontSize: 13, color: C.sub, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {order.items.map((it) => `${it.quantity}× ${it.productName}`).join(', ')}
                 </span>
-                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, fontWeight: 600, color: C.text, fontVariantNumeric: 'tabular-nums' }}>
+                <span style={{ fontFamily: "'Figtree', sans-serif", fontSize: 13, fontWeight: 600, color: C.text, fontVariantNumeric: 'tabular-nums' }}>
                   R$ {order.totalPrice.toFixed(2).replace('.', ',')}
                 </span>
                 <span style={{ fontSize: 13, color: C.sub }}>{PAY_CFG[order.paymentMethod]}</span>
@@ -271,7 +271,7 @@ export default function DashboardScreen() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 24, fontWeight: 700, color: C.text }}>
+          <h1 style={{ fontFamily: "'Figtree', sans-serif", fontSize: 24, fontWeight: 700, color: C.text }}>
             Dashboard
           </h1>
           <p style={{ fontSize: 13, color: C.sub, marginTop: 4 }}>
@@ -287,7 +287,7 @@ export default function DashboardScreen() {
                 padding: '6px 18px', borderRadius: 8,
                 background: period === p.key ? C.brand : 'transparent',
                 border: 'none', cursor: 'pointer',
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
                 fontSize: 13, fontWeight: 600,
                 color: period === p.key ? '#FFF' : C.sub,
                 transition: 'all 0.15s ease',

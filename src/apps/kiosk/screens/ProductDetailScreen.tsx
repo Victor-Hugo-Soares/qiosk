@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import KioskHeader from '../components/KioskHeader'
@@ -143,7 +143,7 @@ export default function ProductDetailScreen() {
           {/* Nome + preço */}
           <div style={{ background: K.surface, borderRadius: 20, padding: '20px', boxShadow: K.shadow }}>
             <h2 style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 22, fontWeight: 700, color: K.text,
               margin: 0, lineHeight: 1.2,
             }}>
@@ -155,7 +155,7 @@ export default function ProductDetailScreen() {
               </p>
             )}
             <p style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 24, fontWeight: 700, color: K.brand,
               margin: '12px 0 0',
               fontVariantNumeric: 'tabular-nums',
@@ -169,7 +169,7 @@ export default function ProductDetailScreen() {
             <div style={{ background: K.surface, borderRadius: 20, padding: '20px', boxShadow: K.shadow }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
                 <SteakIcon size={20} color={K.brand} strokeWidth={1.75} />
-                <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 700, color: K.text, margin: 0 }}>
+                <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 700, color: K.text, margin: 0 }}>
                   Ponto da carne
                 </p>
               </div>
@@ -196,7 +196,7 @@ export default function ProductDetailScreen() {
                         <MeatSliceIcon size={28} crustColor={opt.crustColor} innerColor={opt.innerColor} />
                       </div>
                       <p style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontFamily: "'Figtree', sans-serif",
                         fontSize: 11, fontWeight: 600,
                         color: active ? K.brand : K.sub,
                         margin: 0,
@@ -215,7 +215,7 @@ export default function ProductDetailScreen() {
             <div key={group.id} style={{ background: K.surface, borderRadius: 20, padding: '20px', boxShadow: K.shadow }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                 <SparkleIcon size={18} color={K.brand} strokeWidth={1.75} />
-                <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 700, color: K.text, margin: 0 }}>
+                <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 700, color: K.text, margin: 0 }}>
                   {group.name}
                 </p>
               </div>
@@ -258,7 +258,7 @@ export default function ProductDetailScreen() {
                       </div>
                       {ex.price > 0 && (
                         <span style={{
-                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontFamily: "'Figtree', sans-serif",
                           fontSize: 14, fontWeight: 700, color: K.brand,
                           fontVariantNumeric: 'tabular-nums',
                         }}>
@@ -277,7 +277,7 @@ export default function ProductDetailScreen() {
             <div style={{ background: K.surface, borderRadius: 20, padding: '20px', boxShadow: K.shadow }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
                 <span style={{ fontSize: 18 }}>🧊</span>
-                <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 700, color: K.text, margin: 0 }}>
+                <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 700, color: K.text, margin: 0 }}>
                   Gelo
                 </p>
               </div>
@@ -323,7 +323,7 @@ export default function ProductDetailScreen() {
           <div style={{ background: K.surface, borderRadius: 20, padding: '20px', boxShadow: K.shadow }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
               <PencilIcon size={18} color={K.brand} strokeWidth={1.75} />
-              <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 700, color: K.text, margin: 0 }}>
+              <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 14, fontWeight: 700, color: K.text, margin: 0 }}>
                 Observações <span style={{ fontWeight: 400, color: K.muted, fontSize: 13 }}>(opcional)</span>
               </p>
             </div>
@@ -376,7 +376,7 @@ export default function ProductDetailScreen() {
               <MinusIcon size={16} color={K.text} strokeWidth={2.5} />
             </button>
             <span style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 18, fontWeight: 700, color: K.text,
               width: 28, textAlign: 'center',
               fontVariantNumeric: 'tabular-nums',
@@ -406,10 +406,10 @@ export default function ProductDetailScreen() {
               padding: '0 20px',
             }}
           >
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, fontWeight: 700, color: '#FFF' }}>
+            <span style={{ fontFamily: "'Figtree', sans-serif", fontSize: 16, fontWeight: 700, color: '#FFF' }}>
               Adicionar
             </span>
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, fontWeight: 700, color: '#FFF', fontVariantNumeric: 'tabular-nums' }}>
+            <span style={{ fontFamily: "'Figtree', sans-serif", fontSize: 16, fontWeight: 700, color: '#FFF', fontVariantNumeric: 'tabular-nums' }}>
               R$ {total.toFixed(2).replace('.', ',')}
             </span>
           </button>

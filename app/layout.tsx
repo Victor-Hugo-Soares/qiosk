@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import { Space_Grotesk, Inter } from 'next/font/google'
+import { Figtree, Inter } from 'next/font/google'
 import './globals.css'
 import Providers from './providers'
 
-const spaceGrotesk = Space_Grotesk({
+const figtree = Figtree({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-space-grotesk',
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-figtree',
   display: 'swap',
 })
 const inter = Inter({
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+    <html lang="pt-BR" className={`${figtree.variable} ${inter.variable}`}>
       <head>
         <meta name="theme-color" content="#FFF0E6" />
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />

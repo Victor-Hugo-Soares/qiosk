@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { QRCodeSVG } from 'qrcode.react'
@@ -50,7 +50,7 @@ export default function PixScreen() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <PixIcon size={18} color={K.brand} />
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, fontWeight: 700, color: K.text }}>
+          <span style={{ fontFamily: "'Figtree', sans-serif", fontSize: 16, fontWeight: 700, color: K.text }}>
             Pagamento PIX
           </span>
         </div>
@@ -66,7 +66,7 @@ export default function PixScreen() {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '28px 16px', gap: 24 }}>
         {/* Instrução */}
         <div style={{ textAlign: 'center' }}>
-          <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 20, fontWeight: 700, color: K.text, margin: 0 }}>
+          <h2 style={{ fontFamily: "'Figtree', sans-serif", fontSize: 20, fontWeight: 700, color: K.text, margin: 0 }}>
             Escaneie o QR Code
           </h2>
           <p style={{ fontSize: 13, color: K.sub, marginTop: 6 }}>
@@ -110,7 +110,7 @@ export default function PixScreen() {
           <div style={{ textAlign: 'center' }}>
             <p style={{ fontSize: 13, color: K.sub }}>Total a pagar</p>
             <p style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 28, fontWeight: 800, color: K.text,
               fontVariantNumeric: 'tabular-nums', marginTop: 2,
             }}>
@@ -123,7 +123,7 @@ export default function PixScreen() {
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 6 }}>
               <span style={{ color: K.muted }}>Expira em</span>
               <span style={{
-                fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700,
+                fontFamily: "'Figtree', sans-serif", fontWeight: 700,
                 color: isExpiring ? K.danger : K.sub,
                 fontVariantNumeric: 'tabular-nums',
               }}>
@@ -154,7 +154,7 @@ export default function PixScreen() {
           style={{
             width: '100%', height: 54, borderRadius: 16,
             background: '#22C55E', border: 'none',
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 17, fontWeight: 700, color: '#FFF',
             cursor: 'pointer', boxShadow: '0 4px 16px rgba(34,197,94,0.28)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,

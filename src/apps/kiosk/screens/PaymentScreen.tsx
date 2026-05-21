@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import type { ReactElement } from 'react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -41,7 +41,7 @@ export default function PaymentScreen() {
       <div style={{ flex: 1, padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 20 }}>
         {/* Título */}
         <div>
-          <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: K.text, margin: 0 }}>
+          <h2 style={{ fontFamily: "'Figtree', sans-serif", fontSize: 22, fontWeight: 700, color: K.text, margin: 0 }}>
             Como vai pagar?
           </h2>
           <p style={{ fontSize: 13, color: K.sub, marginTop: 4 }}>
@@ -61,7 +61,7 @@ export default function PaymentScreen() {
             Total do pedido
           </span>
           <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 28, fontWeight: 800, color: '#FFF',
             fontVariantNumeric: 'tabular-nums',
           }}>
@@ -108,7 +108,7 @@ export default function PaymentScreen() {
                 {/* Texto */}
                 <div style={{ flex: 1 }}>
                   <p style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontFamily: "'Figtree', sans-serif",
                     fontSize: 16, fontWeight: 700,
                     color: active ? K.brand : K.text,
                     margin: 0,
@@ -151,7 +151,7 @@ export default function PaymentScreen() {
             width: '100%', height: 54,
             borderRadius: 16,
             background: K.brand, border: 'none',
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 17, fontWeight: 700, color: '#FFF',
             cursor: 'pointer',
             boxShadow: '0 4px 16px rgba(255,107,43,0.3)',

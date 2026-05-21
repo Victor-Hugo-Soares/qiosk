@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useRouter } from 'next/navigation'
 import KioskHeader from '../components/KioskHeader'
 import ProductImage from '../components/ProductImage'
@@ -24,7 +24,7 @@ export default function CartScreen() {
             <EmptyBagIcon size={40} color={K.brand} strokeWidth={1.75} />
           </div>
           <div style={{ textAlign: 'center' }}>
-            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 18, fontWeight: 700, color: K.text, margin: 0 }}>
+            <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 18, fontWeight: 700, color: K.text, margin: 0 }}>
               Carrinho vazio
             </p>
             <p style={{ fontSize: 14, color: K.sub, marginTop: 6 }}>
@@ -37,7 +37,7 @@ export default function CartScreen() {
             style={{
               padding: '14px 32px', borderRadius: 16,
               background: K.brand, border: 'none',
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 15, fontWeight: 700, color: '#FFF',
               cursor: 'pointer',
             }}
@@ -54,7 +54,7 @@ export default function CartScreen() {
       <KioskHeader showCart={false} />
 
       <div style={{ flex: 1, padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: K.text, margin: 0 }}>
+        <h2 style={{ fontFamily: "'Figtree', sans-serif", fontSize: 22, fontWeight: 700, color: K.text, margin: 0 }}>
           Seu pedido
         </h2>
 
@@ -87,7 +87,7 @@ export default function CartScreen() {
                 {/* Info */}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontFamily: "'Figtree', sans-serif",
                     fontSize: 14, fontWeight: 600, color: K.text,
                     margin: 0,
                     overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
@@ -110,7 +110,7 @@ export default function CartScreen() {
                   {/* Preço + controles */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
                     <span style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontFamily: "'Figtree', sans-serif",
                       fontSize: 15, fontWeight: 700, color: K.brand,
                       fontVariantNumeric: 'tabular-nums',
                     }}>
@@ -145,7 +145,7 @@ export default function CartScreen() {
                           <MinusIcon size={14} color={K.text} strokeWidth={2.5} />
                         </button>
                         <span style={{
-                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontFamily: "'Figtree', sans-serif",
                           fontSize: 14, fontWeight: 700, color: K.text,
                           width: 22, textAlign: 'center',
                           fontVariantNumeric: 'tabular-nums',
@@ -178,7 +178,7 @@ export default function CartScreen() {
             border: `1.5px dashed ${K.border}`,
             cursor: 'pointer',
             fontSize: 14, color: K.sub,
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontWeight: 500,
           }}
         >
@@ -197,7 +197,7 @@ export default function CartScreen() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
           <span style={{ fontSize: 14, color: K.sub, fontWeight: 500 }}>Total</span>
           <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 22, fontWeight: 700, color: K.text,
             fontVariantNumeric: 'tabular-nums',
           }}>
@@ -211,7 +211,7 @@ export default function CartScreen() {
             width: '100%', height: 54,
             borderRadius: 16,
             background: K.brand, border: 'none',
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 17, fontWeight: 700, color: '#FFF',
             cursor: 'pointer',
             boxShadow: '0 4px 16px rgba(255,107,43,0.3)',

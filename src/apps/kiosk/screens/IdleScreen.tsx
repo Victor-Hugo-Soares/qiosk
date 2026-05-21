@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCartStore, useQioskStore } from '../../../store'
@@ -39,7 +39,7 @@ function ClosedScreen({ storeName }: { storeName: string }) {
       {/* Texto */}
       <div style={{ textAlign: 'center', maxWidth: 320 }}>
         <h2 style={{
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "'Figtree', sans-serif",
           fontSize: 28, fontWeight: 800, color: K.text,
           margin: 0, lineHeight: 1.2,
         }}>
@@ -118,7 +118,7 @@ export default function IdleScreen() {
       }}>
         <div style={{ textAlign: 'center' }}>
           <p style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 13, fontWeight: 600, color: K.brand,
             letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 4,
           }}>
@@ -126,7 +126,7 @@ export default function IdleScreen() {
           </p>
           {storeName ? (
             <h1 style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 40, fontWeight: 800, color: K.text,
               letterSpacing: '-0.02em', lineHeight: 1, margin: 0,
             }}>
@@ -134,7 +134,7 @@ export default function IdleScreen() {
             </h1>
           ) : (
             <h1 style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 48, fontWeight: 800,
               letterSpacing: '-0.03em', lineHeight: 1, margin: 0,
             }}>
@@ -180,7 +180,7 @@ export default function IdleScreen() {
       }}>
         <div style={{ textAlign: 'center' }}>
           <h2 style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 26, fontWeight: 700, color: K.text,
             margin: 0, lineHeight: 1.2,
           }}>
@@ -198,7 +198,7 @@ export default function IdleScreen() {
           boxShadow: '0 8px 24px rgba(255,107,43,0.35)',
         }}>
           <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 18, fontWeight: 700, color: '#FFF',
           }}>
             Toque para começar

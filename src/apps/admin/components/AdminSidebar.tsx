@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useRouter, usePathname } from 'next/navigation'
 import { LayoutDashboard, UtensilsCrossed, Tag, Settings, QrCode, ArrowLeft } from 'lucide-react'
 import { useQioskStore } from '../../../store'
@@ -33,7 +33,7 @@ export default function AdminSidebar() {
         borderBottom: '1px solid rgba(0,0,0,0.06)',
       }}>
         <span style={{
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "'Figtree', sans-serif",
           fontSize: 22, fontWeight: 800, letterSpacing: '-0.02em',
         }}>
           <span style={{ color: '#FF6B2B' }}>QI</span>
@@ -74,7 +74,7 @@ export default function AdminSidebar() {
                 strokeWidth={active ? 2 : 1.75}
               />
               <span style={{
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "'Figtree', sans-serif",
                 fontSize: 14,
                 fontWeight: active ? 700 : 500,
                 color: active ? '#FF6B2B' : '#6B6B6B',
@@ -107,7 +107,7 @@ export default function AdminSidebar() {
           onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
         >
           <ArrowLeft size={16} color='#9CA3AF' />
-          <span style={{ fontSize: 13, color: '#9CA3AF', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 500 }}>
+          <span style={{ fontSize: 13, color: '#9CA3AF', fontFamily: "'Figtree', sans-serif", fontWeight: 500 }}>
             Sair
           </span>
         </button>

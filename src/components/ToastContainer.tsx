@@ -1,4 +1,4 @@
-import { useToast } from '../hooks/useToast'
+﻿import { useToast } from '../hooks/useToast'
 
 const TYPE_CONFIG = {
   success: { bg: '#22C55E', icon: '✓' },
@@ -60,7 +60,7 @@ export default function ToastContainer() {
               {cfg.icon}
             </div>
             <span style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "'Figtree', sans-serif",
               fontSize: 14, fontWeight: 600,
               color: '#FFF',
               lineHeight: 1.3,

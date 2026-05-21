@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useRouter, useParams } from 'next/navigation'
 import KioskHeader from '../components/KioskHeader'
 import ProductImage from '../components/ProductImage'
@@ -30,7 +30,7 @@ export default function ProductsScreen() {
         {/* Título */}
         <div>
           <h2 style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'Figtree', sans-serif",
             fontSize: 22, fontWeight: 700,
             color: K.text, margin: 0,
           }}>
@@ -96,7 +96,7 @@ export default function ProductsScreen() {
               {/* Info */}
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "'Figtree', sans-serif",
                   fontSize: 15, fontWeight: 600, color: K.text,
                   margin: 0,
                   overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
@@ -113,7 +113,7 @@ export default function ProductsScreen() {
                   </p>
                 )}
                 <p style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "'Figtree', sans-serif",
                   fontSize: 17, fontWeight: 700, color: K.brand,
                   margin: '8px 0 0',
                   fontVariantNumeric: 'tabular-nums',
