@@ -1,37 +1,31 @@
 ﻿'use client'
-import type { ReactElement } from 'react'
 import { useRouter } from 'next/navigation'
-import KioskHeader from '../components/KioskHeader'
 import {
-  BurgerIcon, DrinkIcon, FriesIcon, IceCreamIcon,
-  AllMenuIcon, ChevronRightIcon,
-  type IconProps,
-} from '../components/QioskIcons'
+  Sandwich, CupSoda, UtensilsCrossed, IceCream,
+  Star, Pizza, Beef, Salad, LayoutGrid,
+  ChevronRight,
+} from 'lucide-react'
+import type { FC, SVGProps } from 'react'
+import KioskHeader from '../components/KioskHeader'
 import { CategoriesSkeleton } from '../../../components/Skeleton'
 import { useQioskStore } from '../../../store'
 import { K } from '../theme'
 
-type QioskIcon = (props: IconProps) => ReactElement
+type LucideIcon = FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number; color?: string }>
 
-const iconMap: Record<string, QioskIcon> = {
-  Sandwich:         BurgerIcon,
-  Cup:              DrinkIcon,
-  UtensilsCrossed:  FriesIcon,
-  IceCream:         IceCreamIcon,
-  Pizza:            BurgerIcon,
-  Beef:             BurgerIcon,
-  Salad:            DrinkIcon,
-  ShoppingBag:      AllMenuIcon,
+const iconMap: Record<string, LucideIcon> = {
+  Sandwich,
+  Cup:             CupSoda,
+  CupSoda,
+  UtensilsCrossed,
+  IceCream,
+  Star,
+  Pizza,
+  Beef,
+  Salad,
+  LayoutGrid,
+  ShoppingBag:     LayoutGrid,
 }
-
-const CARD_TINTS = [
-  '#FFF3E8', '#FFF8E1', '#F3FFF0', '#E8F4FF',
-  '#FFF0F3', '#F5F0FF', '#FFFDE8', '#F0FFFA',
-]
-const ICON_COLORS = [
-  '#FF6B2B', '#F5A623', '#27AE60', '#2E86DE',
-  '#E84393', '#8B5CF6', '#F39C12', '#00B894',
-]
 
 export default function CategoriesScreen() {
   const router     = useRouter()
@@ -67,11 +61,9 @@ export default function CategoriesScreen() {
           gridTemplateColumns: '1fr 1fr',
           gap: 12,
         }}>
-          {sorted.map((cat, i) => {
-            const Icon      = iconMap[cat.icon] ?? BurgerIcon
-            const count     = products.filter((p) => p.categoryId === cat.id && p.available).length
-            const tint      = CARD_TINTS[i % CARD_TINTS.length]
-            const iconColor = ICON_COLORS[i % ICON_COLORS.length]
+          {sorted.map((cat) => {
+            const Icon  = iconMap[cat.icon] ?? Sandwich
+            const count = products.filter((p) => p.categoryId === cat.id && p.available).length
 
             return (
               <button
@@ -93,12 +85,12 @@ export default function CategoriesScreen() {
                 }}
               >
                 <div style={{
-                  width: 52, height: 52,
-                  borderRadius: 16,
-                  background: tint,
+                  width: 48, height: 48,
+                  borderRadius: 14,
+                  background: K.bg,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
-                  <Icon size={26} color={iconColor} strokeWidth={1.75} />
+                  <Icon size={24} color={K.text} strokeWidth={1.75} />
                 </div>
                 <div>
                   <p style={{
@@ -134,10 +126,10 @@ export default function CategoriesScreen() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{
               width: 44, height: 44, borderRadius: 12,
-              background: K.brandLight,
+              background: K.bg,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <AllMenuIcon size={22} color={K.brand} strokeWidth={1.75} />
+              <LayoutGrid size={22} color={K.brand} strokeWidth={1.75} />
             </div>
             <div>
               <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: 15, fontWeight: 600, color: K.text, margin: 0 }}>
@@ -148,7 +140,7 @@ export default function CategoriesScreen() {
               </p>
             </div>
           </div>
-          <ChevronRightIcon size={20} color={K.muted} strokeWidth={2} />
+          <ChevronRight size={20} color={K.muted} strokeWidth={2} />
         </button>
       </div>}
     </div>

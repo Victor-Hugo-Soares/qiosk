@@ -1,0 +1,23 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/kitchen/page": "app/kitchen/page.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/admin/menu/page": "app/admin/menu/page.js",
+  "/kiosk/cart/page": "app/kiosk/cart/page.js",
+  "/kiosk/categories/page": "app/kiosk/categories/page.js",
+  "/kiosk/idle/page": "app/kiosk/idle/page.js",
+  "/admin/tables/page": "app/admin/tables/page.js",
+  "/kiosk/pix/page": "app/kiosk/pix/page.js",
+  "/kiosk/payment/page": "app/kiosk/payment/page.js",
+  "/admin/categories/page": "app/admin/categories/page.js",
+  "/kiosk/confirmation/page": "app/kiosk/confirmation/page.js",
+  "/kiosk/products/[categoryId]/page": "app/kiosk/products/[categoryId]/page.js",
+  "/admin/settings/page": "app/admin/settings/page.js",
+  "/kiosk/page": "app/kiosk/page.js",
+  "/kiosk/product/[productId]/page": "app/kiosk/product/[productId]/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/menu/edit/[id]/page": "app/admin/menu/edit/[id]/page.js",
+  "/admin/menu/new/page": "app/admin/menu/new/page.js"
+}

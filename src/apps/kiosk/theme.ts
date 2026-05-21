@@ -1,14 +1,14 @@
 // Tokens visuais do kiosk — tema claro e quente
 export const K = {
-  bg:           '#FFF8F4',           // creme quente
+  bg:           '#F5F4F1',           // stone neutro
   surface:      '#FFFFFF',
-  surfaceMuted: '#FFF3EC',           // laranja muito suave
+  surfaceMuted: '#EDEBE7',           // stone mais escuro
   border:       'rgba(0,0,0,0.07)',
   text:         '#1C1C1E',
   sub:          '#6B6B6B',
   muted:        '#A0A0A0',
   brand:        '#FF6B2B',
-  brandLight:   '#FFF0E6',
+  brandLight:   '#FDEEE4',
   brandMid:     'rgba(255,107,43,0.15)',
   success:      '#22C55E',
   successLight: '#F0FDF4',
