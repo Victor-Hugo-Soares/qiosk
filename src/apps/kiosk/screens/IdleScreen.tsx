@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCartStore, useQioskStore } from '../../../store'
 import { LockIcon } from '../components/QioskIcons'
+import QioskLogo from '../components/QioskLogo'
 import { K } from '../theme'
 import type { BusinessHours } from '../../../types'
 
@@ -59,13 +60,12 @@ function ClosedScreen({ storeName }: { storeName: string }) {
       </div>
 
       {/* Rodapé */}
-      <p style={{
-        position: 'absolute', bottom: 24,
-        fontSize: 11, color: K.muted,
-        letterSpacing: '0.06em',
-      }}>
-        {storeName || 'QIOSK'}
-      </p>
+      <div style={{ position: 'absolute', bottom: 24 }}>
+        {storeName
+          ? <p style={{ fontSize: 11, color: K.muted, letterSpacing: '0.06em', margin: 0 }}>{storeName}</p>
+          : <QioskLogo fontSize={11} />
+        }
+      </div>
     </div>
   )
 }
@@ -133,14 +133,7 @@ export default function IdleScreen() {
               {storeName}
             </h1>
           ) : (
-            <h1 style={{
-              fontFamily: "'Figtree', sans-serif",
-              fontSize: 48, fontWeight: 800,
-              letterSpacing: '-0.03em', lineHeight: 1, margin: 0,
-            }}>
-              <span style={{ color: K.brand }}>QI</span>
-              <span style={{ color: K.text }}>OSK</span>
-            </h1>
+            <QioskLogo fontSize={48} />
           )}
         </div>
 

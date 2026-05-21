@@ -1,6 +1,7 @@
 ﻿'use client'
 import { useRouter } from 'next/navigation'
 import { BackArrowIcon, CartIcon } from './QioskIcons'
+import QioskLogo from './QioskLogo'
 import { useCartStore, useQioskStore } from '../../../store'
 import { K } from '../theme'
 
@@ -57,20 +58,17 @@ export default function KioskHeader({ showBack = true, showCart = true, onBack }
       </div>
 
       {/* Nome da loja */}
-      <span style={{
-        fontFamily: "'Figtree', sans-serif",
-        fontSize: 16,
-        fontWeight: 700,
-        color: K.text,
-        letterSpacing: '-0.01em',
-      }}>
-        {storeName || (
-          <>
-            <span style={{ color: K.brand }}>QI</span>
-            <span>OSK</span>
-          </>
-        )}
-      </span>
+      {storeName ? (
+        <span style={{
+          fontFamily: "'Figtree', sans-serif",
+          fontSize: 16, fontWeight: 700, color: K.text,
+          letterSpacing: '-0.01em',
+        }}>
+          {storeName}
+        </span>
+      ) : (
+        <QioskLogo fontSize={16} />
+      )}
 
       {/* Carrinho */}
       <div style={{ width: 44 }}>
