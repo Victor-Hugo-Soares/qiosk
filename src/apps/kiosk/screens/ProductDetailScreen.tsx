@@ -25,11 +25,21 @@ export default function ProductDetailScreen() {
   const product       = useQioskStore((s) => s.products.find((p) => p.id === productId))
   const addItem       = useCartStore((s) => s.addItem)
 
-  const [qty,      setQty]      = useState(1)
-  const [doneness, setDoneness] = useState<Doneness>('ao-ponto')
-  const [extras,   setExtras]   = useState<Record<string, boolean>>({})
-  const [notes,    setNotes]    = useState('')
+  const [qty,       setQty]      = useState(1)
+  const [doneness,  setDoneness] = useState<Doneness>('ao-ponto')
+  const [extras,    setExtras]   = useState<Record<string, boolean>>({})
+  const [notes,     setNotes]    = useState('')
+  const [iceOption, setIceOption] = useState('com-gelo')
   if (!product) { router.push('/kiosk/categories'); return null }
+
+  const isDrink = product.categoryId === 'cat-2'
+
+  const ICE_OPTIONS = [
+    { value: 'sem-gelo',          label: 'Sem gelo',          emoji: '🚫' },
+    { value: 'com-gelo',          label: 'Com gelo',          emoji: '🧊' },
+    { value: 'gelo-limao',        label: 'Gelo + Limão',      emoji: '🍋' },
+    { value: 'gelo-limao-menta',  label: 'Gelo + Limão + Hortelã', emoji: '🌿' },
+  ]
 
   const toggleExtra = (id: string) => setExtras((p) => ({ ...p, [id]: !p[id] }))
 
@@ -47,7 +57,9 @@ export default function ProductDetailScreen() {
       selectedExtras: product.extraGroups.flatMap((g) => g.extras)
         .filter((ex) => extras[ex.id])
         .map((ex) => ({ extraId: ex.id, extraName: ex.name, price: ex.price })),
-      notes,
+      notes: isDrink
+        ? `[${ICE_OPTIONS.find((o) => o.value === iceOption)?.label ?? iceOption}]${notes ? ' ' + notes : ''}`
+        : notes,
       totalPrice: total,
     }
     addItem(item)
@@ -260,6 +272,53 @@ export default function ProductDetailScreen() {
             </div>
           ))}
 
+          {/* Gelo — bebidas */}
+          {isDrink && (
+            <div style={{ background: K.surface, borderRadius: 20, padding: '20px', boxShadow: K.shadow }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+                <span style={{ fontSize: 18 }}>🧊</span>
+                <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 700, color: K.text, margin: 0 }}>
+                  Gelo
+                </p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {ICE_OPTIONS.map((opt) => {
+                  const active = iceOption === opt.value
+                  return (
+                    <button
+                      key={opt.value}
+                      onClick={() => setIceOption(opt.value)}
+                      className="touch-press"
+                      style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        padding: '14px 16px',
+                        borderRadius: 14,
+                        border: `2px solid ${active ? K.brand : K.border}`,
+                        background: active ? K.brandLight : K.bg,
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <span style={{ fontSize: 20 }}>{opt.emoji}</span>
+                        <span style={{ fontSize: 14, color: K.text, fontWeight: 500 }}>{opt.label}</span>
+                      </div>
+                      <div style={{
+                        width: 20, height: 20, borderRadius: 10,
+                        background: active ? K.brand : 'transparent',
+                        border: `2px solid ${active ? K.brand : K.border}`,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.15s ease', flexShrink: 0,
+                      }}>
+                        {active && <div style={{ width: 8, height: 8, borderRadius: 4, background: '#FFF' }} />}
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
           {/* Observações */}
           <div style={{ background: K.surface, borderRadius: 20, padding: '20px', boxShadow: K.shadow }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
@@ -272,7 +331,7 @@ export default function ProductDetailScreen() {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               onFocus={(e) => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}
-              placeholder="Ex: sem cebola, sem tomate..."
+              placeholder={isDrink ? 'Ex: sem açúcar, bem gelado...' : 'Ex: sem cebola, sem tomate...'}
               rows={2}
               style={{
                 width: '100%',
