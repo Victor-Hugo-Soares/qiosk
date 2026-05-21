@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Next.js build output
+.next
+out
+tsconfig.tsbuildinfo
+
 # Environment variables
 .env
 .env.local
