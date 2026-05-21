@@ -26,6 +26,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       setUser(u)
       setDenied(false)
       setLoading(false)
+      if (u && isLogin)   router.replace('/admin/dashboard')
       if (!u && !isLogin) router.replace('/admin/login')
     })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
