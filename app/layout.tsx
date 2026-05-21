@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   description: 'Sistema de autoatendimento para hamburguerias',
   manifest: '/manifest.webmanifest',
   appleWebApp: { capable: true, statusBarStyle: 'default', title: 'QIOSK' },
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/icons/icon-180.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
