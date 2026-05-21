@@ -111,7 +111,7 @@ export default function CartScreen() {
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
                     <span style={{
                       fontFamily: "'Figtree', sans-serif",
-                      fontSize: 15, fontWeight: 700, color: K.brand,
+                      fontSize: 15, fontWeight: 700, color: K.brandDeep,
                       fontVariantNumeric: 'tabular-nums',
                     }}>
                       R$ {item.totalPrice.toFixed(2).replace('.', ',')}

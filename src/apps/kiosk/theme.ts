@@ -7,8 +7,9 @@ export const K = {
   text:         '#1C1C1E',
   sub:          '#6B6B6B',
   muted:        '#A0A0A0',
-  brand:        '#FF6B2B',
-  brandLight:   '#FDEEE4',
+  brand:        '#FF6B2B',   // ação: botões, CTAs, estados ativos
+  brandDeep:    '#C44E1A',   // informação: preços, totais
+  brandLight:   '#FDEEE4',   // contexto: fundos de seleção, tints
   brandMid:     'rgba(255,107,43,0.15)',
   success:      '#22C55E',
   successLight: '#F0FDF4',

@@ -131,7 +131,7 @@ export default function ConfirmationScreen() {
           </div>
           <p style={{
             fontFamily: "'Figtree', sans-serif",
-            fontSize: 32, fontWeight: 800, color: K.brand,
+            fontSize: 32, fontWeight: 800, color: K.brandDeep,
             fontVariantNumeric: 'tabular-nums',
           }}>
             ~{settings.estimatedMinutes}min
