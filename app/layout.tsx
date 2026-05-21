@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <head>
-        <meta name="theme-color" content="#FF6B2B" />
+        <meta name="theme-color" content="#FFF0E6" />
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
         <script dangerouslySetInnerHTML={{ __html: `if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.getRegistrations().then(r=>r.forEach(s=>s.unregister()));navigator.serviceWorker.register('/sw-v2.js')})}` }} />
       </head>
