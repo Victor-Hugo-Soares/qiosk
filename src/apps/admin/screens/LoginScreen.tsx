@@ -12,8 +12,9 @@ export default function LoginScreen() {
     try {
       await signInWithGoogle()
       // onAuthStateChanged no AdminApp trata o redirect
-    } catch {
-      setError('Não foi possível entrar. Tenta novamente.')
+    } catch (err: unknown) {
+      const code = (err as {code?: string})?.code ?? 'unknown'
+      setError(`Erro: ${code}`)
       setLoading(false)
     }
   }
