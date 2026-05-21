@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
 
 export default function OfflineBanner() {
-  const [online,  setOnline]  = useState(navigator.onLine)
-  const [visible, setVisible] = useState(!navigator.onLine)
+  const [online,  setOnline]  = useState(true)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
+    setOnline(navigator.onLine)
+    setVisible(!navigator.onLine)
+
     const onOnline  = () => { setOnline(true);  setTimeout(() => setVisible(false), 2000) }
     const onOffline = () => { setOnline(false); setVisible(true) }
 
