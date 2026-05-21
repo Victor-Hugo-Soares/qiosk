@@ -13,8 +13,9 @@ export default function LoginScreen() {
       await signInWithGoogle()
       // onAuthStateChanged no AdminApp trata o redirect
     } catch (err: unknown) {
-      const code = (err as {code?: string})?.code ?? 'unknown'
-      setError(`Erro: ${code}`)
+      const e = err as Error & { code?: string }
+      const msg = e?.code || e?.message || String(err)
+      setError(msg)
       setLoading(false)
     }
   }
