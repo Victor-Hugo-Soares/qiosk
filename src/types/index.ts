@@ -81,4 +81,6 @@ export interface StoreSettings {
   acceptingOrders: boolean
   paymentMethods: PaymentMethod[]
   businessHours: BusinessHours
+  pixKey?: string
+  pixCity?: string
 }

@@ -32,7 +32,10 @@ export default function SettingsScreen() {
   const setEstimated    = useQioskStore((s) => s.setEstimatedMinutes)
 
   const [storeName, setStoreName] = useState(settings.name)
+  const [pixKey,    setPixKey]    = useState(settings.pixKey    ?? '')
+  const [pixCity,   setPixCity]   = useState(settings.pixCity   ?? '')
   const [saved, setSaved]         = useState(false)
+  const [pixSaved, setPixSaved]   = useState(false)
 
   const updateDay = (idx: number, patch: Partial<DaySchedule>) => {
     const next = [...settings.businessHours] as BusinessHours
@@ -54,6 +57,12 @@ export default function SettingsScreen() {
     updateSettings({ name: storeName.trim() })
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
+  }
+
+  const handleSavePix = () => {
+    updateSettings({ pixKey: pixKey.trim(), pixCity: pixCity.trim() })
+    setPixSaved(true)
+    setTimeout(() => setPixSaved(false), 2000)
   }
 
   return (
@@ -251,6 +260,55 @@ export default function SettingsScreen() {
           })}
         </div>
       </div>
+
+      {/* Configuração PIX */}
+      {settings.paymentMethods.includes('pix') && (
+        <div style={{ background: C.surface, borderRadius: 16, border: `1px solid ${C.border}`, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div>
+            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: C.text }}>
+              Configuração PIX
+            </p>
+            <p style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>
+              O QR Code PIX é gerado automaticamente com o valor do pedido.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <label style={{ fontSize: 13, fontWeight: 600, color: C.sub }}>Chave PIX</label>
+            <input
+              value={pixKey}
+              onChange={(e) => setPixKey(e.target.value)}
+              placeholder="email@exemplo.com, CPF, CNPJ ou chave aleatória"
+              style={inputStyle}
+            />
+            <p style={{ fontSize: 11, color: C.muted }}>Aceita qualquer tipo de chave PIX registrada no seu banco.</p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <label style={{ fontSize: 13, fontWeight: 600, color: C.sub }}>Cidade (opcional)</label>
+            <input
+              value={pixCity}
+              onChange={(e) => setPixCity(e.target.value)}
+              placeholder="Ex: São Paulo"
+              style={{ ...inputStyle, width: '60%' }}
+            />
+          </div>
+
+          <button
+            onClick={handleSavePix}
+            className="touch-press"
+            style={{
+              alignSelf: 'flex-start', padding: '10px 24px', borderRadius: 10,
+              background: pixSaved ? C.success : C.brand, border: 'none', cursor: 'pointer',
+              fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, color: '#FFF',
+              display: 'flex', alignItems: 'center', gap: 6, transition: 'background 0.2s ease',
+            }}
+          >
+            {pixSaved && <CheckCircle2 size={15} color="#FFF" />}
+            {pixSaved ? 'Salvo!' : 'Guardar chave PIX'}
+          </button>
+        </div>
+      )}
     </div>
   )
 }
