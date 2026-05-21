@@ -1,0 +1,49 @@
+declare module 'lucide-react' {
+  import type { FC, SVGProps } from 'react'
+  export type LucideIcon = FC<SVGProps<SVGSVGElement> & { size?: number | string; strokeWidth?: number | string }>
+
+  export const AlertCircle: LucideIcon
+  export const ArrowLeft: LucideIcon
+  export const Beef: LucideIcon
+  export const CheckCheck: LucideIcon
+  export const CheckCircle2: LucideIcon
+  export const ChefHat: LucideIcon
+  export const ChevronDown: LucideIcon
+  export const ChevronRight: LucideIcon
+  export const ChevronUp: LucideIcon
+  export const Clock: LucideIcon
+  export const Coffee: LucideIcon
+  export const Cookie: LucideIcon
+  export const DollarSign: LucideIcon
+  export const Eye: LucideIcon
+  export const EyeOff: LucideIcon
+  export const Flame: LucideIcon
+  export const IceCream2: LucideIcon
+  export const Image: LucideIcon
+  export const LayoutDashboard: LucideIcon
+  export const Loader2: LucideIcon
+  export const LogOut: LucideIcon
+  export const Minus: LucideIcon
+  export const Monitor: LucideIcon
+  export const Pencil: LucideIcon
+  export const Pizza: LucideIcon
+  export const Plus: LucideIcon
+  export const Printer: LucideIcon
+  export const QrCode: LucideIcon
+  export const Salad: LucideIcon
+  export const Sandwich: LucideIcon
+  export const Search: LucideIcon
+  export const Settings: LucideIcon
+  export const ShoppingBag: LucideIcon
+  export const Star: LucideIcon
+  export const Tag: LucideIcon
+  export const ToggleLeft: LucideIcon
+  export const ToggleRight: LucideIcon
+  export const Trash2: LucideIcon
+  export const TrendingUp: LucideIcon
+  export const Upload: LucideIcon
+  export const UtensilsCrossed: LucideIcon
+  export const Volume2: LucideIcon
+  export const VolumeX: LucideIcon
+  export const X: LucideIcon
+}
